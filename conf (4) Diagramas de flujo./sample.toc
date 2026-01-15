@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Diagramas de flujo: La representación gráfica}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Simbología empleada}{4}{0}{1}
+\beamer@subsubsectionintoc {1}{1}{1}{Ejemplos de Diagramas de Flujo}{7}{0}{1}

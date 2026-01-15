@@ -1,0 +1,738 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+
+% --- Añade esta línea aquí para numerar figuras ---
+\setbeamertemplate{caption}[numbered]
+% --------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%--------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Introducción a las Computadoras}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México % Your institution for the title page
+}
+\date{\today} % Date, can be changed to a custom date
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+% Poner esto en el preámbulo
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+\begin{document}
+
+\begin{frame}
+    % Print the title page as the first slide
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{¿Qué es una computadora?}
+%------------------------------------------------
+
+\begin{frame}{¿Qué es una computadora?}
+    \begin{block}{Definición}
+    Una \textbf{computadora} es un dispositivo electrónico diseñado para procesar información, ejecutar cálculos complejos y tomar decisiones lógicas a velocidades millones de veces más rápidas que un ser humano.
+    \end{block}
+\end{frame}
+
+\begin{frame}{¿Qué es una computadora?}
+
+    
+    \begin{columns}[c]
+        \column{0.5\textwidth}
+            \begin{alertblock}{Un Sistema de Dos Partes}
+            Una computadora es en realidad un sistema compuesto por:
+                \begin{itemize}
+                    \item \textbf{Hardware:} El equipo físico y tangible (teclado, pantalla, disco duro).
+                    \item \textbf{Software:} El conjunto de programas e instrucciones que le dicen al hardware qué hacer.
+                \end{itemize}
+            \end{alertblock}
+        \column{0.45\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\linewidth]{Figuras/Cap0/fig0-1.png}
+                \caption{Proceso de información}
+                \label{fig:proceso_informacion}
+            \end{figure}
+    \end{columns}
+\end{frame}
+%------------------------------------------------
+\subsection{Origen y Clasificación}
+%------------------------------------------------
+
+\begin{frame}{Breve Origen de las Computadoras}
+    \begin{itemize}
+        \item<1-> \textbf{Pioneros:} La primera computadora de propósito general fue la \textbf{ENIAC} (1946), una máquina de 30 toneladas.
+        \pause
+        \item<2-> \textbf{La Arquitectura Clave:} En 1946, John Von Neumann propuso la \textbf{computadora con programa almacenado}, donde las instrucciones y los datos se guardan en la misma memoria. Esta es la base de casi todas las computadoras actuales.
+        \pause
+        \item<3-> \textbf{La Revolución del Microchip:} La invención del transistor y el circuito integrado permitió crear máquinas cada vez más pequeñas, rápidas y económicas.
+        \pause
+        \item<4-> \textbf{La Era del PC:} En 1981, IBM presentó su primer \textbf{PC (Personal Computer)}, convirtiendo a la computadora en un dispositivo de uso generalizado.
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Clasificación de las Computadoras}
+    \frametitle{Según su tamaño, potencia y aplicación}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{De uso personal y departamental}
+                \begin{itemize}
+                    \item \textbf{Computadoras Personales (PC):} De escritorio o portátiles.
+                    \item \textbf{Estaciones de Trabajo (Workstations):} PC de alto rendimiento para tareas técnicas.
+                    \item \textbf{Servidores:} Gestionan redes y alojan sitios web.
+                \end{itemize}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{De alto rendimiento y corporativas}
+                 \begin{itemize}
+                    \item \textbf{Minicomputadoras:} De rango medio, para investigación o fábricas.
+                    \item \textbf{Grandes Computadoras (Mainframes):} Para procesar grandes volúmenes de transacciones (bancos, gobiernos).
+                    \item \textbf{Supercomputadoras:} Las más potentes, para cálculos extremadamente complejos.
+                \end{itemize}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+%------------------------------------------------
+\section{Organización física de una computadora}
+%------------------------------------------------
+
+\begin{frame}{Los Cinco Componentes Principales}
+    \begin{block}{Organización Física Común}
+    La mayoría de las computadoras, sin importar su tamaño, comparten una organización física común que consta de cinco componentes principales.
+    \end{block}
+    
+   
+            \begin{enumerate}
+                \item \textbf{Dispositivos de entrada} (Teclado, ratón)
+                \item \textbf{Dispositivos de salida} (Monitor, impresora)
+                \item \textbf{Memoria Principal} (RAM)
+                \item \textbf{Memoria Secundaria} (Disco duro, USB)
+                \item \textbf{Unidad Central de Proceso (CPU)}
+            \end{enumerate}
+       
+           
+
+\end{frame}
+
+\begin{frame}{Los Cinco Componentes Principales}
+
+ \begin{figure}
+                \centering
+                \includegraphics[width=0.75\linewidth]{Figuras/Cap0/fig0-2.png}
+                \caption{Organización física de una computadora.}
+                \label{fig:organizacion_fisica}
+            \end{figure}
+            \end{frame}
+%------------------------------------------------
+
+\begin{frame}{Flujo de Datos y la CPU}
+    \begin{block}{Proceso de Ejecución de un Programa}
+    Para que un programa se ejecute, se transfiere desde la memoria \textbf{secundaria} a la \textbf{principal}. La \textbf{CPU} accede a él, lo procesa y almacena los resultados en la memoria principal, desde donde pueden ir a un dispositivo de salida o guardarse de nuevo en la memoria secundaria.
+    \end{block}
+    
+
+            \begin{alertblock}{La Placa Base (Motherboard)}
+            Es un gran circuito impreso que conecta los componentes más importantes (CPU, memoria, etc.) a través de canales de datos llamados \textbf{buses}.
+            \end{alertblock}
+
+           
+\end{frame}
+\begin{frame}{Flujo de Datos y la CPU}
+
+ \begin{figure}
+                \centering
+                \includegraphics[width=0.4\linewidth]{Figuras/Cap0/fig0-3.png}
+                \caption{La CPU es el 'cerebro', compuesta por la Unidad de Control (UC) y la Unidad Aritmético-Lógica (UAL).}
+                \label{fig:ucp_detalle}
+            \end{figure}
+            \end{frame}
+
+            \begin{frame}{Flujo de Datos y la CPU}
+
+ \begin{figure}
+                \centering
+                \includegraphics[width=0.85\linewidth]{Figuras/Cap0/motherboard.jpg}
+                \label{fig:ucp_detalle}
+            \end{figure}
+            \end{frame}
+
+%------------------------------------------------
+\subsection{La memoria principal}
+%------------------------------------------------
+
+\begin{frame}{La Memoria Principal}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{Memoria de Acceso Aleatorio (RAM)}
+                \begin{itemize}
+                    \item Es la \textbf{memoria de trabajo} de la computadora.
+                    \item Almacena de forma \textbf{temporal} los programas y datos en uso.
+                    \item Es \textbf{volátil}: su contenido se pierde cuando la computadora se apaga.
+                    \item Su principal característica es la alta velocidad de acceso (lectura y escritura).
+                \end{itemize}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Memoria de Sólo Lectura (ROM)}
+                 \begin{itemize}
+                    \item Almacena datos o programas de forma \textbf{permanente}.
+                    \item Es \textbf{no volátil}: la información no se pierde al apagar el equipo.
+                    \item Es de \textbf{sólo lectura}, grabada por el fabricante.
+                    \item Típicamente almacena programas esenciales para el arranque del sistema (BIOS).
+                \end{itemize}
+            \end{alertblock}
+    \end{columns}
+    
+    
+\end{frame}
+\begin{frame}{La Memoria Principal}
+
+\begin{exampleblock}{Memoria Caché}
+    Para acelerar aún más el acceso a los datos, los procesadores utilizan una memoria intermedia de muy alta velocidad llamada \textbf{memoria caché}, que se sitúa entre el procesador y la RAM.
+    \end{exampleblock}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Unidades de medida de memoria}
+%------------------------------------------------
+
+\begin{frame}{Unidades Fundamentales y Múltiplos}
+    \begin{columns}[c]
+        \column{0.4\textwidth}
+            \begin{block}{Unidades Fundamentales}
+                \begin{itemize}
+                    \item \textbf{Bit (dígito binario):} La unidad de información más pequeña. Puede ser 0 o 1.
+                    \item \textbf{Byte:} Un grupo de 8 bits. Generalmente, almacena un solo carácter.
+                \end{itemize}
+            \end{block}
+            
+        \column{0.6\textwidth}
+            \begin{alertblock}{Múltiplos de Memoria (Base 2)}
+                \begin{tabular}{lll}
+                \toprule
+                \textbf{Unidad} & \textbf{Abrev.} & \textbf{Equivalencia} \\
+                \midrule
+                Kilobyte & KB & 1,024 Bytes ($2^{10}$) \\
+                Megabyte & MB & 1,024 KB ($2^{20}$) \\
+                Gigabyte & GB & 1,024 MB ($2^{30}$) \\
+                Terabyte & TB & 1,024 GB ($2^{40}$) \\
+                Petabyte & PB & 1,024 TB ($2^{50}$) \\
+                \bottomrule
+                \end{tabular}
+            \end{alertblock}
+            \tiny\textit{Nota: Los fabricantes de discos duros a menudo usan la aproximación decimal (1 KB = 1000 bytes), mientras que la memoria RAM se mide en base binaria (1 KB = 1024 bytes).}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Organización de la Memoria: Dirección y Contenido}
+    \begin{block}{Celdas de Memoria}
+    La memoria se organiza en millones de unidades individuales llamadas \textbf{celdas} o \textbf{posiciones de memoria}. Cada celda tiene dos conceptos asociados:
+    \begin{itemize}
+        \item \textbf{Dirección:} Un número único que identifica la posición de la celda.
+        \item \textbf{Contenido:} La información (los bits) almacenada en esa celda.
+    \end{itemize}
+    \end{block}
+    
+    
+\end{frame}
+\begin{frame}{Organización de la Memoria: Dirección y Contenido}
+\begin{figure}
+        \centering
+        \includegraphics[width=0.85\textwidth]{Figuras/Cap0/fig0-5.png}
+        \caption{Memoria central, mostrando direcciones y su contenido.}
+        \label{fig:memoria_central}
+    \end{figure}
+\end{frame}
+
+%------------------------------------------------
+\subsection{El procesador}
+%------------------------------------------------
+
+\begin{frame}{El Procesador (CPU)}
+    \frametitle{El Cerebro de la Computadora }
+    \begin{block}{Unidad Central de Proceso (UCP o CPU)}
+    Es el cerebro y el corazón de la computadora. Controla el funcionamiento de todos los demás componentes y se encarga de interpretar y ejecutar las instrucciones de los programas, realizar las operaciones aritméticas y lógicas, y comunicarse con las demás partes de la máquina.
+    \end{block}
+    
+    \begin{alertblock}{Velocidad del Procesador}
+        \begin{itemize}
+            \item Se mide por su \textbf{frecuencia de reloj} en \textbf{Hertzios (Hz)}.
+            \item Indica el número de ciclos u operaciones que puede realizar por segundo.
+            \item Las velocidades actuales se expresan en \textbf{Megahercios (MHz)} o \textbf{Gigahercios (GHz)}.
+            \item Un procesador de 3 GHz puede realizar 3 mil millones de operaciones por segundo.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Evolución y Ejecución de Programas}
+    \begin{columns}[t]
+        \column{.4\textwidth}
+            \begin{block}{Microprocesadores}
+                La tecnología de los microprocesadores ha evolucionado a un ritmo vertiginoso. Hoy en día, es común encontrar procesadores con múltiples \textbf{núcleos} (\textit{cores}), que actúan como varios procesadores en un solo chip, permitiendo realizar múltiples tareas complejas de forma simultánea.
+            \end{block}
+
+        \column{.6\textwidth}
+            \begin{alertblock}{Proceso de Ejecución}
+                 La CPU sigue un ciclo constante para ejecutar un programa:
+                 \begin{enumerate}
+                    \item Carga las instrucciones y datos desde el disco duro a la memoria RAM.
+                    \item Recupera una instrucción de la RAM.
+                    \item La decodifica (entiende qué hacer).
+                    \item La ejecuta.
+                    \item Almacena el resultado en la RAM.
+                 \end{enumerate}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\section{Representación de la Información en las Computadoras}
+%------------------------------------------------
+
+\begin{frame}{Representación de la Información}
+    \begin{block}{El Lenguaje de las Máquinas: Bits}
+    Toda la información que procesa una computadora, ya sean textos, imágenes, sonidos o números, debe ser codificada en patrones de \textbf{bits} (0s y 1s) para que sus circuitos electrónicos puedan almacenarla y procesarla.
+    \end{block}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Representación de textos}
+%------------------------------------------------
+
+\begin{frame}{Representación de Textos: Codificación de Caracteres}
+    \begin{block}{¿Cómo se guarda el texto?}
+    La información textual se representa mediante un código donde a cada símbolo (letras, números, signos de puntuación) se le asigna un patrón de bits único. Un texto es simplemente una larga cadena de estos patrones.
+    \end{block}
+    
+    \begin{alertblock}{Códigos de Caracteres Comunes}
+        \begin{itemize}
+            \item \textbf{Código ASCII:} El más extendido. Usa 8 bits (1 byte) para representar 256 caracteres, suficiente para el inglés y otros idiomas occidentales como el español.
+            \pause
+            \item \textbf{Código Unicode:} Es el estándar moderno. Usa 16 bits, permitiendo representar más de 65,000 símbolos. Es fundamental para aplicaciones globales e Internet, ya que puede representar caracteres de prácticamente todos los idiomas del mundo.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Representación de valores numéricos}
+%------------------------------------------------
+
+\begin{frame}{Representación de Enteros}
+    \begin{block}{Eficiencia de la Notación Binaria}
+    Almacenar números como texto (ASCII) es muy ineficiente. Por ejemplo, el número '65' requiere dos bytes (uno para el '6' y otro para el '5'). En cambio, usando la \textbf{notación binaria}, con esos mismos dos bytes (16 bits) se puede almacenar cualquier entero desde 0 hasta 65,535.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Representación de Enteros}    
+    \begin{alertblock}{Tipos de Enteros}
+    Los datos de tipo entero se representan en notación binaria y pueden ser:
+        \begin{itemize}
+            \item \textbf{Con signo (\textit{signed}):} Pueden representar números positivos y negativos. Un bit se reserva para el signo.
+            \item \textbf{Sin signo (\textit{unsigned}):} Representan únicamente números positivos y el cero, lo que permite alcanzar valores más grandes con el mismo número de bytes.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Representación de Reales (Coma Flotante)}
+    \begin{block}{Notación de Coma Flotante}
+    Los números reales (con parte decimal) se representan en notación de \textbf{coma flotante} (\textit{floating point}). Una forma común de expresarlos es la \textbf{notación exponencial} o científica, útil para números muy grandes o pequeños.
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{Representación de Reales (Coma Flotante)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{Figuras/Cap0/fig0-6.png}
+        \caption{La representación exponencial utiliza una mantisa y un exponente.}
+        \label{fig:expo}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Representación de Reales (Coma Flotante)}
+
+\begin{alertblock}{Tipos de Datos Numéricos Comunes (Ej: C++)}
+        \centering
+        \begin{tabular}{lll}
+        \toprule
+        \textbf{Tipo} & \textbf{Tamaño (típico)} & \textbf{Rango (aproximado)} \\
+        \midrule
+        \texttt{int} & 4 bytes & $\approx \pm 2 \times 10^9$ \\
+        \texttt{float} & 4 bytes & $10^{-38}$ a $10^{38}$ \\
+        \texttt{double} & 8 bytes & $10^{-308}$ a $10^{308}$ \\
+        \bottomrule
+        \end{tabular}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\section{Dispositivos de Almacenamiento Secundario}
+%------------------------------------------------
+
+\begin{frame}{Almacenamiento Secundario}
+    \begin{block}{Definición y Característica Principal}
+    La memoria secundaria proporciona capacidad de almacenamiento fuera de la CPU y la memoria principal. A diferencia de la RAM, el almacenamiento secundario es \textbf{no volátil}, lo que significa que mantiene los datos y programas guardados incluso cuando se apaga la computadora.
+    \end{block}
+    
+    
+\end{frame}
+
+\begin{frame}{Almacenamiento Secundario}
+
+\begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{Discos Magnéticos}
+                \begin{itemize}
+                    \item \textbf{Discos Duros (\textit{Hard Disk}):} Son el principal dispositivo de almacenamiento en la mayoría de las computadoras, caracterizados por su gran capacidad (Gigabytes o Terabytes) y velocidad.
+                    \item \textbf{Disquetes (\textit{Floppy Disk}):} Un medio portátil antiguo, hoy en desuso, con muy baja capacidad.
+                \end{itemize}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{exampleblock}{Discos Ópticos}
+                 \begin{itemize}
+                    \item \textbf{CD (Compact Disc):} ~700 MB. Formatos ROM (sólo lectura), R (grabable) y RW (regrabable).
+                    \item \textbf{DVD (Digital Versatile Disc):} 4.7 GB a 17 GB. También con formatos grabables y regrabables.
+                    \item \textbf{Blu-ray:} Formato de alta definición con capacidades de 25 GB a más de 50 GB.
+                \end{itemize}
+            \end{exampleblock}
+    \end{columns}
+    \end{frame}
+%------------------------------------------------
+
+\begin{frame}{Almacenamiento Flash}
+    \begin{block}{Tecnología Flash}
+    Utiliza chips de memoria no volátiles que permiten escribir y borrar datos de forma rápida y repetida. Es la tecnología detrás de los dispositivos de almacenamiento modernos más populares.
+    \end{block}
+\end{frame}
+ \begin{frame}{Almacenamiento Flash}
+   
+    \begin{columns}[c]
+        \column{0.6\textwidth}
+            \begin{alertblock}{Aplicaciones de la Memoria Flash}
+                \begin{itemize}
+                    \item \textbf{Memorias USB (\textit{Pen Drives}):} Pequeños y portátiles, son el medio más popular para transportar archivos. \pause
+                    \item \textbf{Tarjetas de Memoria:} Utilizadas en cámaras, teléfonos y otros dispositivos (SD, MicroSD, etc.). \pause
+                    \item \textbf{Discos de Estado Sólido (SSD):} Actúan como discos duros pero son mucho más rápidos al no tener partes móviles.
+                \end{itemize}
+            \end{alertblock}
+        \column{0.4\textwidth}
+            \begin{figure}
+                \includegraphics[width=0.9\linewidth]{Figuras/Cap0/fig0memoria.jpg}
+                \caption{Dispositivos de almacenamiento modernos.}
+                \label{fig:unidades_disco_modernas}
+            \end{figure}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\section{Redes, Web y Web 2.0}
+%------------------------------------------------
+
+\begin{frame}{Redes de Computadoras}
+    \begin{block}{El Poder de la Conexión}
+    Una \textbf{red} es un conjunto de computadoras conectadas entre sí para compartir recursos e información. El uso de múltiples computadoras enlazadas para distribuir tareas se denomina \textbf{proceso distribuido}.
+    \end{block}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{Red de Área Local (LAN)}
+                Conecta computadoras en un área limitada, como una oficina o un campus, para compartir recursos como impresoras o archivos.
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{examples}{Red de Área Amplia (WAN)}
+                Enlaza computadoras y redes LAN a través de grandes distancias geográficas. La WAN más grande y conocida es \textbf{Internet}.
+            \end{examples}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Redes de computadoras}
+%------------------------------------------------
+
+\begin{frame}{Modelos de Red: Cliente-Servidor vs. P2P}
+    \begin{columns}[c]
+        \column{0.5\textwidth}
+            \begin{block}{Cliente-Servidor}
+            Es el modelo más popular. Los \textbf{clientes} (PC del usuario) solicitan servicios a \textbf{servidores} más potentes que almacenan y procesan los datos compartidos. La web funciona bajo este modelo.
+            \end{block}
+             
+        \column{0.5\textwidth}
+            \begin{alertblock}{Igual-a-Igual (Peer-to-Peer o P2P)}
+            En este modelo no existe un servidor central. Todas las computadoras de la red (pares o \textit{peers}) tienen el mismo estatus y comparten recursos directamente entre ellas.
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Modelos de Red: Cliente-Servidor vs. P2P}
+
+\begin{figure}
+                \includegraphics[width=0.8\linewidth]{Figuras/Cap0/fig0-10.png}
+                \caption{Sistema de computadoras Cliente/Servidor.}
+                \label{fig:cliente_servidor}
+            \end{figure}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Internet y la World Wide Web}
+%------------------------------------------------
+
+\begin{frame}{Internet y la World Wide Web (WWW)}
+    \begin{block}{Internet: La Red de Redes}
+    \textbf{Internet} es la red de redes global, una inmensa WAN que conecta millones de computadoras en todo el mundo.
+    \end{block}
+    
+    \begin{alertblock}{World Wide Web (WWW o Web)}
+    Es el servicio más popular que funciona sobre Internet. Es un sistema de estándares para almacenar, recuperar y visualizar información en \textbf{páginas web} a través de un \textbf{navegador}. Las páginas se construyen con \textbf{HTML}.
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Web 2.0 a Web 4.0}
+%------------------------------------------------
+
+\begin{frame}{La Evolución: Web 2.0 a Web 4.0}
+
+
+            \begin{block}{La Web Participativa}
+            El término \textbf{Web 2.0} se refiere a la evolución de la Web hacia una plataforma más participativa y colaborativa, donde el usuario deja de ser un consumidor pasivo para convertirse en un \textbf{creador activo de contenido}.
+            
+            Conceptos clave:
+            \begin{itemize}
+                \item Blogs y Wikis
+                \item Redes Sociales
+                \item Aplicaciones Web Interactivas
+            \end{itemize}
+            \end{block}
+        
+    
+            
+
+\end{frame}
+
+\begin{frame}{La Evolución: Web 2.0 a Web 4.0}
+
+\begin{figure}
+                \includegraphics[width=0.7\linewidth]{Figuras/Cap0/fig0_webs.jpg}
+                \caption{La evolución de la web y sus elementos.}
+                \label{fig:web20}
+            \end{figure}
+\end{frame}
+
+%------------------------------------------------
+\section{Las computadoras modernas}
+%------------------------------------------------
+
+\begin{frame}{Fundamentos Teóricos y Técnicos}
+    \begin{block}{¿Cómo funcionan internamente las computadoras?}
+    El desarrollo de las computadoras modernas es el resultado de grandes avances tanto en las teorías de la computación como en las tecnologías de hardware. Esta sección examina esos fundamentos.
+    \end{block}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Computabilidad y Complejidad Computacional}
+%------------------------------------------------
+
+\begin{frame}{Computabilidad y Complejidad Computacional}
+    \begin{block}{Las Dos Preguntas Fundamentales de la Computación}
+        \begin{itemize}
+            \item ¿Qué problemas pueden (y no pueden) ser resueltos por una computadora?
+            \pause
+            \item Si un problema puede ser resuelto, ¿qué tan difícil es resolverlo? (¿Cuántos recursos de tiempo y memoria consume?)
+        \end{itemize}
+    \end{block}
+    
+    \begin{alertblock}{Dos Campos de Estudio}
+        \begin{itemize}
+            \item La \textbf{Computabilidad} responde a la primera pregunta.
+            \item La \textbf{Complejidad Computacional} responde a la segunda.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Problemas Incomputables y la Máquina de Turing}
+    \begin{block}{Problemas Incomputables}
+    Existen problemas para los cuales se ha demostrado que \textbf{no existe un algoritmo} que pueda resolverlos. Un ejemplo famoso es el décimo problema de Hilbert, que busca un método general para determinar si una ecuación diofántica tiene soluciones enteras.
+    \end{block}
+    
+    \begin{alertblock}{Alan Turing y la Tesis de Church-Turing}
+    Alan Turing inventó una máquina abstracta, la \textbf{Máquina de Turing}, que podía simular la lógica de cualquier algoritmo. Este concepto fue fundamental para:
+        \begin{itemize}
+            \item Definir formalmente qué significa que un problema sea 'computable'.
+            \item Formar la base de la teoría de la computación, conocida como la \textbf{tesis de Church-Turing}.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Alan Turing y la Tesis de Church-Turing}
+
+\begin{figure}
+                \includegraphics[width=0.65\linewidth]{Figuras/Cap0/TuringBombeBletchleyPark.jpg}
+                \caption{La máquina de Turing.}
+                \label{fig:web20}
+            \end{figure}
+\end{frame}
+
+%------------------------------------------------
+\subsection{La Construcción de las Computadoras Modernas}
+%------------------------------------------------
+
+\begin{frame}{Computadoras Analógicas vs. Digitales}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{Computadoras Analógicas}
+                \begin{itemize}
+                    \item Utilizan propiedades de fenómenos físicos para \textit{analogizar} directamente los valores de las variables (e.g., el voltaje para representar la velocidad).
+                    \item A menudo se construían para un propósito especial.
+                    \item Ejemplos: mecanismos de astronomía.
+                \end{itemize}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Computadoras Digitales}
+                 \begin{itemize}
+                    \item Utilizan secuencias de \textbf{dígitos} (bits) para representar los valores de forma abstracta.
+                    \item Las computadoras actuales son casi todas digitales y \textbf{binarias} (base 2), ya que es más fácil construir componentes con dos estados distinguibles (encendido/apagado).
+                \end{itemize}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{La Evolución de los Componentes Físicos}
+    \begin{itemize}
+        \item \textbf{Componentes Mecánicos:} Las primeras computadoras, como la máquina analítica de Babbage, se basaban en engranajes y palancas. \pause
+        \item \textbf{Tubos de Vacío:} Permitieron las primeras computadoras \textit{electrónicas}. Funcionaban como interruptores (0 o 1), pero eran grandes, poco fiables y consumían mucha energía. \pause
+        \item \textbf{Transistores (1947):} Resolvieron los problemas de los tubos de vacío. Eran mucho más pequeños, fiables y eficientes, dando lugar a la segunda generación de computadoras. \pause
+        \item \textbf{Circuitos Integrados (CI / VLSI):} Chips que contienen millones o miles de millones de circuitos en un espacio muy pequeño. Son la base de \textbf{todas} las computadoras modernas.
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Circuitos Integrados y la Ley de Moore}
+    \begin{block}{Circuitos Integrados a Muy Gran Escala (VLSI)}
+    Son chips de semiconductores con miles de millones de circuitos electrónicos incorporados. Gracias a ellos, las computadoras son cada vez más pequeñas y potentes.
+    \end{block}
+    
+    \begin{alertblock}{La Ley de Moore}
+    Atribuida a Gordon Moore (cofundador de Intel), esta observación predijo que el número de transistores en un circuito integrado se duplicaría aproximadamente cada dos años. Esta tendencia ha impulsado el crecimiento exponencial del poder de cómputo durante décadas.
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\subsubsection{El Futuro: Computadoras Cuánticas}
+%------------------------------------------------
+
+\begin{frame}{El Futuro: Computación Cuántica}
+
+            \begin{block}{Un Nuevo Paradigma}
+            A diferencia de los bits clásicos (0 o 1), la computación cuántica utiliza \textbf{qubits}.
+            \begin{itemize}
+                \item \textbf{Superposición:} Un qubit puede representar un 0, un 1, o \textbf{ambos valores simultáneamente}.
+                \item \textbf{Entrelazamiento:} El estado de un qubit puede afectar instantáneamente a otro, sin importar la distancia.
+            \end{itemize}
+            Esto permite un potencial de procesamiento masivo para ciertos tipos de problemas.
+            \end{block}
+
+\end{frame}
+
+\begin{frame}{El Futuro: Computación Cuántica}
+
+\begin{figure}
+                \includegraphics[width=0.7\linewidth]{Figuras/Cap0/cb_vs_qbit.png}
+                \caption{Un bit clásico tiene un estado definido, mientras que un qubit puede existir en una superposición de estados.}
+                \label{fig:qubit_superposicion_friendly}
+            \end{figure}
+\end{frame}
+
+\begin{frame}{El Futuro: Computación Cuántica}
+
+\begin{figure}
+                \includegraphics[width=0.9\linewidth]{Figuras/Cap0/qubit-superposition.jpg}
+                \caption{Un bit vs. un qubit puede existir en una superposición de estados.}
+                \label{fig:qubit_superposicion_friendly}
+            \end{figure}
+\end{frame}
+
+\begin{frame}{El Futuro: Computación Cuántica}
+
+\begin{figure}
+                \includegraphics[width=0.7\linewidth]{Figuras/Cap0/52751908_606.jpg}
+                \caption{El núcleo de una computadora cuántica}
+                \label{fig:qubit_superposicion_friendly}
+            \end{figure}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}{Computación Cuántica: Potencial y Desafíos}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{Potencial y Aplicaciones}
+            No reemplazarán a las computadoras clásicas, pero prometen revolucionar campos específicos al resolver problemas hoy intratables:
+                \begin{itemize}
+                    \item Descubrimiento de nuevos materiales y medicamentos.
+                    \item Optimización de sistemas logísticos complejos.
+                    \item Ruptura de la criptografía actual.
+                \end{itemize}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Desafíos Actuales}
+                \begin{itemize}
+                    \item Los qubits son extremadamente \textbf{frágiles} y sensibles al entorno (\textit{decoherencia}).
+                    \item Requieren condiciones de operación extremas, como temperaturas cercanas al cero absoluto, para mantener su estado cuántico.
+                \end{itemize}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+\end{document}

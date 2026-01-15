@@ -1,0 +1,435 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y TEMAS
+%----------------------------------------------------------------------------------------
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+%	PÁGINA DE TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title{Tipos de variables y operaciones en Python}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    % Print the title page as the first slide
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Tipos de Variables en Python}
+%------------------------------------------------
+
+\begin{frame}[fragile]{¿Qué es una Variable?}
+    \begin{block}{Analogía: Una Caja con Etiqueta}
+    Una variable es como una \textbf{caja en la memoria} de la computadora donde podemos guardar información. Le ponemos una \textbf{etiqueta (el nombre de la variable)} para poder encontrar y usar esa información más tarde.
+    \end{block}
+    
+    \begin{alertblock}{Tipado Dinámico en Python}
+    A diferencia de otros lenguajes, en Python no necesitas declarar el tipo de una variable. Python lo infiere automáticamente cuando le asignas un valor.
+        \begin{lstlisting}
+# Python sabe que 'edad' es un numero
+edad = 25 
+
+# Python sabe que 'nombre' es texto
+nombre = 'Juan Perez' 
+        \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Tipos de Datos Numéricos: 'int' y 'float'}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{Enteros ('int')}
+                Representan números enteros, positivos o negativos, sin parte decimal.
+                \begin{lstlisting}
+# Ejemplos de enteros
+edad = 30
+temperatura = -5
+numero_de_alumnos = 150
+                \end{lstlisting}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Flotantes ('float')}
+                 Representan números de punto flotante, es decir, números con parte decimal.
+                 \begin{lstlisting}
+# Ejemplos de flotantes
+precio = 199.99
+pi = 3.14159
+altura = 1.75
+                 \end{lstlisting}
+            \end{alertblock}
+    \end{columns}
+    
+\end{frame}
+\begin{frame}[fragile]{Tipos de Datos Numéricos: 'int' y 'float'}
+\begin{block}{Operaciones Matemáticas}
+    Python realiza las operaciones aritméticas de forma natural. ¡Ojo! La división '/' siempre produce un 'float'.
+    \begin{lstlisting}
+suma = 10 + 5       # Resultado: 15 (int)
+resta = 20.5 - 10   # Resultado: 10.5 (float)
+division = 10 / 2   # Resultado: 5.0 (float!)
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+
+    
+%------------------------------------------------
+
+\begin{frame}[fragile]{Tipo de Dato de Texto: 'str'}
+    \begin{block}{Cadenas de Caracteres ('str')}
+    Una cadena de caracteres, o \textit{string}, se usa para almacenar texto. El texto debe ir entre comillas simples (' ') o dobles ('' '').
+    \begin{lstlisting}
+nombre = 'Ana'
+mensaje = 'Hola Mundo'
+frase = 'El lenguaje "Python" es muy versatil.'
+    \end{lstlisting}
+    \end{block}
+    
+    
+\end{frame}
+\begin{frame}[fragile]{Tipo de Dato de Texto: 'str'}
+
+\begin{alertblock}{Operación Principal: Concatenación (+)}
+    El operador '+' con cadenas de texto no suma, sino que las une (concatena).
+    \begin{lstlisting}
+nombre = 'Carlos'
+apellido = 'Santana'
+nombre_completo = nombre + ' ' + apellido
+
+# Resultado: 'Carlos Santana'
+print(nombre_completo) 
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}    
+%------------------------------------------------
+
+\begin{frame}[fragile]{Tipo de Dato Lógico: 'bool'}
+    \begin{block}{Booleanos ('bool')}
+    El tipo booleano solo puede tener dos valores: \textbf{'True'} (Verdadero) o \textbf{'False'} (Falso).
+    \begin{lstlisting}
+es_estudiante = True
+es_mayor_de_edad = False
+    \end{lstlisting}
+    \end{block}
+    
+    
+\end{frame}
+
+\begin{frame}[fragile]{Tipo de Dato Lógico: 'bool'}
+
+\begin{alertblock}{Uso Principal}
+    Los booleanos son el resultado de las comparaciones y son fundamentales para la toma de decisiones en el código (condicionales 'if', bucles 'while', etc.).
+    \begin{lstlisting}
+edad = 20
+es_mayor = edad >= 18 # es_mayor sera True
+
+temperatura = 15
+hace_frio = temperatura < 10 # hace_frio sera False
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+%------------------------------------------------
+\section{Conversión de Tipos (Casting) y Operaciones}
+%------------------------------------------------
+
+\begin{frame}[fragile]{El Problema: Operaciones entre Tipos Incompatibles}
+    \begin{block}{Python es de Tipado Fuerte}
+    Aunque Python es flexible, no permite realizar operaciones entre tipos que no son compatibles. Por ejemplo, no se puede 'sumar' un número a un texto directamente.
+    \end{block}
+    
+    \begin{alertblock}{Ejemplo de Error Típico ('TypeError')}
+    Este código producirá un error:
+    \begin{lstlisting}
+edad = 25
+# TypeError: can only concatenate str (not 'int') to str
+mensaje = 'Tu edad es: ' + edad 
+    \end{lstlisting}
+    La solución es convertir explícitamente uno de los tipos para que sean compatibles. A esto se le llama \textbf{Casting}.
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Conversión de Tipos (Casting)}
+
+            \begin{block}{'str()'}
+            Convierte un valor a una cadena de texto.
+            \begin{lstlisting}
+edad = 25
+# Correcto!
+mensaje = 'Tu edad es: ' + str(edad)
+# mensaje = 'Tu edad es: 25'
+
+numero = 123
+texto = str(numero)
+# texto = '123'
+            \end{lstlisting}
+            \end{block}
+
+           
+\end{frame}
+
+\begin{frame}[fragile]{Conversión de Tipos (Casting)}
+
+ \begin{alertblock}{'int()'}
+            Convierte un valor a un entero. \textbf{Trunca (corta) los decimales}, no redondea.
+            \begin{lstlisting}
+# De str a int
+puntos_str = '100'
+puntos_int = int(puntos_str)
+
+# De float a int
+precio = 199.99
+precio_int = int(precio)
+# precio_int = 199
+            \end{lstlisting}
+            \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]{Conversión de Tipos (Casting)}
+
+            \begin{block}{'float()'}
+            Convierte un valor a un número de punto flotante.
+            \begin{lstlisting}
+# De str a float
+pi_str = '3.14159'
+pi_float = float(pi_str)
+
+# De int a float
+edad = 30
+edad_float = float(edad)
+# edad_float = 30.0
+            \end{lstlisting}
+            \end{block}
+\end{frame}
+
+%------------------------------------------------
+\section{Operaciones Matemáticas en Python}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Operadores Aritméticos Básicos}
+
+            \begin{block}{Suma, Resta y Multiplicación}
+                \begin{itemize}
+                    \item '+' (Suma)
+                    \item '-' (Resta)
+                    \item '*' (Multiplicación)
+                \end{itemize}
+                \begin{lstlisting}
+a = 15
+b = 4
+
+suma = a + b         # 19
+resta = a - b        # 11
+multiplicacion = a * b # 60
+                \end{lstlisting}
+            \end{block}
+
+           
+\end{frame}
+\begin{frame}[fragile]{Operadores Aritméticos Básicos}
+
+ \begin{alertblock}{División}
+                \begin{itemize}
+                    \item '/' (División)
+                \end{itemize}
+                \textbf{¡Importante!}: El operador de división '/' siempre devuelve un resultado de tipo 'float', incluso si la división es exacta.
+                 \begin{lstlisting}
+# La division siempre resulta en float
+division_1 = 15 / 4  # 3.75
+division_2 = 20 / 4  # 5.0
+                 \end{lstlisting}
+            \end{alertblock}
+\end{frame}            
+%------------------------------------------------
+
+\begin{frame}[fragile]{Operadores Aritméticos Avanzados}
+            \begin{block}{División Entera '//'}
+                Realiza la división y descarta (trunca) la parte decimal, devolviendo solo la parte entera.
+                \begin{lstlisting}
+resultado = 15 // 4 # 3
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+\begin{frame}[fragile]{Operadores Aritméticos Avanzados}
+
+            \begin{block}{Módulo \%}
+                Devuelve el \textbf{residuo} de una división. Es muy útil para saber si un número es par o impar.
+                \begin{lstlisting}
+# 15 / 4 es 3 con residuo 3
+residuo = 15 % 4  # 3
+
+# Si n % 2 == 0, n es par
+es_par = 10 % 2   # 0
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+\begin{frame}[fragile]{Operadores Aritméticos Avanzados}
+
+            \begin{block}{Exponenciación '**'}
+            Eleva un número a una potencia.
+            \begin{lstlisting}
+# 2 elevado a la 3
+potencia = 2 ** 3 # 8
+
+# Raiz cuadrada
+raiz = 9 ** 0.5 # 3.0
+            \end{lstlisting}
+            \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Orden de Operaciones (Precedencia)}
+    \begin{block}{PEMDAS}
+    Python sigue el orden estándar de las operaciones matemáticas, a menudo recordado por el acrónimo PEMDAS.
+    \end{block}
+    
+    \begin{alertblock}{Jerarquía de Operadores}
+        \begin{enumerate}
+            \item \textbf{P}aréntesis '()'
+            \item \textbf{E}xponentes '**'
+            \item \textbf{M}ultiplicación '*', \textbf{D}ivisión '/', Módulo '\%', División Entera '//' (de izq. a der.)
+            \item \textbf{S}uma (Adición) '+', \textbf{R}esta '-' (de izq. a der.)
+        \end{enumerate}
+    \end{alertblock}
+    
+   
+\end{frame}
+\begin{frame}[fragile]{Orden de Operaciones (Precedencia)}
+
+ \begin{examples}
+    \begin{lstlisting}
+# Como lo evalua Python:
+# 1. Exponente: 3 ** 2 = 9
+# 2. Multiplicacion: 2 * 9 = 18
+# 3. Suma: 5 + 18 = 23
+resultado = 5 + 2 * 3 ** 2 
+print(resultado) # Imprime 23
+    \end{lstlisting}
+    \end{examples}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Homework: Simulador de Cajero Automático (ATM)}
+    
+    \begin{block}{Objetivo}
+    Escribir un programa en Python que simule las operaciones básicas de un cajero automático. Deberás aplicar todo lo aprendido: variables, input, casting, operaciones matemáticas y estructuras de control ('if'/'elif'/'else' y 'while').
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Homework: Simulador de Cajero Automático (ATM)}
+    
+    \begin{alertblock}{Requisitos del Programa}
+    \begin{enumerate}
+        \item \textbf{Saldo Inicial:} El programa debe comenzar con un saldo inicial (por ejemplo, \texttt{saldo = 1000.0}).
+        
+        \item \textbf{Menú Interactivo:} El programa debe mostrar un menú con 4 opciones y repetirse hasta que el usuario elija "Salir".
+        \begin{itemize}
+            \item 1. Consultar Saldo
+            \item 2. Depositar Dinero
+            \item 3. Retirar Dinero
+            \item 4. Salir
+        \end{itemize}
+        
+        \item \textbf{Funcionalidad de Opciones:}
+        \begin{itemize}
+            \item \textbf{Opción 1:} Muestra el saldo actual formateado.
+            \item \textbf{Opción 2:} Pide al usuario una cantidad, la suma al saldo y muestra el nuevo saldo.
+            \item \textbf{Opción 3:} Pide al usuario una cantidad. \textbf{Si hay fondos suficientes}, la resta del saldo. Si no, muestra un mensaje de "Fondos insuficientes".
+            \item \textbf{Opción 4:} Muestra un mensaje de despedida y termina el programa.
+        \end{itemize}
+    \end{enumerate}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Homework: Simulador de Cajero Automático (ATM)}
+    
+    \begin{block}{Pistas y Consejos}
+    \begin{itemize}
+        \item Usa un bucle \texttt{while:} para que el menú se muestre continuamente.
+        \item Recuerda convertir la entrada del usuario a número (\texttt{int()} o \texttt{float()}) antes de hacer cálculos.
+        \item Usa una estructura \texttt{if/elif/else} para manejar las 4 opciones del menú.
+        \item Para salir del bucle \texttt{while}, puedes usar la palabra clave \texttt{break}.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\end{document}

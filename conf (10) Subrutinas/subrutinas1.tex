@@ -1,0 +1,328 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+
+
+\title{Subrutinas en Python (1)}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+%------------------------------------------------
+\section{Parte Teórica: Subrutinas}
+%------------------------------------------------
+
+\begin{frame}{¿Qué es una Subrutina?}
+    
+    \begin{block}{Definición}
+    Una \textbf{subrutina} (que en Python llamaremos \textbf{función}) es un bloque de código \textbf{reutilizable} que realiza una tarea específica.
+    \end{block}
+    
+    \begin{alertblock}{La Analogía de la Receta}
+    Piensa en una subrutina como una \textbf{receta de cocina}:
+    \begin{itemize}
+        \item Tiene un \textbf{nombre} (ej. 'Receta para pastel de chocolate').
+        \item Contiene una serie de \textbf{pasos} (instrucciones).
+        \item Cada vez que quieres hacer el pastel, no re-escribes la receta, simplemente \textbf{sigues} la receta que ya existe.
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+\begin{frame}{¿Qué es una Subrutina?}
+
+    \begin{block}{El Principio DRY: 'Don't Repeat Yourself'}
+    El objetivo principal de las subrutinas es \textbf{NO REPETIR CÓDIGO}. Si notas que estás escribiendo las mismas 5 líneas de código en tres lugares diferentes, ¡es momento de crear una subrutina!
+    \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Definir vs. Llamar}
+    
+    Para usar una subrutina, hay dos pasos clave que a menudo se confunden:
+    
+    \begin{columns}[t]
+        \column{.5\textwidth}
+            \begin{block}{1. Definir la Subrutina}
+            Esto es como \textbf{escribir la receta}. Le decimos a Python qué pasos debe seguir y cómo se llama.
+            \begin{itemize}
+                \item Se usa la palabra clave \texttt{\textbf{def}}.
+                \item El código dentro debe estar \textbf{indentado}.
+            \end{itemize}
+            \begin{lstlisting}[language=Python]
+# Definicion de la subrutina
+def saludar():
+    print('¡Hola, bienvenido!')
+    print('Esta es mi primera subrutina.')
+            \end{lstlisting}
+            \end{block}
+
+        \column{.5\textwidth}
+            \begin{alertblock}{2. Llamar a la Subrutina}
+            Esto es como \textbf{preparar la receta}. Le decimos a Python: '¡Ejecuta ese bloque de código ahora!'
+            \begin{itemize}
+                \item Se hace escribiendo su nombre seguido de paréntesis \texttt{()}.
+            \end{itemize}
+            \begin{lstlisting}[language=Python]
+# Llamada (o invocacion)
+saludar()
+saludar()
+            \end{lstlisting}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+\begin{frame}[fragile]{Definir vs. Llamar}
+
+    \begin{alertblock}{¡Importante!}
+    Definir una subrutina no la ejecuta. Es solo el plano. ¡Debes \textbf{llamarla} para que haga algo!
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\section{Paso de Argumentos}
+%------------------------------------------------
+
+\begin{frame}[fragile]{¿Por qué necesitamos ''Argumentos''?}
+    
+    \begin{block}{El Problema}
+    Nuestra subrutina \texttt{saludar()} es muy aburrida. Siempre hace exactamente lo mismo. ¿Qué pasa si queremos que salude a una persona \textbf{específica}?
+    \begin{lstlisting}[language=Python]
+# ?Como le decimos a saludar()
+# que salude a 'Ana'?
+saludar() # Imprime '¡Hola, bienvenido!'
+
+# ?Y si ahora queremos que salude a 'Luis'?
+saludar() # Sigue imprimiendo '¡Hola, bienvenido!'
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{¿Por qué necesitamos ''Argumentos''?}
+
+    \begin{alertblock}{La Solución: Parámetros y Argumentos}
+    Necesitamos una forma de \textbf{pasar información} (como el nombre 'Ana') \textbf{hacia adentro} de la subrutina.
+    \begin{itemize}
+        \item En la analogía de la receta, estos son los \textbf{ingredientes}. La receta 'Hacer pastel' necesita 'Harina', 'Huevos', 'Chocolate'.
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Parámetros vs. Argumentos}
+    
+    Es crucial entender esta terminología:
+    
+    \begin{block}{Parámetro (El Espacio de Estacionamiento)}
+    Un \textbf{parámetro} es la variable que se declara \textbf{dentro de los paréntesis} al \textbf{definir} la subrutina. Es un ''espacio reservado'' que espera recibir un valor.
+    \begin{lstlisting}[language=Python]
+# 'nombre' es un PARAMETRO
+def saludar_a(nombre):
+    print(f'¡Hola, {nombre}! Bienvenido.')
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Parámetros vs. Argumentos}
+
+    \begin{alertblock}{Argumento (El Coche)}
+    Un \textbf{argumento} es el \textbf{valor real} que se envía a la subrutina al \textbf{llamarla}. Es el ''coche'' que ocupa el espacio de estacionamiento.
+    \begin{lstlisting}[language=Python]
+# 'Ana' y 'Luis' son ARGUMENTOS
+saludar_a('Ana')
+saludar_a('Luis')
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Ejemplo 1: Subrutina con Múltiples Argumentos}
+    
+    \begin{block}{Objetivo}
+    Crear una subrutina que presente a una persona, recibiendo su nombre y su edad.
+    \end{block}
+    
+          
+
+            \begin{alertblock}{Salida en Consola}
+                \begin{verbatim}
+--- Presentacion 1 ---
+Les presento a Elena.
+Tiene 30 anios.
+
+--- Presentacion 2 ---
+Les presento a Miguel.
+Tiene 25 anios.
+                \end{verbatim}
+            \end{alertblock}
+            \begin{block}{¡Importante!}
+            El orden de los argumentos importa. El primer argumento ('Elena') va al primer parámetro (nombre), y el segundo ('30') va al segundo (edad).
+            \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 1: Subrutina con Múltiples Argumentos}
+
+  \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+# Definimos con dos parametros: 'nombre' y 'edad'
+def presentar_persona(nombre, edad):
+    print(f'Les presento a {nombre}.')
+    print(f'Tiene {edad} anios.')
+
+# Llamamos con dos argumentos:
+print('--- Presentacion 1 ---')
+presentar_persona('Elena', 30)
+
+print('\n--- Presentacion 2 ---')
+presentar_persona('Miguel', 25)
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Ejemplo 2: Reutilizando Código Complejo}
+    
+    \begin{block}{Objetivo}
+    ¡Recordemos nuestro ejemplo de las tablas de multiplicar! En lugar de escribir el código cada vez, encapsulémoslo en una subrutina.
+    \end{block}
+        
+
+            \begin{alertblock}{Salida (Fragmento)}
+                \begin{verbatim}
+--- Tabla del 5 ---
+5 x 1 = 5
+...
+5 x 10 = 50
+--- Tabla del 7 ---
+7 x 1 = 7
+...
+7 x 10 = 70
+--- Tabla del 9 ---
+... etc.
+                \end{verbatim}
+            \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 2: Reutilizando Código Complejo}
+
+   \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+# Definimos la subrutina que recibe el
+# numero de la tabla que queremos imprimir
+def imprimir_tabla(numero_tabla):
+    print(f'\n--- Tabla del {numero_tabla} ---')
+    
+    # Usamos el parametro en nuestro ciclo
+    for i in range(1, 11):
+        resultado = numero_tabla * i
+        print(f'{numero_tabla} x {i} = {resultado}')
+
+# AHORA ES MUY FACIL USARLO:
+# Llamamos a la subrutina varias veces
+imprimir_tabla(5)
+imprimir_tabla(7)
+imprimir_tabla(9)
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}{Resumen}
+    
+    \begin{block}{Lo que aprendimos hoy}
+    \begin{itemize}
+        \item \textbf{Subrutina (Función en Python):} Es un bloque de código con nombre, definido con \texttt{\textbf{def}}, que realiza una tarea.
+        \item \textbf{DRY:} El objetivo es 'No Repetirse' y organizar mejor el código.
+        \item \textbf{Definir vs. Llamar:} Escribir la 'receta' (\texttt{def}) no es lo mismo que 'prepararla' (llamarla con \texttt{()}).
+        \item \textbf{Argumentos:} Son los 'ingredientes' que pasamos a la subrutina para que pueda trabajar con ellos.
+    \end{itemize}
+    \end{block}
+    
+    \begin{alertblock}{Para la Próxima Clase...}
+    Todas nuestras subrutinas de hoy \textit{imprimen} cosas, pero no nos \textit{devuelven} un resultado.
+    
+    ¿Qué pasa si quiero una subrutina que \textbf{calcule} un promedio y me entregue el número para que yo pueda guardarlo en una variable?
+    
+    Eso es una \textbf{Función} y usaremos la palabra clave \texttt{\textbf{return}}.
+    \end{alertblock}
+
+\end{frame}
+\end{document}

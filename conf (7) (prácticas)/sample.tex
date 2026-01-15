@@ -1,0 +1,159 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y TEMAS
+%----------------------------------------------------------------------------------------
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+%	PÁGINA DE TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title{Sesión de prácticas}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\section{uso de If - elif - else}
+
+\begin{frame}{Ejercicio 1}
+\begin{block}{Ejercicio 1}
+Un instituto para aprendizaje en programnación ofrece los siguientes cursos para verano:
+\begin{itemize}
+    \item Python para principiantes, costo: 10,000.00\$
+    \item Python intermedio, costo: 15,000.00\$
+    \item Python avanzado, costo: 20,000.00\$
+\end{itemize}
+
+El usuario puede pagar con tarjetas de crédito o de débito, si paga con tarjeta de crédito se le cobra 7\% más al costo total.
+
+Escribe un programa, \textbf{utilizando únicamente IF, IF-ELSE o ELSE-IF}, para preguntar al usuario que curso quiere elegir, y para mostrar el costo total que debe pagar de acuerdo con su forma de pago.
+
+\end{block}
+    
+\end{frame}
+
+\begin{frame}{Ejercicio 1}
+\begin{block}{Ejercicio 1 - solución}
+\url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example21.py}
+
+\end{block}
+    
+\end{frame}
+
+\section{uso de If - elif - else con For}
+
+\begin{frame}{Ejercicio 2}
+\begin{block}{Ejercicio 2}
+Un verificentro evalúa los autos de acuerdo con el modelo del año de cada auto, usando este criterio para decidir cuantos días a la semana deben dejar de circular:
+\begin{itemize}
+    \item (Grupo D) Los autos entre 2000 a 2005 dejan de circular 2 días a la semana
+    \item (Grupo C) Los autos entre 2006 a 2010 dejan de circular 1 día a la semana.
+    \item (Grupo B) Los autos entre 2011 a 2020 dejan de circular 1 día al mes.
+    \item (Grupo A) Los autos de 2021 a 2025 circulan todos los días.
+\end{itemize}
+Escribe un programa, utilizando \textbf{únicamente IF - Else IF - Else y FOR} que: muestra primero la tabla de cirterios, pide al usuario saber cuantos autos quiere evaluar, solicita al usuario el año de cada auto (uno por uno) y le muestra cuantos días dejará de circular ese auto. Al finalizar el programa debe mostrar cuantos autos se calificaron en cada grupo.
+\end{block}
+    
+\end{frame}
+
+\begin{frame}{Ejercicio 2}
+\begin{block}{Ejercicio 2 - solución}
+\url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example22.py}
+
+\end{block}
+\end{frame}
+\section{uso de match ... case}
+
+\begin{frame}{Ejercicio 3}
+\begin{block}{Ejercicio 3}
+Escribe un programa que permita a 10 jugadores elegir entre tres juegos diferentes (A, B, C). Utiliza una estructura \textbf{match-case} para solicitar que el usaurio elija un juego. El programa debe saludar al jugador por su nombre y confirmar su elección. Al finalizar muestra un conteo de cuántos jugadores eligieron cada juego.
+\end{block}
+    
+\end{frame}
+
+\begin{frame}{Ejercicio 3}
+\begin{block}{Ejercicio 3 - solución}
+\url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example20.py}
+
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+%------------------------------------------------
+\end{document}

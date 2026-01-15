@@ -1,0 +1,213 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin} % Elegir un tema de beamer
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+\title{Números Aleatorios en Python}
+\subtitle{Usando el Módulo \texttt{random}}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Introducción al Módulo \texttt{random}}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{¿Qué es el Módulo \texttt{random}?}
+    
+    \begin{block}{Definición}
+    El módulo \texttt{random} es una herramienta incorporada en Python que proporciona funciones para generar números pseudoaleatorios (PRNGs).
+    \end{block}
+    
+    \begin{itemize}
+        \item \textbf{"Pseudoaleatorio"} significa que los números parecen aleatorios, pero se generan a partir de un algoritmo determinista (basado en una "semilla" o \textit{seed}).
+        \item Para la mayoría de las tareas (simulaciones, juegos, etc.), esta aleatoriedad es perfectamente suficiente.
+    \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{¿Qué es el Módulo \texttt{random}?}
+    \begin{alertblock}{Primer Paso: Importar}
+    Para usar cualquiera de sus funciones, siempre debemos empezar por importar el módulo:
+    \begin{lstlisting}[language=Python]
+import random
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\section{Tarea 1: Enteros entre Límites}
+%------------------------------------------------
+
+\begin{frame}[fragile] % "fragile" es necesario por el verbatim
+    \frametitle{Tarea 1: Generar Enteros con \texttt{random.randint()}}
+    
+    \begin{block}{El Problema}
+    Necesitamos un número entero aleatorio dentro de un rango específico, como simular el lanzamiento de un dado de 6 caras (números del 1 al 6).
+    \end{block}
+    
+    \begin{exampleblock}{La Solución: \texttt{random.randint(a, b)}}
+    Esta función toma dos argumentos, \texttt{a} (límite inferior) y \texttt{b} (límite superior).
+    \begin{itemize}
+        \item \textbf{Importante:} El rango es \textbf{inclusivo}. Incluye tanto \texttt{a} como \texttt{b} en los posibles resultados.
+    \end{itemize}
+    \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile] % "fragile" es necesario por el verbatim
+    \frametitle{Tarea 1: Generar Enteros con \texttt{random.randint()}}
+    \begin{block}{Código de Ejemplo}
+\begin{lstlisting}[language=Python]
+import random
+
+# Simular un dado de 6 caras (1 al 6)
+dado_d6 = random.randint(1, 6)
+print(f"Resultado del dado D6: {dado_d6}")
+
+# Simular un dado de 20 caras (1 al 20)
+dado_d20 = random.randint(1, 20)
+print(f"Resultado del dado D20: {dado_d20}")
+\end{lstlisting}
+    \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Tarea 2: Elegir de una Lista}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 2: Elegir un Elemento con \texttt{random.choice()}}
+    
+    \begin{block}{El Problema}
+    Tenemos una colección de opciones (por ejemplo, una lista de nombres o de jugadas) y necesitamos seleccionar solo una de ellas al azar.
+    \end{block}
+    
+    \begin{exampleblock}{La Solución: \texttt{random.choice(secuencia)}}
+    Esta función toma una secuencia (como una \texttt{list} o \texttt{tuple}) y devuelve un elemento elegido uniformemente al azar de esa secuencia.
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 2: Elegir un Elemento con \texttt{random.choice()}}
+    \begin{block}{Código de Ejemplo}
+\begin{lstlisting}[language=Python]
+import random
+
+opciones = ["piedra", "papel", "tijera"]
+jugador = random.choice(opciones)
+
+print(f"El jugador eligió: {jugador}")
+
+# Ejemplo con un sorteo
+participantes = ["Ana", "Bruno", "Carla", "David"]
+ganador = random.choice(participantes)
+print(f"¡El ganador del sorteo es: {ganador}!")
+\end{lstlisting}
+    \end{block}
+    
+
+\end{frame}
+
+%------------------------------------------------
+\section{Resumen}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Resumen de Funciones Clave}
+    
+    \begin{block}{Las Dos Funciones Esenciales}
+    Con solo estas dos funciones, podemos cubrir una gran cantidad de casos de uso comunes:
+    \begin{itemize}
+        \item \textbf{\texttt{import random}}
+            \begin{itemize}
+                \item Es el primer paso obligatorio.
+            \end{itemize}
+        \item \textbf{\texttt{random.randint(a, b)}}
+            \begin{itemize}
+                \item Devuelve un entero \textbf{entre} \texttt{a} y \texttt{b}.
+                \item \textbf{Inclusivo} en ambos extremos (incluye \texttt{a} e incluye \texttt{b}).
+            \end{itemize}
+        \item \textbf{\texttt{random.choice(lista)}}
+            \begin{itemize}
+                \item Devuelve un elemento \textbf{dentro} de la \texttt{lista}.
+                \item La lista debe contener al menos un elemento.
+            \end{itemize}
+    \end{itemize}
+    \end{block}
+\end{frame}
+
+\end{document}

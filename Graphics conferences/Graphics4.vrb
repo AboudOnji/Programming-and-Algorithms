@@ -1,0 +1,19 @@
+\frametitle{Tarea 4: Aplicación de Login}
+    \begin{exampleblock}{Pista Clave: Dos Clases}
+    La mejor forma de hacerlo es con \textbf{dos clases}: una para la App de Login y otra para la App Principal.
+    \begin{lstlisting}[language=Python, literate=*{_}{{{\_}}}1]
+
+            # Crea la nueva ventana principal
+            nueva_ventana = tk.Tk()
+            app_main = AppPrincipal(master=nueva_ventana)
+            app_main.mainloop()
+        else:
+            # ... mostrar error ...
+# --- Codigo Principal ---
+if __name__ == ''__main__'':
+    ventana_login = tk.Tk()
+    app = AppLogin(master=ventana_login)
+    app.mainloop()
+    \end{lstlisting}
+    \end{exampleblock}
+

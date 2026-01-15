@@ -1,0 +1,26 @@
+\frametitle{Paso 3: El Controlador (Conector)}
+    \begin{alertblock}{El Método Controlador}
+    \begin{lstlisting}[language=Python]
+def on_clic_celda(self, fila, columna):
+    # 1. Controlador consulta el MODELO
+    valor_logico = self.modelo_logico[fila][columna]
+
+    # 2. Controlador toma una decision
+    if valor_logico == 0:
+        print("Logica: Toco 'vacio'")
+
+        # 3. Controlador actualiza la VISTA
+        boton_presionado = self.tablero_gui[fila][columna]
+        boton_presionado.config(text="O", bg="blue")
+
+    elif valor_logico == 1:
+        print("Logica: Toco 'pieza'")
+
+        # 3. Controlador actualiza la VISTA
+        boton_presionado = self.tablero_gui[fila][columna]
+        boton_presionado.config(text="X", bg="red",
+                                state="disabled") # Desactivar boton
+
+    # (Actualizar puntaje, etc...)
+    \end{lstlisting}
+    \end{alertblock}

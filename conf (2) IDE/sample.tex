@@ -1,0 +1,339 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y TEMAS
+%----------------------------------------------------------------------------------------
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx} % Permite incluir imágenes
+\usepackage{booktabs} % Permite el uso de \toprule, \midrule y \bottomrule en tablas
+\usepackage{amsmath}
+\usepackage{lettrine}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{xurl}
+\usepackage{hyperref} % Para crear hipervínculos
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue, % Un azul más claro para temas oscuros
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+% --- Numeración de figuras y tablas ---
+\setbeamertemplate{caption}[numbered]
+
+%----------------------------------------------------------------------------------------
+%	PÁGINA DE TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title{Herramientas para Programar en Python}
+\subtitle{Entornos de Desarrollo Integrado (IDEs) y Editores de Código}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México % Puedes ajustar esto si es necesario
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% --- Introducción a la Agenda General ---
+\begin{frame}{Agenda de la Sesión}
+    \tableofcontents
+\end{frame}
+
+%------------------------------------------------
+\section{¿Por qué Aprender a Programar?}
+%------------------------------------------------
+
+\begin{frame}{El Diálogo entre Humanos y Computadoras}
+	\begin{block}{El Problema Fundamental}
+		Las computadoras son increíblemente poderosas, pero solo entienden un lenguaje: el \textbf{código binario}.
+	\end{block}
+	
+	\begin{columns}[c]
+		\column{0.4\textwidth}
+			\begin{alertblock}{Lenguaje de Máquina (Binario)}
+				\texttt{01101011 01101011}\\
+				\texttt{11000000 00110101}\\
+				\texttt{10111101 00100100}
+				
+				\vspace{1em}
+				Esto es incomprensible y casi imposible de escribir para un humano.
+			\end{alertblock}
+		\column{0.6\textwidth}
+			\begin{block}{La Solución: Lenguajes de Programación}
+				 Son lenguajes formales que actúan como un \textbf{puente}. Nos permiten escribir instrucciones de forma legible para nosotros, que luego son traducidas a un formato que la computadora puede ejecutar.
+			\end{block}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Niveles de Abstracción}
+
+	\begin{block}{No todos los lenguajes son iguales}
+	Los lenguajes de programación se clasifican por su \textbf{nivel de abstracción}, es decir, qué tan lejos están del hardware de la computadora.
+	
+	\end{block}
+	
+	\begin{figure}
+		\centering
+		% NOTA: Asegúrate de tener esta imagen en la carpeta Figuras/cap01/
+		\includegraphics[width=0.7\textwidth]{Figuras/cap01/fig01_1.png}
+		\caption{Aumento de la abstracción desde el código máquina hasta Python.}
+		\label{fig:abstraccion}
+	\end{figure}
+
+	
+\end{frame}
+\begin{frame}{Niveles de Abstracción}
+
+\begin{alertblock}{Lenguajes de Alto Nivel (como Python)}
+	Nos permiten expresar ideas complejas de forma simple, sin preocuparnos por los detalles de la máquina (registros, memoria, etc.).
+	\end{alertblock}
+\end{frame}
+%------------------------------------------------
+\section{¿Cómo 'Entiende' la Máquina a Python?}
+%------------------------------------------------
+
+\begin{frame}{Compilación vs. Interpretación}
+	\frametitle{Traduciendo nuestras ideas a código máquina}
+	\begin{columns}[c]
+		\column{0.5\textwidth}
+			\begin{block}{Compilación (Ej: C++)}
+				\begin{itemize}
+					\item<1-> Un \textbf{compilador} traduce \textbf{todo} el código fuente a un archivo ejecutable en código máquina \textbf{antes} de que el programa se ejecute.
+					\pause
+					\item<2-> El resultado es un programa muy rápido, pero específico para una arquitectura (ej. Windows x86).
+				\end{itemize}
+				% \includegraphics[width=\linewidth]{...} % Puedes poner la figura de compilación aquí
+			\end{block}
+		
+		\column{0.5\textwidth}
+			\begin{alertblock}{Interpretación (Ej: Python)}
+				\begin{itemize}
+					\item<1-> Un \textbf{intérprete} lee el código fuente línea por línea y lo ejecuta \textbf{al momento}.
+					\pause
+					\item<2-> No se crea un archivo ejecutable final, lo que lo hace más flexible y portable.
+				\end{itemize}
+			\end{alertblock}
+	\end{columns}
+	\begin{block}{Nota}
+	La distinción real es más compleja. Python, de hecho, usa un paso intermedio.
+	\end{block}
+\end{frame}
+
+\begin{frame}{El Proceso de Ejecución en Python}
+	\frametitle{¿Qué pasa al hacer clic en 'Run'?}
+	
+\begin{figure}
+		\centering
+		% NOTA: Asegúrate de tener esta imagen en la carpeta Figuras/cap01/
+		\includegraphics[width=0.6\textwidth]{Figuras/cap01/fig01-2.png}
+		\caption{Ejecución de un programa en Python.}
+		\label{fig:ejecucion_python}
+	\end{figure}
+\end{frame}    
+\begin{frame}{El Proceso de Ejecución en Python}
+	\frametitle{¿Qué pasa al hacer clic en 'Run'?}
+	
+	\begin{block}{De Código Fuente a Ejecución}
+	Python combina lo mejor de ambos mundos con un proceso de dos pasos.
+	\end{block}
+	
+	
+	
+	\begin{enumerate}
+		\item<1-> El intérprete lee tu archivo \texttt{.py} y lo traduce a un código intermedio llamado \textbf{bytecode}.
+		\pause
+		\item<2-> Este bytecode (que es portable) es ejecutado por la \textbf{Máquina Virtual de Python (PVM)}.
+	\end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+\section{Introducción a Python}
+%------------------------------------------------
+
+\begin{frame}{¿Por qué elegimos Python?}
+	\begin{columns}[c]
+		\column{0.4\textwidth}
+			\begin{figure}
+				\centering
+				% NOTA: Asegúrate de tener esta imagen en la carpeta Figuras/cap01/
+				\includegraphics[width=\linewidth]{Figuras/cap01/van.png}
+				\caption{Guido van Rossum, creador de Python.}
+			\end{figure}
+		\column{0.6\textwidth}
+			\begin{alertblock}{Filosofía de Diseño}
+				La filosofía de Python enfatiza la \textbf{legibilidad} y la \textbf{simplicidad}. El objetivo es permitir a los programadores escribir código claro y lógico.
+			\end{alertblock}
+			
+			\begin{block}{Características Clave}
+				\begin{itemize}
+					\item \textbf{Sintaxis simple:} Se parece al inglés, facilitando el aprendizaje.
+					\item \textbf{Versatilidad:} Útil para desarrollo web, ciencia de datos, IA, automatización y más.
+					\item \textbf{Gran comunidad:} Enorme cantidad de librerías y frameworks (NumPy, Pandas, Django).
+				\end{itemize}
+			\end{block}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Popularidad y Aplicaciones}
+	\begin{block}{Python en el Mundo Real}
+	Python se ha convertido en el lenguaje de facto en muchas de las áreas tecnológicas más importantes.
+	\end{block}
+	
+			\begin{alertblock}{Principales Campos de Aplicación}
+			\begin{itemize}
+				\item Ciencia de Datos y Machine Learning
+				\item Desarrollo Web (Backend con Django/Flask)
+				\item Automatización de Tareas (Scripting)
+				\item Cómputo Científico y de Ingeniería
+			\end{itemize}
+			\end{alertblock}
+
+            
+\end{frame}
+\begin{frame}{Popularidad y Aplicaciones}
+
+\begin{figure}
+				\centering
+				% NOTA: Asegúrate de tener esta imagen en la carpeta Figuras/cap01/
+				\includegraphics[width=0.75\linewidth]{Figuras/cap01/pythonrating.png}
+				\caption{Popularidad de lenguajes (Índice TIOBE).}
+			\end{figure}
+\end{frame}
+%------------------------------------------------
+\section{Herramientas para Escribir Python (IDEs)}
+%------------------------------------------------
+
+\begin{frame}{¿Qué es un Entorno de Desarrollo Integrado (IDE)?}
+    \begin{block}{El desafío}
+    Escribir código involucra muchas tareas: editar, ejecutar, encontrar errores, instalar librerías... Hacerlo con herramientas separadas es ineficiente.
+    \end{block}
+    \pause
+    \begin{alertblock}{La solución: Un Entorno de Desarrollo Integrado (IDE) ��}
+    Un IDE es una aplicación que \textbf{consolida todas las herramientas esenciales} para el desarrollo de software en una sola interfaz gráfica.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Componentes Clave de un IDE}
+    \begin{columns}[c]
+        \column{0.5\textwidth}
+            \begin{block}{1. Editor de Código Fuente}
+            Un editor de texto 'inteligente'.
+                \begin{itemize}
+                    \item Resaltado de sintaxis
+                    \item Autocompletado
+                    \item Formateo automático
+                \end{itemize}
+            \end{block}
+             \begin{block}{3. Automatización y Ejecución}
+             \begin{itemize}
+                    \item Botón de 'Play' para correr el script.
+                    \item Consola integrada para ver la salida.
+                \end{itemize}
+            \end{block}
+
+        \column{0.5\textwidth}
+            \begin{alertblock}{2. Depurador (Debugger)}
+            La herramienta más importante para encontrar y corregir errores.
+                \begin{itemize}
+                    \item Puntos de ruptura (\textit{breakpoints})
+                    \item Ejecución paso a paso
+                    \item Inspección de variables
+                \end{itemize}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Tabla Comparativa de Herramientas}
+    \frametitle{Elegir la herramienta adecuada para el trabajo}
+    \centering
+    \resizebox{0.95\textwidth}{!}{%
+    \begin{tabular}{lllll}
+    \toprule
+    \textbf{Plataforma/Editor} & \textbf{Nivel} & \textbf{Ideal para...} & \textbf{Ventajas Principales} & \textbf{Desventajas Principales} \\
+    \midrule
+    \texttt{Google Colab} & Fácil & Machine Learning, colaboración & Cero instalación, GPU gratis & Dependencia de internet, temporal \\
+    \texttt{Thonny} & Muy Fácil & Principiantes absolutos & Simple, depurador visual & Limitado para proyectos grandes \\
+    \texttt{Jupyter Notebook} & Fácil & Ciencia de datos, experimentación & Interactivo, visualización & No ideal para software robusto \\
+    \texttt{VS Code} & Intermedio & Desarrollo general, personalización & Versátil, ligero, extensiones & Requiere configuración inicial \\
+    \texttt{Spyder} & Fácil-Inter. & Ingeniería, computación científica & Similar a MATLAB, expl. de variables & Interfaz densa para principiantes \\
+    \texttt{PyCharm (Comm.)} & Inter.-Avan. & Desarrollo profesional & Muy potente, autocompletado & Curva de aprendizaje, pesado \\
+    \bottomrule
+    \end{tabular}
+    }
+\end{frame}
+
+%------------------------------------------------
+\section{Recomendación para la Clase}
+%------------------------------------------------
+
+\begin{frame}{¿Qué usaremos en este curso?}
+    \begin{block}{Nuestra Elección: La Distribución Anaconda}
+    Para asegurar que todos tengamos el mismo entorno y minimizar problemas de instalación, usaremos la \textbf{distribución de Anaconda}.
+    \end{block}
+    
+    \begin{columns}[T]
+        \column{0.4\textwidth}
+            % Nota: Aquí puedes poner una imagen del logo de Anaconda
+            % \includegraphics[width=\linewidth]{Figuras/anaconda_logo.png}
+            \vspace{1cm} % Espacio para la imagen
+            
+        \column{0.6\textwidth}
+            \begin{alertblock}{¿Por qué Anaconda?}
+                \begin{itemize}
+                    \item Es una instalación única que incluye:
+                        \begin{itemize}
+                            \item El lenguaje \textbf{Python}.
+                            \item \textbf{Jupyter Notebook} y \textbf{Spyder}.
+                            \item Cientos de librerías científicas preinstaladas (NumPy, Pandas, Matplotlib).
+                        \end{itemize}
+                    \item El \textbf{Anaconda Navigator} nos da una interfaz gráfica para lanzar las aplicaciones.
+                \end{itemize}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Pasos para la Instalación}
+    \begin{enumerate}
+        \item<1-> Ir a la página oficial de descargas de Anaconda: \url{https://www.anaconda.com/download}
+        \pause
+        \item<2-> Elegir la opción \textbf{'Distribution Installers'} (la versión completa), no Miniconda.
+        \pause
+        \item<3-> Descargar el instalador gráfico para tu sistema operativo (Windows, macOS, Linux).
+        \pause
+        \item<4-> Ejecutar el instalador y seguir las instrucciones. Se recomienda dejar las opciones por defecto.
+    \end{enumerate}
+    \vfill
+    \begin{examples}{¡Y eso es todo! Estarás listo para nuestra primera práctica de programación.}
+    \end{examples}
+\end{frame}
+
+%------------------------------------------------
+% --- Diapositiva de cierre ---
+%------------------------------------------------
+\begin{frame}
+    \Huge{\centerline{¿Preguntas?}}
+\end{frame}
+
+\end{document}

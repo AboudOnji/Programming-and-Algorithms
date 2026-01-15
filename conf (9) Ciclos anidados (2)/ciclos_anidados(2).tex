@@ -1,0 +1,448 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+
+
+\title{Ciclos Anidados - Datos bidimensionales}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Ejemplo 4: Dibujando un Triángulo}
+
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 4: Dibujando un Triángulo}
+
+    \begin{block}{Objetivo}
+    Escribir un programa que le pida al usuario un número entero (que representará la altura) y que, usando ciclos anidados, dibuje un triángulo rectángulo de asteriscos de esa misma altura.
+    \end{block}
+    
+    \begin{alertblock}{Salida Esperada}
+    Si el usuario introduce el número \textbf{5}, la salida en consola debe ser:
+    \begin{verbatim}
+*
+**
+***
+****
+*****
+    \end{verbatim}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 4: Lógica y Pistas}
+    
+    \begin{block}{Nuestra Lógica}
+    Este problema nos obliga a pensar en cómo el número de iteraciones del ciclo interno cambia en cada paso del ciclo externo.
+    \begin{itemize}
+        \item \textbf{Ciclo Externo (Filas):} Controlará el número de filas del triángulo. Si la altura es 5, este ciclo debe ejecutarse 5 veces (una por cada línea).
+        \pause
+        \item \textbf{Ciclo Interno (Columnas):} Controlará cuántos asteriscos imprimir en la fila \textbf{actual}. 
+        \pause
+        \item \textbf{La Clave:} Observa el patrón. En la fila 1, hay 1 asterisco. En la fila 2, hay 2 asteriscos, y así sucesivamente. Por lo tanto, el número de veces que el ciclo interno debe ejecutarse es igual al número de la fila actual del ciclo externo.
+        \pause
+        \item \textbf{Pista de Impresión:} Para imprimir los asteriscos en la misma línea, puedes usar \texttt{print(''*'', end='''')}. Después de que el ciclo interno termine, necesitarás un \texttt{print()} vacío para pasar a la siguiente línea.
+    \end{itemize}
+    \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 4: Código y Salida}
+    
+    \begin{columns}[t]
+        \column{.5\textwidth}
+            \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+altura = int(input(''Introduce la altura del triangulo: ''))
+# Ciclo externo para cada fila
+for fila in range(1, altura + 1):
+    # Se ejecuta 'fila' veces
+    for columna in range(fila):
+        print(''*'', end='''')
+    print() # Salto de línea después de cada fila
+                \end{lstlisting}
+            \end{block}
+
+        \column{.5\textwidth}
+            \begin{alertblock}{Salida en Consola (para altura = 7)}
+                \begin{verbatim}
+Introduce la altura del triangulo: 7
+*
+**
+***
+****
+*****
+******
+*******
+                \end{verbatim}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+\section{Estructuras de Datos 2D: Listas de Listas}
+%------------------------------------------------
+
+\begin{frame}[fragile]{De una Dimensión a Dos Dimensiones}
+    
+    \begin{block}{Recordatorio: Listas Unidimensionales}
+    Hasta ahora, hemos trabajado con listas simples, que son como una fila de casillas. Cada elemento tiene una única posición o índice.
+    \begin{lstlisting}[language=Python]
+miLista = [''A'', ''B'', ''C'', ''D''] # Accedemos con miLista[i]
+    \end{lstlisting}
+    \end{block}
+    
+    \begin{alertblock}{El Siguiente Nivel: Listas de Listas}
+    Una lista de listas es exactamente lo que su nombre indica: una lista que en lugar de contener números o strings, contiene \textbf{otras listas}.
+    \begin{itemize}
+        \item Nos permite organizar la información en una estructura de \textbf{filas y columnas}, como una tabla de Excel, un tablero de ajedrez o una matriz matemática.
+        \item Se conocen como estructuras de datos bidimensionales (2D).
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Anatomía de una Lista de Listas}
+    
+    \begin{block}{Sintaxis y Estructura Visual}
+    Imagina una matriz simple de 2 filas y 3 columnas.
+    \begin{lstlisting}[language=Python]
+matriz = [
+    [1,    2,    3],  # Fila 0
+    [4,    5,    6]   # Fila 1
+]
+    \end{lstlisting}
+    
+    \begin{itemize}
+        \item La \textbf{lista exterior} contiene todas las filas.
+        \item Cada \textbf{lista interior} representa una fila completa.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Anatomía de una Lista de Listas}
+
+    \begin{alertblock}{Accediendo a los Elementos: Doble Índice}
+    Para llegar a un elemento específico, necesitamos dos coordenadas: primero la fila, y luego la columna. Usamos la notación: \texttt{nombre\_lista[indice\_fila][indice\_columna]}
+    \begin{itemize}
+        \item \texttt{matriz[0]} nos daría la primera fila completa: \texttt{[1, 2, 3]}
+        \item \texttt{matriz[1][2]} nos daría el elemento en la fila 1, columna 2: \textbf{6}
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+            \begin{frame}[fragile]{Ejemplo Práctico: Un Tablero de Gato (Tic-Tac-Toe)}
+
+                \begin{block}{Objetivo}
+    Vamos a crear un tablero de Gato de 3x3 usando una lista de listas. Luego, colocaremos una ''X'' en el centro del tablero y lo mostraremos en consola.
+    \end{block}
+            \begin{alertblock}{Salida en Consola}
+                \begin{verbatim}
+Tablero de Gato:
+['-', '-', '-']
+['-', 'X', '-']
+['-', '-', '-']
+                \end{verbatim}
+            \end{alertblock}
+            
+            \begin{block}{Punto Clave}
+            La línea \texttt{tablero[1][1] = ''X''} es la más importante. Demuestra cómo podemos \textbf{leer y escribir} en una posición específica de nuestra estructura 2D sin necesidad de ciclos anidados.
+            \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo Práctico: Un Tablero de Gato (Tic-Tac-Toe)}
+
+    
+    
+
+            \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+tablero = [
+    [''-'', ''-'', ''-''],
+    [''-'', ''-'', ''-''],
+    [''-'', ''-'', ''-'']
+]
+
+tablero[1][1] = ''X''
+
+print(''Tablero de Gato:'')
+for fila in tablero:
+    print(fila)
+
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Conectando con el Siguiente Tema}
+
+    \begin{block}{¿Y ahora qué?}
+    Ya sabemos cómo acceder a \textbf{UN} elemento específico. Pero, ¿qué pasaría si quisiéramos hacer algo con \textbf{TODOS} los elementos?
+    \begin{itemize}
+        \item ¿Cómo sumaríamos todas las calificaciones de todos los estudiantes?
+        \item ¿Cómo buscaríamos un nombre en una lista de invitados sentados en una mesa rectangular?
+    \end{itemize}
+    \end{block}
+    
+    \begin{alertblock}{La Solución: Ciclos Anidados}
+    Para recorrer sistemáticamente cada fila y, dentro de cada fila, cada columna, necesitamos una herramienta que haga precisamente eso. Aquí es donde los \textbf{ciclos anidados} se vuelven indispensables.
+    
+    Ahora sí, veamos el ejemplo de las calificaciones...
+    \end{alertblock}
+\end{frame}
+\section{Ejemplo 5: Procesando Datos de Estudiantes}
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 5: Procesando Datos de Estudiantes}
+
+    \begin{block}{Objetivo}
+    Tenemos una ''lista de listas'' donde cada lista interna representa las calificaciones de un estudiante. El objetivo es escribir un programa que itere a través de esta estructura para calcular e imprimir el promedio de calificaciones de \textbf{cada} estudiante.
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 5: Procesando Datos de Estudiantes}
+
+    \begin{alertblock}{Estructura de Datos y Salida Esperada}
+    Dada la siguiente lista:
+    \begin{lstlisting}[language=Python]
+calificaciones_grupo = [
+    [10, 9, 10],  # Calificaciones del Estudiante 1
+    [8, 7, 8],   # Calificaciones del Estudiante 2
+    [9, 9, 10]   # Calificaciones del Estudiante 3
+]
+    \end{lstlisting}
+    La salida esperada en consola es:
+    \begin{verbatim}
+Promedio del Estudiante 1: 9.67
+Promedio del Estudiante 2: 7.67
+Promedio del Estudiante 3: 9.33
+    \end{verbatim}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 5: Lógica y Pistas}
+    
+    \begin{block}{Nuestra Lógica}
+    Para resolver esto, el ciclo externo se encargará de un estudiante a la vez, y el ciclo interno se encargará de procesar todas las calificaciones de ESE estudiante.
+    \begin{itemize}
+        \item \textbf{Ciclo Externo (por Estudiante):} Recorrerá la lista principal \texttt{calificaciones\_grupo}. En cada iteración, obtendremos una de las listas internas (ej: \texttt{[10, 9, 10]}).
+        \pause
+        \item \textbf{Inicializar un Acumulador:} \textbf{Antes} de que empiece el ciclo interno, debemos crear una variable (por ejemplo, \texttt{suma = 0}). Es crucial que se reinicie a cero por cada nuevo estudiante.
+        \pause
+        \item \textbf{Ciclo Interno (por Calificación):} Para la lista de calificaciones del estudiante actual, este ciclo recorrerá cada número (cada calificación) y lo sumará a nuestra variable \texttt{suma}.
+        \pause
+        \item \textbf{Calcular el Promedio:} \textbf{Después} de que el ciclo interno haya terminado de sumar todas las notas, calculamos el promedio. La fórmula es \texttt{suma / cantidad\_de\_calificaciones}.
+    \end{itemize}
+    \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 6: Código y Salida}
+    
+            \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+calificaciones_grupo = [
+    [10, 9, 10],
+    [8, 7, 8],
+    [9, 9, 10]
+]
+
+for i in range (len(calificaciones_grupo)):
+    suma_de_notas = 0 
+    for j in range (len(calificaciones_grupo[i])):
+        suma_de_notas += calificaciones_grupo[i][j]
+    promedio = suma_de_notas / len(calificaciones_grupo[i])
+    print(f"Promedio del Estudiante {i + 1}: {promedio:.2f}")
+
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+
+\section{Ejemplo 6: Encontrando el Valor Máximo}
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 6: Encontrando el Valor Máximo}
+
+    \begin{block}{Objetivo}
+    Dada una matriz (lista de listas) que representa las ventas diarias de diferentes sucursales durante una semana, escribir un programa que encuentre e imprima cuál fue la venta más alta registrada en general.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 6: Encontrando el Valor Máximo}
+
+    \begin{alertblock}{Estructura de Datos y Salida Esperada}
+    Dada la siguiente matriz de ventas:
+    \begin{lstlisting}[language=Python]
+ventas_semanales = [
+  # Lun, Mar, Mie, Jue, Vie
+    [150, 200, 180, 220, 250], # Sucursal 1
+    [180, 190, 210, 200, 230], # Sucursal 2
+    [120, 130, 110, 140, 100], # Sucursal 3
+    [260, 240, 280, 270, 290]  # Sucursal 4
+]
+    \end{lstlisting}
+    La salida esperada en consola es:
+    \begin{verbatim}
+La venta mas alta registrada fue: 290
+    \end{verbatim}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 6: Lógica y Pistas}
+    
+    \begin{block}{Nuestra Lógica}
+    Necesitamos una variable que "recuerde" el número más grande que hemos visto hasta ahora. Luego, compararemos cada venta con ese recuerdo.
+    \begin{itemize}
+        \item \textbf{Inicializar una variable de seguimiento:} Antes de empezar los ciclos, crea una variable llamada \texttt{venta\_maxima}. Una forma segura de inicializarla es con el \textbf{primer elemento} de la matriz (\texttt{ventas\_semanales[0][0]}).
+        \pause
+        \item \textbf{Ciclo Externo (por Fila):} Recorrerá cada lista de sucursal.
+        \pause
+        \item \textbf{Ciclo Interno (por Venta):} Recorrerá cada venta individual dentro de la lista de la sucursal actual.
+        \pause
+        \item \textbf{La Comparación (el `if`):} Dentro del ciclo interno, compara la venta actual con tu variable \texttt{venta\_maxima}. Si la venta actual es \textbf{mayor}, ¡actualiza \texttt{venta\_maxima} con este nuevo valor!
+        \pause
+        \item \textbf{Imprimir el Resultado Final:} \textbf{Después} de que ambos ciclos hayan terminado.
+    \end{itemize}
+    \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 6: Código y Salida}
+    
+            \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+ventas_semanales = [
+    [150, 200, 180, 220, 250],
+    [180, 190, 210, 200, 230],
+    [120, 130, 110, 140, 100],
+    [260, 240, 280, 270, 290]
+]
+
+venta_maxima = ventas_semanales[0][0]
+
+for sucursal in ventas_semanales:
+    for venta in sucursal:
+        if venta > venta_maxima:
+            venta_maxima = venta
+
+print(f"La venta mas alta registrada fue: {venta_maxima}")
+                \end{lstlisting}
+            \end{block}
+
+
+\end{frame}
+
+\begin{frame}{Enlaces de los ejemplos}
+    \begin{block}{Ejemplo 4: Dibujando un Triángulo}
+        \url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example26.py}
+    \end{block} 
+    \begin{block}{Ejemplo 5: Procesando Datos de Estudiantes}
+        \url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example28.py}
+    \end{block}
+    \begin{block}{Ejemplo 6: Encontrando el Valor Máximo}
+        \url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example29.py}
+    \end{block}
+\end{frame}
+%------------------------------------------------
+\end{document}

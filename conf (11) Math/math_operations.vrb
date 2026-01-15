@@ -1,0 +1,21 @@
+\frametitle{Tarea: Calculadora de Triángulo Rectángulo 📐}
+
+    \begin{alertblock}{Instrucciones}
+    Tu programa debe hacer lo siguiente:
+    \begin{enumerate}
+        \item \textbf{Importar} la biblioteca \texttt{math}.
+        \item \textbf{Pedir} al usuario la longitud del \textbf{Cateto A} (un número).
+        \item \textbf{Pedir} al usuario la longitud del \textbf{Cateto B} (un número).
+        \item \textbf{Calcular y mostrar} la longitud de la \textbf{Hipotenusa}.
+        \begin{itemize}
+            \item Pista: Teorema de Pitágoras ($c = \sqrt{a^2 + b^2}$). Usa \texttt{math.sqrt()}.
+        \end{itemize}
+        \item \textbf{Calcular y mostrar} los dos ángulos agudos (Ángulo A y Ángulo B) en \textbf{GRADOS}.
+        \begin{itemize}
+            \item Pista: Usa una función trigonométrica inversa como \texttt{math.atan()} (arco tangente).
+            \item Pista: $\tan(A) = \text{Opuesto} / \text{Adyacente} = a / b$.
+            \item Pista: ¡Recuerda convertir el resultado de radianes a grados usando \texttt{math.degrees()}!
+        \end{itemize}
+    \end{enumerate}
+    \end{alertblock}
+

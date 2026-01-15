@@ -1,0 +1,10 @@
+\frametitle{Homework: Simulador de Cajero Automático (ATM)}
+
+    \begin{block}{Pistas y Consejos}
+    \begin{itemize}
+        \item Usa un bucle \texttt{while:} para que el menú se muestre continuamente.
+        \item Recuerda convertir la entrada del usuario a número (\texttt{int()} o \texttt{float()}) antes de hacer cálculos.
+        \item Usa una estructura \texttt{if/elif/else} para manejar las 4 opciones del menú.
+        \item Para salir del bucle \texttt{while}, puedes usar la palabra clave \texttt{break}.
+    \end{itemize}
+    \end{block}

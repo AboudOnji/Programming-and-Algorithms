@@ -1,0 +1,17 @@
+\frametitle{Tabla Comparativa de Herramientas}
+\frametitle{Elegir la herramienta adecuada para el trabajo}
+    \centering
+    \resizebox{0.95\textwidth}{!}{%
+    \begin{tabular}{lllll}
+    \toprule
+    \textbf{Plataforma/Editor} & \textbf{Nivel} & \textbf{Ideal para...} & \textbf{Ventajas Principales} & \textbf{Desventajas Principales} \\
+    \midrule
+    \texttt{Google Colab} & Fácil & Machine Learning, colaboración & Cero instalación, GPU gratis & Dependencia de internet, temporal \\
+    \texttt{Thonny} & Muy Fácil & Principiantes absolutos & Simple, depurador visual & Limitado para proyectos grandes \\
+    \texttt{Jupyter Notebook} & Fácil & Ciencia de datos, experimentación & Interactivo, visualización & No ideal para software robusto \\
+    \texttt{VS Code} & Intermedio & Desarrollo general, personalización & Versátil, ligero, extensiones & Requiere configuración inicial \\
+    \texttt{Spyder} & Fácil-Inter. & Ingeniería, computación científica & Similar a MATLAB, expl. de variables & Interfaz densa para principiantes \\
+    \texttt{PyCharm (Comm.)} & Inter.-Avan. & Desarrollo profesional & Muy potente, autocompletado & Curva de aprendizaje, pesado \\
+    \bottomrule
+    \end{tabular}
+    }

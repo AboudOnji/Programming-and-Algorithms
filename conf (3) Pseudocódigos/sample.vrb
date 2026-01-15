@@ -1,0 +1,21 @@
+\frametitle{Ejemplo 8: Validar una contraseña simple.}
+
+\begin{algorithm}[H]
+\caption{Validación de Contraseña Simple}
+\label{alg:validar_pass}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{ASIGNAR} contrasenaValida $\leftarrow$ \textbf{FALSO}
+    \While{\textbf{NO} contrasenaValida}
+        \State \textbf{ESCRIBIR} 'Cree una contraseña (mínimo 8 caracteres):'
+        \State \textbf{LEER} contrasena
+        \If{LONGITUD(contrasena) $>= 8$}
+            \State \textbf{ASIGNAR} contrasenaValida $\leftarrow$ \textbf{VERDADERO}
+            \State \textbf{ESCRIBIR} 'Contraseña creada exitosamente.'
+        \Else
+            \State \textbf{ESCRIBIR} 'Error: La contraseña es demasiado corta. Inténtelo de nuevo.'
+        \EndIf
+    \EndWhile
+    \State \textbf{FIN}
+\end{algorithmic}
+\end{algorithm}

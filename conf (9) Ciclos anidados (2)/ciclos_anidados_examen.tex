@@ -1,0 +1,152 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+
+
+\title{Ciclos Anidados - Examen}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Ejercicio de Práctica}
+
+    \begin{block}{Objetivo y Contexto}
+    Estás programando el sistema de reservas para una sala de cine. La sala se representa como una matriz (lista de listas) donde cada fila es una fila de asientos y cada columna es un número de asiento.
+    
+    Un \textbf{0} significa que el asiento está \textbf{vacío} y un \textbf{1} significa que está \textbf{ocupado}.
+    \end{block}
+    
+    \begin{alertblock}{Datos: Mapa de la Sala}
+    Usa la siguiente lista de listas como los datos de la sala:
+    \begin{lstlisting}[language=Python]
+sala_cine = [
+  # Asiento 0, Asiento 1, Asiento 2, Asiento 3, Asiento 4
+    [1, 1, 0, 0, 1],  # Fila 0
+    [0, 0, 0, 1, 1],  # Fila 1
+    [1, 1, 1, 1, 1],  # Fila 2
+    [0, 0, 1, 1, 0],  # Fila 3
+    [1, 0, 1, 0, 1]   # Fila 4
+]
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejercicio de Práctica (Instrucciones)}
+    
+    \begin{block}{Instrucciones del Examen}
+    La gerencia del cine quiere saber dos cosas para su reporte de limpieza y seguridad:
+    
+    \begin{enumerate}
+        \item \textbf{Ocupación en Pasillos:} Contar cuántas personas (valor \texttt{1}) están sentadas \textit{junto a los pasillos}. Los asientos de pasillo son la \textbf{columna 0}.
+        
+        \item \textbf{Ocupación Central:} Contar cuántas personas (valor \texttt{1}) están sentadas en los asientos \textit{centrales} (es decir, que \textbf{NO} están en la columna 0 ni en la última columna).
+    \end{enumerate}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Ejercicio de Práctica (Instrucciones)}   
+    \begin{alertblock}{Requisitos Obligatorios}
+    \begin{itemize}
+        \item Debes usar \textbf{ciclos anidados} (\texttt{for}).
+        \item \textbf{Pista Clave:} Necesitarás usar los \textbf{índices} (especialmente el de la columna, \texttt{j}) para resolver esto.
+       
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejercicio de Práctica (Salida Esperada)}
+    
+    \begin{alertblock}{Salida Esperada}
+    Tu programa debe imprimir en la consola un resultado idéntico a este:
+    \begin{verbatim}
+Analizando ocupacion de la sala...
+Asientos ocupados en pasillos: 6
+Asientos ocupados en zona central: 8
+    \end{verbatim}
+    \end{alertblock}
+
+\end{frame}
+
+
+\end{document}

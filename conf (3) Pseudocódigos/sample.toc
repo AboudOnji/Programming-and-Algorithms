@@ -1,0 +1,8 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{¿Qué es un algoritmo?}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Componentes de un algoritmo}{5}{0}{1}
+\beamer@subsectionintoc {1}{2}{Características fundamentales de los algoritmos}{8}{0}{1}
+\beamer@sectionintoc {2}{Herramientas de Diseño de Algoritmos}{12}{0}{2}
+\beamer@subsectionintoc {2}{1}{Pseudocódigo: Hablando el lenguaje de la lógica}{14}{0}{2}
+\beamer@subsubsectionintoc {2}{1}{1}{Estructura y palabras clave comunes}{15}{0}{2}
+\beamer@subsubsectionintoc {2}{1}{2}{Ejemplos de Pseudocódigo}{19}{0}{2}

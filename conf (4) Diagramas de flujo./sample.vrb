@@ -1,0 +1,7 @@
+\frametitle{Ejemplo 4: Máximo Común Divisor (MCD) y Mínimo Común Múltiplo (mcm).}
+
+ \begin{figure}
+                \includegraphics[width=0.38\linewidth]{Figuras/Cap1/lcm.png}
+                \caption{Diagrama de flujo para encontrar el MCD y mcm de dos números.}
+                \label{fig:df_ecuacion_cuwadratica}
+            \end{figure}

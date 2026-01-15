@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{uso de If - elif - else}{2}{0}{1}
+\beamer@sectionintoc {2}{uso de If - elif - else con For}{5}{0}{2}
+\beamer@sectionintoc {3}{uso de match ... case}{8}{0}{3}

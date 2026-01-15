@@ -1,0 +1,11 @@
+\frametitle{Ejercicio de Práctica (Salida Esperada)}
+
+    \begin{alertblock}{Salida Esperada}
+    Tu programa debe imprimir en la consola un resultado idéntico a este:
+    \begin{verbatim}
+Analizando ocupacion de la sala...
+Asientos ocupados en pasillos: 6
+Asientos ocupados en zona central: 8
+    \end{verbatim}
+    \end{alertblock}
+

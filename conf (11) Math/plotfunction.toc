@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Introducción y Herramientas}{2}{0}{1}
+\beamer@sectionintoc {2}{Nuestro Primer Gráfico}{6}{0}{2}
+\beamer@sectionintoc {3}{Tarea 1}{11}{0}{3}

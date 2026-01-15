@@ -1,0 +1,716 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=1,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%   TITLE PAGE
+\title{Interfaces Gráficas (GUI) con Tkinter}
+\subtitle{Clase 5: Geometría de Cuadrículas y Lógica de Juegos}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Gestor de Geometría: \texttt{.grid()}}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{El Límite de \texttt{.pack()}}
+    
+    \begin{block}{Repaso: \texttt{.pack()}}
+    Hasta ahora, hemos usado \texttt{.pack()} para posicionar nuestros widgets.
+    \begin{itemize}
+        \item Es simple y rápido para formularios (como la Tarea 3 de Calculadora o la Tarea 4 de Login).
+        \item Simplemente ''apila'' los widgets uno encima del otro.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{El Límite de \texttt{.pack()}}   
+    \begin{alertblock}{El Problema para Proyectos de Tablero}
+    ¿Qué pasa si queremos crear un calendario, un tablero de ajedrez o cualquier proyecto basado en una \textbf{cuadrícula precisa}?
+    \begin{itemize}
+        \item Con \texttt{.pack()}, no podemos decirle a un botón: ''Ve exactamente a la fila 3, columna 5''.
+        \item Intentar crear un tablero de 10x10 con \texttt{.pack()} es casi imposible.
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{La Solución: \texttt{.grid()}}
+    
+    \begin{block}{El Gestor de Geometría \texttt{.grid()}}
+    Tkinter nos da una alternativa a \texttt{.pack()} mucho más poderosa para este tipo de tareas: \texttt{.grid()}.
+    \begin{itemize}
+        \item \texttt{.grid()} organiza los widgets en una \textbf{tabla invisible de filas y columnas}.
+        \item Simplemente especificamos la fila (\texttt{row}) y la columna (\texttt{column}) donde queremos que viva el widget.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{La Solución: \texttt{.grid()}}   
+    \begin{exampleblock}{Sintaxis Básica}
+    \begin{lstlisting}[language=Python]
+# En lugar de .pack(), usamos .grid()
+etiqueta_A = tk.Label(self, text="Celda (0, 0)")
+etiqueta_A.grid(row=0, column=0)
+
+etiqueta_B = tk.Label(self, text="Celda (0, 1)")
+etiqueta_B.grid(row=0, column=1)
+
+etiqueta_C = tk.Label(self, text="Celda (1, 0)")
+etiqueta_C.grid(row=1, column=0)
+
+etiqueta_D = tk.Label(self, text="Celda (1, 1)")
+etiqueta_D.grid(row=1, column=1)
+    \end{lstlisting}
+    \end{exampleblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Creando Tableros Dinámicamente}
+    
+    \begin{block}{Creando la Cuadrícula}
+    No vamos a crear cientos de widgets a mano. Para un proyecto tipo tablero (ej. 10x10), usamos un \textbf{bucle \texttt{for} anidado}.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Creando Tableros Dinámicamente}
+    \begin{alertblock}{Ejemplo: Tablero de 10x10 Botones}
+    Esta es la técnica fundamental para crear tableros de juego:
+    \begin{lstlisting}[language=Python]
+# Dentro de un método, ej: crear_tablero(self)
+
+# 1. Creamos un Frame para ser el contenedor
+frame_tablero = tk.Frame(self)
+frame_tablero.pack() # El frame se empaqueta
+
+# 2. Creamos la cuadrícula DENTRO del frame
+for i in range(10): # 10 filas (0 a 9)
+    for j in range(10): # 10 columnas (0 a 9)
+        celda = tk.Button(frame_tablero, text="~", width=2)
+        celda.grid(row=i, column=j)
+
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{¡CUIDADO! \texttt{.pack()} vs \texttt{.grid()}}
+    
+    \begin{block}{Regla de Oro}
+    \textbf{Nunca} debes usar \texttt{.pack()} y \texttt{.grid()} \textbf{en el mismo contenedor} (en el mismo \texttt{Frame} o \texttt{Ventana}).
+    \end{block}
+    
+    \begin{alertblock}{¿Por qué?}
+    Ambos gestores de geometría ''pelean'' por el control del espacio y cómo calcular el tamaño de la ventana. Esto hará que tu aplicación se comporte de forma errática o directamente falle.
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{¡CUIDADO! \texttt{.pack()} vs \texttt{.grid()}}   
+    \begin{exampleblock}{La Forma Correcta (Usar Contenedores)}
+    La solución, como vimos en el código anterior, es usar \texttt{Frames} para aislar los gestores:
+    \begin{itemize}
+        \item Puedes usar \texttt{.pack()} para organizar los \texttt{Frames} principales (ej. 'frame\_titulo.pack()', 'frame\_tablero.pack()', 'frame\_puntajes.pack()').
+        \item Y luego, \textbf{dentro} de 'frame\_tablero', usar \texttt{.grid()} para crear tu cuadrícula de botones.
+    \end{itemize}
+    \end{exampleblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Eventos en Cuadrículas: ¿Quién Hizo Clic?}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{El Problema: ¿Qué Celda se Presionó?}
+    
+    \begin{block}{El Desafío}
+    Acabamos de crear un tablero de 10x10 (100 botones) usando un bucle \texttt{for} anidado.
+    \pause
+    \begin{itemize}
+        \item Si asignamos el mismo \texttt{command} a todos los botones, ¿cómo sabe la función qué botón específico (fila y columna) la llamó?
+        \item Queremos que `on\_clic\_celda` reciba la fila `i` y la columna `j` del botón que fue presionado.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{El Problema: ¿Qué Celda se Presionó?} 
+    \begin{alertblock}{Intento Incorrecto (¡Cuidado!)}
+    Si intentamos esto, no funcionará:
+    \begin{lstlisting}[language=Python]
+# INCORRECTO:
+# Esto llama la funcion 100 veces AL CREARLA
+# y 'command' se asigna a 'None'
+celda.config(command = self.on_clic_celda(i, j))
+    \end{lstlisting}
+    \begin{itemize}
+        \item Recuerda (Clase 2): Poner paréntesis `()` \textbf{ejecuta} la función inmediatamente.
+        \item `command` debe ser asignado al \textbf{nombre} de una función, no a su resultado.
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{La Solución: \texttt{lambda} para \texttt{command}}
+    
+    \begin{block}{¿Qué es una \texttt{lambda}?}
+    Una \texttt{lambda} es una forma rápida de definir una pequeña \textbf{función anónima} (sin nombre) en una sola línea.
+    
+    La usamos para ''envolver'' nuestra llamada de función y ''congelar'' los parámetros que queremos enviarle.
+    \end{block}
+ \end{frame}
+ \begin{frame}[fragile]
+    \frametitle{La Solución: \texttt{lambda} para \texttt{command}}   
+    \begin{exampleblock}{Sintaxis Correcta para Cuadrículas}
+    La sintaxis clave es usar `lambda` para crear una nueva función sobre la marcha para cada botón:
+    \begin{lstlisting}[language=Python]
+# Sintaxis clave:
+comando_celda = lambda r=i, c=j: self.on_clic_celda(r, c)
+
+# Asignamos esa funcion lambda al comando
+celda.config(command = comando_celda)
+
+# O todo en una linea:
+celda.config(command=lambda r=i, c=j: self.on_clic_celda(r, c))
+    \end{lstlisting}
+    \end{exampleblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{La Solución: \texttt{lambda} para \texttt{command}}   
+    \begin{alertblock}{¿Cómo Funciona?}
+    La parte \texttt{r=i, c=j} es un truco de Python:
+    \begin{itemize}
+        \item ''Congela'' el valor \textbf{actual} de `i` y `j` (ej. `3` y `5`) como valores por defecto para `r` y `c` en esa `lambda` específica.
+        \item Cuando el usuario hace clic, se ejecuta la `lambda`, la cual a su vez llama a nuestra función `on\_clic\_celda` pasándole los valores que ''recordaba'' (ej. `3` y `5`).
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Código: Tablero Interactivo Completo}
+    
+    \begin{alertblock}{El Patrón de Diseño Completo}
+    Así es como se ve la estructura completa dentro de tu clase de aplicación:
+    \tiny{
+    \begin{lstlisting}[language=Python]
+# --- Dentro de tu Clase (ej: class MiApp(tk.Frame)) ---
+
+    # 1. El metodo que crea los widgets
+    def crear_widgets(self):
+        # ... (otro codigo) ...
+        self.crear_tablero_juego()
+
+    def crear_tablero_juego(self):
+        frame_tablero = tk.Frame(self)
+        frame_tablero.pack()
+
+        for i in range(10): # Fila
+            for j in range(10): # Columna
+                celda = tk.Button(frame_tablero, text="~", width=2)
+                # ¡EL PASO CLAVE!
+                celda.config(command=lambda r=i, c=j: self.on_clic_celda(r, c))
+                
+                celda.grid(row=i, column=j)
+
+    # 2. El metodo "callback" que maneja el clic
+    def on_clic_celda(self, fila, columna):
+        print(f"¡Clic detectado en la celda ({fila}, {columna})!")
+        
+        # ... Aquí va toda tu lógica de juego ...
+        # (ej. verificar si habia un barco, voltear carta, etc.)
+    \end{lstlisting}}
+    \end{alertblock}
+    
+\end{frame}
+
+%------------------------------------------------
+% AQUI IRIAN LAS SIGUIENTES SECCIONES (RANDOM, .AFTER(), ETC.)
+%------------------------------------------------
+%------------------------------------------------
+\section{Lógica de Juego: Aleatoriedad}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Separando Lógica y Vista}
+    
+    \begin{block}{Recordatorio de la Clase 3: Clases}
+    Nuestra clase de aplicación (ej. `MiApp`) no solo contiene los widgets (la \textbf{Vista}), sino también el estado interno del juego (la \textbf{Lógica}).
+    \begin{itemize}
+        \item \textbf{Vista:} La cuadrícula de botones `tk.Button`.
+        \item \textbf{Lógica:} Una matriz interna (lista de listas) que representa qué hay en cada celda (ej. una pieza, un número, agua, etc.).
+    \end{itemize}
+    \end{block}
+    
+    \begin{alertblock}{Juegos Impredecibles}
+    Nuestros proyectos de tablero no pueden ser siempre iguales. Necesitamos que la configuración inicial (la posición de las piezas, el valor de las cartas) sea \textbf{aleatoria} cada vez que se juega.
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Separando Lógica y Vista}
+    \begin{exampleblock}{El Módulo \texttt{random} de Python}
+    Python nos da una biblioteca estándar para manejar todo tipo de aleatoriedad. Primero, debemos importarla al inicio de nuestro archivo:
+    \begin{lstlisting}[language=Python]
+import tkinter as tk
+import random # <-- ¡Importante!
+    \end{lstlisting}
+    \end{exampleblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Funciones Clave de \texttt{random}}
+    
+    \begin{block}{1. \texttt{random.randint(a, b)}}
+    Devuelve un número \textbf{entero} aleatorio entre `a` y `b` (ambos incluidos).
+    \begin{lstlisting}[language=Python]
+# Simular un dado de 6 caras
+dado = random.randint(1, 6)
+print(dado) # Imprime 1, 2, 3, 4, 5, o 6
+
+# Elegir una fila aleatoria en un tablero de 10x10
+fila_inicial = random.randint(0, 9)
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Funciones Clave de \texttt{random}}    
+    \begin{alertblock}{2. \texttt{random.choice(lista)}}
+    Elige un elemento al azar de una secuencia (como una lista).
+    \begin{lstlisting}[language=Python]
+# Elegir una orientacion para una pieza
+opciones = ['horizontal', 'vertical']
+orientacion = random.choice(opciones)
+print(orientacion) # Imprime 'horizontal' o 'vertical'
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Funciones Clave de \texttt{random}}
+    
+    \begin{block}{3. \texttt{random.shuffle(lista)}}
+    Esta es una de las funciones más útiles. Toma una lista y \textbf{la revuelve} en su lugar (¡no devuelve una lista nueva, modifica la original!).
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Funciones Clave de \texttt{random}}
+    \begin{exampleblock}{Ejemplo: Revolver un Mazo de Cartas}
+    Perfecto para juegos de emparejamiento o cartas.
+    \begin{lstlisting}[language=Python]
+# 1. Creamos la lista de pares
+mazo = [1, 1, 2, 2, 3, 3, 4, 4]
+print(f"Mazo original: {mazo}")
+
+# 2. Revolver la lista
+random.shuffle(mazo)
+print(f"Mazo revuelto: {mazo}")
+
+# Mazo revuelto: [3, 1, 4, 2, 4, 1, 3, 2] (o similar)
+    \end{lstlisting}
+    \end{exampleblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Funciones Clave de \texttt{random}}
+    \begin{block}{Aplicación}
+    Al iniciar el juego, crearías tu lista de datos lógicos, la revolverías con \texttt{shuffle}, y luego usarías esa lista revuelta para asignar los valores a tu cuadrícula.
+    \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Lógica de Juego Asíncrona}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{El Problema: Pausar el Juego}
+    
+    \begin{block}{El Desafío}
+    Pensemos en un juego de emparejamiento (memoria). La secuencia de eventos es:
+    \begin{enumerate}
+        \item El jugador hace clic en la ''Carta 1'' (se voltea).
+        \item El jugador hace clic en la ''Carta 2'' (se voltea).
+        \item El programa verifica si son un par.
+        \item \textbf{Si NO son un par:} El juego debe \textbf{pausar por 1 segundo} (para que el jugador memorice) y luego volver a voltear ambas cartas.
+    \end{enumerate}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{El Problema: Pausar el Juego}   
+    \begin{alertblock}{El Error Más Común: \texttt{time.sleep()}}
+    Un programador principiante intentaría usar la biblioteca \texttt{time} de Python:
+    \begin{lstlisting}[language=Python]
+import time
+
+def verificar_par(self):
+    # ... codigo para voltear Carta 2 ...
+    if self.carta1.valor != self.carta2.valor:
+        
+        # ¡NO HAGAS ESTO!
+        time.sleep(1) # Pausa por 1 segundo
+        
+        # ... codigo para esconderlas ...
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{¿Por Qué \texttt{time.sleep()} Destruye tu GUI?}
+    
+    \begin{block}{Recordando el \texttt{ventana.mainloop()}}
+    Nuestra aplicación gráfica se mantiene viva gracias a un bucle infinito llamado \texttt{mainloop()}. Este bucle hace dos cosas constantemente:
+    \begin{enumerate}
+        \item \textbf{Procesa eventos:} Revisa si el mouse se movió, si se hizo clic en un botón, etc.
+        \item \textbf{Redibuja la pantalla:} Actualiza la apariencia de los widgets.
+    \end{enumerate}
+    \end{block}
+
+    \end{frame}
+    \begin{frame}[fragile]
+    \frametitle{¿Por Qué \texttt{time.sleep()} Destruye tu GUI?}
+    \begin{alertblock}{El Bloqueo del Hilo Principal}
+    \begin{itemize}
+        \item Cuando llamas a \texttt{time.sleep(1)}, le dices a Python: ''¡Detén \textbf{TODO} lo que estás haciendo en este hilo por 1 segundo!''.
+        \item Esto \textbf{congela el \texttt{mainloop()} por completo}.
+        \item Durante ese segundo, la GUI no puede procesar eventos (clics) ni redibujarse. La ventana entera aparecerá como ''Congelada'' o ''(No Responde)''.
+        \item Nunca, bajo ninguna circunstancia, uses \texttt{time.sleep()} en el hilo principal de una GUI.
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{La Solución de Tkinter: \texttt{.after()}}
+    
+    \begin{block}{Programación Asíncrona}
+    La forma correcta es pedirle al \texttt{mainloop()} que ejecute una función \textbf{en el futuro}, sin detenerse ahora.
+    
+    Para esto, todos los widgets (incluida la ventana raíz) tienen el método \texttt{.after()}.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{La Solución de Tkinter: \texttt{.after()}}
+    \begin{exampleblock}{Sintaxis de \texttt{.after()}}
+    \begin{lstlisting}[language=Python]
+# Sintaxis:
+# mi_ventana.after(milisegundos, funcion_a_llamar)
+
+# Ejemplo:
+# Llama a la funcion 'self.esconder_cartas'
+# despues de 1000 milisegundos (1 segundo).
+
+def verificar_par(self):
+    # ... codigo ...
+    if self.carta1.valor != self.carta2.valor:
+        
+        # ¡FORMA CORRECTA!
+        # El mainloop sigue corriendo normalmente...
+        self.master.after(1000, self.esconder_cartas)
+        
+    else:
+        # ... fueron un par ...
+
+def esconder_cartas(self):
+    # Esta funcion se ejecutara 1 segundo despues
+    print("¡Tiempo agotado! Escondiendo cartas.")
+    # ... codigo para esconder carta 1 y carta 2 ...
+    \end{lstlisting}
+    \end{exampleblock}
+ \end{frame}
+ 
+\begin{frame}[fragile]
+    \frametitle{La Solución de Tkinter: \texttt{.after()}}   
+    \begin{alertblock}{Importante}
+    Al igual que con \texttt{command}, se pasa el \textbf{nombre de la función} (`self.esconder\_cartas`) \textbf{sin paréntesis}.
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Manejo de Estado (Desactivar Clics)}
+    
+    \begin{block}{Un Problema Sutil}
+    En el ejemplo anterior, ¿qué pasa si el jugador hace clic en una tercera carta \textit{durante} el segundo de espera? ¡El juego se romperá!
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Manejo de Estado (Desactivar Clics)}
+\begin{alertblock}{Solución: Variables de Estado}
+\begin{lstlisting}[language=Python]
+class MiApp(tk.Frame):
+    def __init__(self, master):
+        # ...
+        # El jugador puede hacer clic al inicio
+        self.permitir_clic = True
+        self.crear_widgets()
+        
+    def on_clic_celda(self, r, c):
+        # 1. Ignorar el clic si no esta permitido
+        if not self.permitir_clic:
+            return # Salir de la funcion
+            
+        # ... (logica de voltear carta) ...
+        
+        if self.dos_cartas_volteadas:
+            # 2. Desactivar clics temporalmente
+            self.permitir_clic = False
+            self.master.after(1000, self.verificar_par)
+
+    def verificar_par(self):
+        # ... (logica de esconder cartas si no son par) ...
+        
+        # 3. Reactivar los clics
+        self.permitir\_clic = True
+\end{lstlisting}
+\end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\section{Arquitectura: Separando Lógica y Vista}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{El Problema: ¿Dónde vive el ''Juego''?}
+    
+    \begin{block}{El Desafío}
+    Hemos creado una cuadrícula de botones interactivos. Pero, ¿cómo sabe el programa qué hay ''debajo'' de cada botón?
+    \begin{itemize}
+        \item El \texttt{tk.Button} es solo un widget gráfico (la \textbf{Vista}). No ''sabe'' si es agua, un barco, una carta de 'Rey' o una 'Reina'.
+        \item El juego en sí (el estado, las reglas) debe vivir en una estructura de datos separada (el \textbf{Modelo}).
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{El Problema: ¿Dónde vive el ''Juego''?}
+    \begin{alertblock}{La Arquitectura Modelo-Vista-Controlador (MVC)}
+    Nuestra Clase de Aplicación (`MiApp`) actuará como las tres cosas:
+    \begin{itemize}
+        \item \textbf{Modelo (Datos):} Una lista de listas (matriz) que guarda el estado \textit{real} del juego. (Ej: `self.tablero\_logico`).
+        \item \textbf{Vista (GUI):} La cuadrícula de widgets \texttt{tk.Button} que el usuario ve. (Ej: `self.tablero\_gui`).
+        \item \textbf{Controlador (Lógica):} Los métodos (como `on\_clic\_celda`) que conectan la Vista y el Modelo.
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Paso 1: Crear el Modelo (Datos)}
+    
+    \begin{block}{El Estado Lógico}
+    En el constructor (`\_\_init\_\_`), antes de crear widgets, creamos nuestro modelo de datos.
+    \begin{itemize}
+        \item Para un juego 10x10, esto es una matriz (lista de listas).
+        \item Para un juego de cartas, puede ser una lista 1D (revuelta).
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Paso 1: Crear el Modelo (Datos)}  
+    \begin{exampleblock}{Ejemplo: Modelo para un Tablero 10x10}
+    \begin{lstlisting}[language=Python]
+# En __init__(self, master):
+super().__init__(master)
+
+# 1. Crear el MODELO
+# (0 = vacio, 1 = pieza)
+self.modelo_logico = []
+for i in range(10):
+    fila = [0] * 10 # Una fila de 10 ceros
+    self.modelo_logico.append(fila)
+
+# (Aqui iria la logica de 'random' para 
+#  colocar piezas, cambiando los 0 por 1)
+
+# 2. Crear la VISTA
+self.crear_widgets_gui()
+    \end{lstlisting}
+    \end{exampleblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Paso 2: Guardar la Vista (Widgets)}
+    
+    \begin{block}{El Problema}
+    Cuando el usuario hace clic en `(3, 4)`, nuestro controlador (`on\_clic\_celda`) necesita:
+    \begin{enumerate}
+        \item Revisar `self.modelo\_logico[3][4]`.
+        \item Y luego, \textbf{actualizar} el botón específico en `(3, 4)`.
+    \end{enumerate}
+    ¿Cómo encontramos ese botón específico entre los 100 que creamos?
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Paso 2: Guardar la Vista (Widgets)}
+    \begin{alertblock}{Solución: Guardar Referencias a los Widgets}
+    Así como guardamos el modelo, también guardamos los widgets de la GUI en su propia matriz.
+    \begin{lstlisting}[language=Python]
+def crear_widgets_gui(self):
+    frame_tablero = tk.Frame(self)
+    frame_tablero.pack()
+
+    # Matriz para guardar los botones
+    self.tablero_gui = [] 
+    
+    for i in range(10):
+        fila_gui = []
+        for j in range(10):
+            celda = tk.Button(frame_tablero, text="~", width=2,
+                command=lambda r=i, c=j: self.on_clic_celda(r, c))
+            celda.grid(row=i, column=j)
+            
+            fila_gui.append(celda) # Guardar el boton
+        self.tablero_gui.append(fila_gui) # Guardar la fila
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Paso 3: El Controlador (Conector)}
+    
+    \begin{block}{El Flujo de Clic Completo}
+    Ahora el método `on\_clic\_celda` puede actuar como el ''cerebro'' (Controlador) que conecta todo:
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Paso 3: El Controlador (Conector)}
+    \begin{alertblock}{El Método Controlador}
+    \begin{lstlisting}[language=Python]
+def on_clic_celda(self, fila, columna):
+    # 1. Controlador consulta el MODELO
+    valor_logico = self.modelo_logico[fila][columna]
+    
+    # 2. Controlador toma una decision
+    if valor_logico == 0:
+        print("Logica: Toco 'vacio'")
+        
+        # 3. Controlador actualiza la VISTA
+        boton_presionado = self.tablero_gui[fila][columna]
+        boton_presionado.config(text="O", bg="blue")
+        
+    elif valor_logico == 1:
+        print("Logica: Toco 'pieza'")
+        
+        # 3. Controlador actualiza la VISTA
+        boton_presionado = self.tablero_gui[fila][columna]
+        boton_presionado.config(text="X", bg="red",
+                                state="disabled") # Desactivar boton
+                                
+    # (Actualizar puntaje, etc...)
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+% AQUI IRIA LA TAREA FINAL
+%------------------------------------------------
+\end{document}

@@ -1,0 +1,329 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+\title{Interfaces Gráficas (GUI) con Tkinter}
+\subtitle{Clase 3: Estructura (Clases) y Recursos}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{El Problema del Código Desorganizado}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Repaso: Nuestra App ''Saludador'' (Clase 2)}
+    
+    \begin{block}{Nuestro Código Anterior}
+    La app ''Saludador'' funciona, pero tiene un problema. Todos nuestros widgets (`etiqueta\_nombre`, `entrada\_nombre`, `etiqueta\_resultado`, etc.) y nuestras funciones (`saludar`) ''flotan'' en el código.
+    \end{block}
+    
+    \begin{alertblock}{El Problema del ''Código Espagueti''}
+    \begin{itemize}
+        \item ¿Qué pasa si nuestra app crece y tiene 50 botones y 30 etiquetas? Todas las variables estarían mezcladas.
+        \item Si todo es una variable ''global'', es muy fácil modificar accidentalmente la variable equivocada desde la función equivocada.
+        \item Es imposible de mantener, depurar o reutilizar.
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{La Solución: Programación Orientada a Objetos}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Concepto de Clase}
+    
+    \begin{block}{La Solución: Empaquetar el Código}
+    La Programación Orientada a Objetos (OOP) nos permite crear un ''molde'' o ''plano'' para nuestra aplicación. A este molde lo llamamos \textbf{Clase}.
+    \end{block}
+    
+    \begin{alertblock}{La Clase como Contenedor}
+    \begin{itemize}
+        \item Una \textbf{Clase} agrupa \textbf{datos} (variables, llamadas ''atributos'') y \textbf{comportamiento} (funciones, llamadas ''métodos'') en un solo lugar.
+        \item En lugar de tener widgets sueltos, nuestra \textbf{Clase de Aplicación} será la dueña de todos sus botones y etiquetas.
+        \item Esto nos da \textbf{modularidad}: podemos crear, usar y destruir nuestra aplicación como un solo bloque cohesivo.
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Estructura de una App con Clases}
+    
+    \begin{block}{La Estructura Básica}
+    Así es como se ve una aplicación de Tkinter escrita profesionalmente usando una Clase:
+    \begin{lstlisting}[language=Python]
+import tkinter as tk
+
+# 1. Creamos el ''molde'' de nuestra aplicacion
+class MiAplicacion(tk.Frame):
+    # 2. El ''constructor'': se llama al crear la app
+    def __init__(self, master):
+        # 3. Llama al constructor de tk.Frame
+        super().__init__(master) 
+        # 4. Le decimos al Frame que se ''empaquete''
+        self.pack() 
+        # 5. Organizamos nuestros widgets
+        self.crear_widgets()
+
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Estructura de una App con Clases}
+    
+    \begin{block}{La Estructura Básica}
+    Así es como se ve una aplicación de Tkinter escrita profesionalmente usando una Clase:
+    \begin{lstlisting}[language=Python]
+
+    # 6. Metodo para crear los widgets
+    def crear_widgets(self):
+        # 'self' es el contenedor
+        self.boton = tk.Button(self, text=''Clic'')
+        self.boton.pack()
+
+# --- Codigo principal ---
+ventana_raiz = tk.Tk()
+# 7. Creamos la aplicacion a partir del molde
+app = MiAplicacion(master=ventana_raiz)
+ventana_raiz.mainloop()
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Entendiendo \texttt{self}}
+    
+    \begin{block}{¿Qué es \texttt{self}?}
+    \texttt{self} es simplemente una variable que hace referencia a la \textbf{propia instancia de la clase}. Es cómo el ''molde'' se refiere a sí mismo.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Entendiendo \texttt{self}}    
+    \begin{alertblock}{De Variable Global a Atributo \texttt{self}}
+    \texttt{self} es la clave para organizar nuestras variables. En lugar de que un widget sea global, se convierte en un ''atributo'' de \texttt{self}.
+    
+    \begin{columns}[t]
+        \column{.4\textwidth}
+            \textbf{Antes (Desorganizado):}
+            \begin{lstlisting}[language=Python]
+def mi_funcion():
+    # Usa la variable global
+    print(entrada_nombre.get())
+    
+entrada_nombre = tk.Entry(ventana)
+            \end{lstlisting}
+        \column{.6\textwidth}
+            \textbf{Ahora (Organizado con \texttt{self}):}
+            \begin{lstlisting}[language=Python]
+class MiApp(tk.Frame):
+    def crear_widgets(self):
+        # Guardamos el widget DENTRO de self
+        self.entrada_nombre = tk.Entry(self)
+
+    def mi_funcion(self):
+        # Accedemos al widget A TRAVES de self
+        print(self.entrada_nombre.get())
+            \end{lstlisting}
+    \end{columns}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Recursos (Data) e Imágenes}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Manejo de ''Data''}
+    
+    \begin{block}{¿Qué es ''Data''?}
+    Nuestras aplicaciones rara vez son solo código. Necesitan \textbf{recursos} o \textbf{''data''} externa para funcionar.
+    \begin{itemize}
+        \item Imágenes (logos, íconos, fotos)
+        \item Archivos de sonido
+        \item Documentos de texto (ej. para un ''Acerca de...'')
+        \item Bases de datos, archivos de configuración (JSON, XML), etc.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Manejo de ''Data''}   
+    \begin{alertblock}{Agregando una Imagen (Logo)}
+    El widget más común para mostrar una imagen es el mismo \texttt{tk.Label} que ya usamos, pero configurado de forma diferente.
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Cómo Mostrar una Imagen}
+    
+    \begin{block}{Paso 1: El Objeto \texttt{PhotoImage}}
+    Tkinter no puede usar archivos JPG o PNG directamente. Primero, debemos cargar la imagen en un objeto especial de Tkinter llamado \texttt{PhotoImage}.
+    \begin{lstlisting}[language=Python]
+# 'file=' es la ruta a nuestra imagen
+# (PNG o GIF son los formatos mas soportados)
+logo_imagen = tk.PhotoImage(file=''logo_universidad.png'')
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Cómo Mostrar una Imagen}
+    \begin{alertblock}{Paso 2: Asignar la Imagen a un Label}
+    Una vez que tenemos el objeto \texttt{PhotoImage}, se lo asignamos a la propiedad \texttt{image} de un \texttt{Label}.
+    \begin{lstlisting}[language=Python]
+# Creamos un Label, pero en lugar de 'text=',
+# usamos 'image='
+etiqueta_logo = tk.Label(self, image=logo_imagen)
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Cómo Mostrar una Imagen}   
+    \begin{alertblock}{¡CUIDADO! El Bug del Recolector de Basura}
+    Si creas el \texttt{PhotoImage} dentro de una función, Python lo borrará de la memoria (para ''limpiar'') y la imagen no se verá.
+    \textbf{Solución:} Siempre guarda una referencia al objeto imagen, preferiblemente usando \texttt{self}.
+    
+    \texttt{self.logo\_imagen = tk.PhotoImage(...)}
+    \end{alertblock}
+
+\end{frame}
+
+
+%------------------------------------------------
+\section{Tarea 3}
+%------------------------------------------------
+\begin{frame}[fragile]
+    \frametitle{Tarea 3: Mini Calculadora v2.0 (con Clases)}
+    \begin{block}{Objetivo}
+    Crear una aplicación gráfica que funcione como una sumadora simple, aplicando todo lo visto en clase.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 3: Mini Calculadora v2.0 (con Clases)}
+    \begin{alertblock}{Instrucciones}
+    \begin{itemize}
+        \item Toma tu código funcional de la Mini Calculadora de la Tarea 2.
+        \item Crea una nueva clase.
+        \item Mueve \textbf{todo} el código de creación de widgets (Labels, Entries, Button) al método \texttt{crear\_widgets(self)}.
+        \item Asegúrate de que todos los widgets se guarden como atributos de \texttt{self} (ej: \texttt{self.entrada\_num1}, \texttt{self.etiqueta\_resultado}).
+     
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 3: Mini Calculadora v2.0 (con Clases)}
+    \begin{alertblock}{Instrucciones}
+    \begin{itemize}
+       
+        \item Mueve la función \texttt{sumar()} para que sea un \textbf{método} de la clase (ej: \texttt{def sumar(self):}).
+        \item Actualiza el método \texttt{sumar(self)} para que lea y escriba en los widgets usando \texttt{self}.
+        \item \textbf{(Nuevo)} Carga una imagen (¡descarga un ícono de calculadora!) y muéstrala en la parte superior de la ventana.
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 3: Mini Calculadora v2.0 (con Clases)}
+    \begin{exampleblock}{Estructura del Código Principal}
+    El código fuera de la clase debe ser mínimo:
+
+\begin{lstlisting}[language=Python] 
+    # ... (aqui va tu 'class Sumadora(tk.Frame):' ...)
+
+if __name__ == "__main__":
+    ventana_raiz = tk.Tk()
+    ventana_raiz.title("Calculadora v2.0")
+    app = Sumadora(master=ventana_raiz)
+    app.mainloop()
+\end{lstlisting}
+    \end{exampleblock}
+
+\end{frame}
+
+\end{document}

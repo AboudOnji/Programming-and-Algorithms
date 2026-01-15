@@ -1,0 +1,16 @@
+\frametitle{Tarea: Pista (Definir una Función \texttt{key})}
+
+    \begin{alertblock}{Código de Ejemplo (Parte 1: Por Calificaci\'on)}
+    \begin{lstlisting}[language=Python]
+estudiantes = [
+    ['Ana', 85, 2], ['Luis', 92, 0],
+    ['Carla', 92, 3], ['Bruno', 76, 1]
+]
+
+estudiantes.sort(key=lambda columna: columna[1])
+
+print('Ordenados por calificacion (con lambda):')
+print(estudiantes)
+    \end{lstlisting}
+    \end{alertblock}
+

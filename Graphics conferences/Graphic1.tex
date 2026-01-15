@@ -1,0 +1,260 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+\title{Interfaces Gráficas (GUI) con Tkinter}
+\subtitle{Clase 1: "Hola, Mundo" Gráfico}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Fundamentos de GUI y Tkinter}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{¿Qué es una Aplicación Gráfica (GUI)?}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{Programa de Consola (Lo que conocemos)}
+                \begin{itemize}
+                    \item Se ejecuta en una terminal.
+                    \item La interacción es solo texto.
+                    \item Flujo lineal: \texttt{input()} (espera), procesa, \texttt{print()} (muestra).
+                \end{itemize}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Aplicación Gráfica (GUI)}
+                \begin{itemize}
+                    \item \textbf{G}raphical \textbf{U}ser \textbf{I}nterface.
+                    \item Se ejecuta en una \textbf{ventana}.
+                    \item La interacción es visual: botones, menús, clics del mouse.
+                    \item \textbf{Dirigida por eventos}: El programa no tiene un flujo lineal, sino que \textbf{reacciona} a las acciones del usuario.
+                \end{itemize}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{¿Qué es una Aplicación Gráfica (GUI)?}
+    
+    \begin{exampleblock}{Nuestra Herramienta: Tkinter}
+    \texttt{Tkinter} es la biblioteca \textbf{estándar} de Python para crear interfaces gráficas. ¡Viene incluida, no hay que instalar nada!
+    \end{exampleblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{El ''Formulario'' o Ventana Principal}
+    
+    \begin{block}{El Lienzo de Nuestra Aplicación}
+    Toda aplicación gráfica necesita una \textbf{ventana raíz} o principal (también llamada "formulario"). Es el contenedor donde vivirá todo lo demás (botones, texto, etc.).
+    \end{block}
+
+    \begin{alertblock}{El Bucle de Eventos}
+    A diferencia de un script normal, una GUI debe \textbf{mantenerse abierta} esperando a que el usuario haga algo (un clic, escribir, etc.).
+    \begin{itemize}
+        \item Usamos \texttt{ventana.mainloop()} al final.
+        \item Este comando inicia el "bucle de eventos" que mantiene la ventana visible y receptiva.
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{El ''Formulario'' o Ventana Principal}
+    \begin{exampleblock}{El Código Mínimo para una Ventana}
+    \begin{lstlisting}[language=Python]
+import tkinter as tk
+
+# 1. Crear la ventana principal (formulario)
+ventana = tk.Tk()
+
+# (Aqui iria el contenido de la ventana)
+
+# 2. Iniciar el bucle de eventos
+ventana.mainloop()
+
+# El programa se pausara aqui hasta que
+# el usuario cierre la ventana.
+    \end{lstlisting}
+    \end{exampleblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Nuestro "Hola, Mundo" Gráfico}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Objetos o "Widgets"}
+    
+    \begin{block}{¿Qué es un Widget?}
+    Un "widget" (o control) es cualquier \textbf{objeto} o elemento visual que ponemos dentro de nuestra ventana para interactuar con el usuario.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Objetos o "Widgets"} 
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{Widget: \texttt{tk.Label}}
+                Una \textbf{Etiqueta}. Se usa simplemente para mostrar texto (o imágenes) al usuario. No es interactiva.
+                \begin{lstlisting}[language=Python]
+
+etiqueta = tk.Label(ventana, text="Hola Mundo")
+                \end{lstlisting}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{examples}{Widget: \texttt{tk.Button}}
+                Un \textbf{Botón}. El usuario puede hacer clic en él para disparar una acción o \textbf{evento}.
+                 \begin{lstlisting}[language=Python]
+# Sintaxis:
+# Button(donde_vive, propiedades...)
+boton = tk.Button(ventana, text="Haz Clic")
+                \end{lstlisting}
+            \end{examples}
+    \end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Crear y Posicionar: El Método \texttt{.pack()}}
+    
+    \begin{block}{Un Proceso de Dos Pasos}
+    Para que un widget aparezca, siempre debemos seguir dos pasos:
+    \begin{enumerate}
+        \item \textbf{Crear} el widget (como vimos: \texttt{tk.Label(...)}).
+        \item \textbf{Posicionarlo} en la ventana.
+    \end{enumerate}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Crear y Posicionar: El Método \texttt{.pack()}}
+    \begin{alertblock}{El Posicionador \texttt{.pack()}}
+    \texttt{.pack()} es el administrador de geometría más simple. Simplemente ''empaqueta'' los widgets uno debajo del otro, en el orden en que los llamas.
+    \begin{lstlisting}[language=Python]
+import tkinter as tk
+ventana = tk.Tk()
+
+# 1. Crear la etiqueta
+etiqueta = tk.Label(ventana, text="¡Hola, Tkinter!")
+# 2. Posicionar la etiqueta
+etiqueta.pack()
+# 1. Crear el boton
+boton = tk.Button(ventana, text="Soy un boton")
+# 2. Posicionar el boton
+boton.pack()
+ventana.mainloop()
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Tarea 1}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 1: Tu Primera Ventana}
+
+    \begin{block}{Objetivo}
+    Crear tu primera aplicación gráfica funcional, aplicando los conceptos de \textbf{ventana}, \textbf{widgets} y \textbf{posicionamiento}.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 1: Tu Primera Ventana}
+    \begin{alertblock}{Instrucciones}
+    Escribe un programa de Python que haga lo siguiente:
+    \begin{enumerate}
+        \item Importa la biblioteca \texttt{tkinter} (usa el alias \texttt{tk}).
+        \item Crea la ventana principal (formulario) llamada \texttt{ventana}.
+        \item \textbf{(Nuevo)} Dale un título a tu ventana usando: \texttt{ventana.title("Mi Aplicación")}
+        \item Crea un \texttt{tk.Label} que viva en \texttt{ventana} y muestre el texto: "¡Bienvenido a mi primera GUI!".
+        \item Crea un \texttt{tk.Button} que viva en \texttt{ventana} y muestre el texto: "No hago nada (aún)".
+        \item Usa el método \texttt{.pack()} en la etiqueta y luego en el botón para que aparezcan.
+        \item Inicia el bucle de eventos con \texttt{ventana.mainloop()}.
+    \end{enumerate}
+    \end{alertblock}
+
+\end{frame}
+
+
+\end{document}

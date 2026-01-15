@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Fundamentos de GUI y Tkinter}{2}{0}{1}
+\beamer@sectionintoc {2}{Nuestro "Hola, Mundo" Gráfico}{7}{0}{2}
+\beamer@sectionintoc {3}{Tarea 1}{12}{0}{3}

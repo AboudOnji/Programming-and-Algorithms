@@ -1,0 +1,8 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Lógica Proposicional en la Programación}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Operadores lógicos: AND, OR, NOT, XOR}{5}{0}{1}
+\beamer@subsectionintoc {1}{2}{Tablas de verdad}{9}{0}{1}
+\beamer@subsubsectionintoc {1}{2}{1}{Construcción de Tablas de Verdad para Expresiones Complejas}{11}{0}{1}
+\beamer@subsubsectionintoc {1}{2}{2}{Tautologías y Contradicciones}{12}{0}{1}
+\beamer@subsectionintoc {1}{3}{Teoremas de De Morgan y su aplicación práctica}{13}{0}{1}
+\beamer@subsubsectionintoc {1}{3}{1}{Aplicación Práctica en Programación}{14}{0}{1}

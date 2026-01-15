@@ -1,0 +1,293 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{listings}
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+
+
+\title{Rutinas y Subrutinas en Python - Parte 2}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+%------------------------------------------------
+\section{Funciones y Valor de Retorno}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Recordatorio: ¿Qué es una Subrutina?}
+    
+    \begin{block}{Lo que vimos la clase pasada}
+    Una \textbf{subrutina} (o función) es un bloque de código que \textbf{hace una tarea}. Por lo general, su resultado es una acción visible, como imprimir en pantalla.
+    \begin{lstlisting}[language=Python]
+def imprimir_tabla(numero_tabla):
+    print(f"\n--- Tabla del {numero_tabla} ---")
+    for i in range(1, 11):
+        # ... lineas de codigo ...
+        print(f"{numero_tabla} x {i} = ...")
+
+# La llamamos y "hace algo" (imprime)
+imprimir_tabla(7)
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Recordatorio: ¿Qué es una Subrutina?}
+
+    \begin{alertblock}{La Limitación}
+    ¿Pero qué pasa si no quiero imprimir la tabla, sino que quiero \textbf{guardar} el resultado de \texttt{7 x 8} en una variable para usarlo después? La subrutina \texttt{imprimir\_tabla} no me ''entrega'' ningún dato.
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{¿Qué es una Función?}
+    
+    \begin{block}{Definición: Función}
+    Una \textbf{función} es un bloque de código que, además de recibir argumentos, está diseñada para \textbf{calcular un valor} y \textbf{devolverlo} al programa principal.
+    \end{block}
+    
+    \begin{alertblock}{La Analogía del Trabajador}
+    \begin{itemize}
+        \item Una \textbf{Subrutina} (clase pasada) es como un trabajador al que le das una orden ("¡imprime la tabla del 5!") y él la cumple.
+        \pause
+        \item Una \textbf{Función} (clase de hoy) es como un trabajador al que le das unos datos (''Calcula 5 + 3'') y él te \textbf{entrega un papel} con el resultado ("8"), para que tú decidas qué hacer con él.
+    \end{itemize}
+    \end{alertblock}
+    
+    \begin{block}{La Palabra Clave: `return`}
+    Para ''entregar ese papel'' y devolver el valor, las funciones usan la palabra clave \texttt{\textbf{return}}.
+    \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Sintaxis: `return`}
+    
+    \begin{block}{¿Cómo funciona `return`?}
+    Cuando Python llega a una línea con \texttt{return} dentro de una función, hace dos cosas:
+    \begin{enumerate}
+        \item \textbf{Termina la función inmediatamente} (ignora cualquier código que venga después).
+        \item \textbf{Envía de vuelta} el valor que está a la derecha de la palabra \texttt{return}.
+    \end{enumerate}
+    \end{block}
+    
+    \begin{lstlisting}[language=Python]
+# Definicion de una FUNCION
+def sumar(a, b):
+    resultado = a + b
+    return resultado  # Devuelve el valor de 'resultado'
+
+# Definicion de una SUBRUTINA (para comparar)
+def sumar_e_imprimir(a, b):
+    resultado = a + b
+    print(f"El resultado es: {resultado}") # No devuelve nada
+    \end{lstlisting}
+    
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{¡La Clave! Capturando el Valor de Retorno}
+    
+    \begin{block}{¿Cómo usamos el valor devuelto?}
+    El valor que \texttt{return} envía de vuelta puede ser ''atrapado'' en una variable usando el signo de asignación (\texttt{=}).
+    \end{block}
+    
+            \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+# Definimos la funcion
+def sumar(a, b):
+    print("...calculando...")
+    return a + b
+    print("Esto NUNCA se ejecuta")
+
+# --- Programa Principal ---
+mi_suma = sumar(10, 5)
+print(f"El valor guardado es: {mi_suma}")
+print(f"El doble es: {mi_suma * 2}")
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+\begin{frame}[fragile]{¡La Clave! Capturando el Valor de Retorno}
+
+            \begin{alertblock}{Salida en Consola}
+                \begin{verbatim}
+...calculando...
+El valor guardado es: 15
+El doble es: 30
+                \end{verbatim}
+            \end{alertblock}
+            \begin{block}{Análisis}
+            \begin{itemize}
+                \item La línea \texttt{mi\_suma = sumar(10, 5)} ejecuta la función.
+                \item La función \texttt{return} 15.
+                \item La línea original se convierte en \texttt{mi\_suma = 15}.
+                \item El \texttt{print} después del \texttt{return} fue ignorado.
+            \end{itemize}
+            \end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Ejemplo 1: Función de Cálculo Simple}
+    
+    \begin{block}{Objetivo}
+    Escribe un programa para crear una función que reciba la base y la altura de un triángulo y \textbf{devuelva} su área.
+    \end{block}
+                \begin{alertblock}{Salida en Consola}
+                \begin{verbatim}
+El area del primer triangulo es: 25.0
+El area del segundo triangulo es: 10.5
+La suma de las areas es: 35.5
+                \end{verbatim}
+            \end{alertblock}
+            \begin{block}{Ventaja}
+            ¡Podemos llamar a la función tantas veces como queramos con diferentes argumentos y reutilizar los resultados!
+            \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 1: Función de Cálculo Simple}
+
+     \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+# 1. Definimos la funcion
+def calcular_area_triangulo(base, altura):
+    area = (base * altura) / 2
+    return area
+
+# --- Programa Principal ---
+
+# 2. Llamamos a la funcion y guardamos resultados
+area1 = calcular_area_triangulo(10, 5)
+area2 = calcular_area_triangulo(7, 3)
+
+# 3. Usamos los resultados
+print(f"El area del primer triangulo es: {area1}")
+print(f"El area del segundo triangulo es: {area2}")
+print(f"La suma de las areas es: {area1 + area2}")
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+            %------------------------------------------------
+
+\begin{frame}[fragile]{Ejemplo 2: Refactorizando Código (Avanzado)}
+    
+    \begin{block}{Objetivo}
+    Vamos a mejorar nuestro código de promedios de la clase pasada. Crearemos una función que \textbf{reciba una lista} y \textbf{devuelva su promedio} usando una función que llamaremos \texttt{calcular\_promedio}.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Ejemplo 2: Refactorizando Código (Avanzado)}
+
+    \begin{lstlisting}[language=Python]
+# --- Definicion de la Funciona ---
+def calcular_promedio(lista_de_notas):
+    suma = 0
+    for nota in lista_de_notas:
+        suma += nota
+    
+    promedio = suma / len(lista_de_notas)
+    return promedio # Devuelve el numero calculado
+
+# --- Programa Principal (MAS LIMPIO) ---
+calif_estudiante1 = [10, 9, 10]
+calif_estudiante2 = [8, 7, 8]
+
+# Usamos nuestra funcion
+prom1 = calcular_promedio(calif_estudiante1)
+prom2 = calcular_promedio(calif_estudiante2)
+
+print(f"El promedio del Estudiante 1 es: {prom1:.2f}")
+print(f"El promedio del Estudiante 2 es: {prom2:.2f}")
+    \end{lstlisting}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Resumen y Próxima Clase}
+    
+    \begin{block}{Resumen: Funciones y `return`}
+    \begin{itemize}
+        \item \textbf{Función:} Es un bloque de código (definido con \texttt{def}) que \textbf{calcula} y \textbf{devuelve} un valor.
+        \item \textbf{`return`:} Es la palabra clave que \textbf{finaliza} la función y \textbf{envía un valor de vuelta}.
+        \item \textbf{Capturar el Valor:} Usamos una variable y el signo \texttt{=} para "atrapar" el valor que la función devuelve (ej. \texttt{mi\_variable = mi\_funcion()}).
+        \item \textbf{Ventaja:} Esto nos permite usar el resultado en cálculos futuros, guardarlo, o pasarlo como argumento a \textit{otra} función.
+    \end{itemize}
+    \end{block}
+    
+
+\end{frame}
+\end{document}

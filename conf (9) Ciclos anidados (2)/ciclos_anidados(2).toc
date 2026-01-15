@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Ejemplo 4: Dibujando un Triángulo}{2}{0}{1}
+\beamer@sectionintoc {2}{Estructuras de Datos 2D: Listas de Listas}{9}{0}{2}
+\beamer@sectionintoc {3}{Ejemplo 5: Procesando Datos de Estudiantes}{16}{0}{3}
+\beamer@sectionintoc {4}{Ejemplo 6: Encontrando el Valor Máximo}{24}{0}{4}

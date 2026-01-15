@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Tipos de Variables en Python}{2}{0}{1}
+\beamer@sectionintoc {2}{Conversión de Tipos (Casting) y Operaciones}{10}{0}{2}
+\beamer@sectionintoc {3}{Operaciones Matemáticas en Python}{15}{0}{3}

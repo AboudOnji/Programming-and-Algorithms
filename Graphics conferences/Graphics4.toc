@@ -1,0 +1,4 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Manejo de Múltiples Formularios (Ventanas)}{2}{0}{1}
+\beamer@sectionintoc {2}{Eventos Avanzados}{7}{0}{2}
+\beamer@sectionintoc {3}{Tarea 4}{14}{0}{3}

@@ -1,0 +1,21 @@
+\frametitle{Resumen de Funciones Clave}
+
+    \begin{block}{Las Dos Funciones Esenciales}
+    Con solo estas dos funciones, podemos cubrir una gran cantidad de casos de uso comunes:
+    \begin{itemize}
+        \item \textbf{\texttt{import random}}
+            \begin{itemize}
+                \item Es el primer paso obligatorio.
+            \end{itemize}
+        \item \textbf{\texttt{random.randint(a, b)}}
+            \begin{itemize}
+                \item Devuelve un entero \textbf{entre} \texttt{a} y \texttt{b}.
+                \item \textbf{Inclusivo} en ambos extremos (incluye \texttt{a} e incluye \texttt{b}).
+            \end{itemize}
+        \item \textbf{\texttt{random.choice(lista)}}
+            \begin{itemize}
+                \item Devuelve un elemento \textbf{dentro} de la \texttt{lista}.
+                \item La lista debe contener al menos un elemento.
+            \end{itemize}
+    \end{itemize}
+    \end{block}

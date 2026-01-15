@@ -1,0 +1,8 @@
+\frametitle{Homework: Validador de Acceso para Montaña Rusa}
+    \begin{block}{Pistas y Consejos}
+    \begin{itemize}
+        \item Recuerda convertir la edad a \texttt{int()} y la altura a \texttt{float()} después de pedirlas.
+        \item Para la pregunta del pase V.I.P., puedes convertir la respuesta 'Sí'/'No' a un booleano. Una forma fácil es: \texttt{tiene\_pase = input('...').lower() == 'sí'}.
+        \item ¡La clave del problema está en construir una única y gran condición \texttt{if} que represente todas las reglas usando \texttt{and}, \texttt{or} y paréntesis \texttt{()} para agrupar la lógica correctamente!
+    \end{itemize}
+    \end{block}

@@ -1,0 +1,317 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+\title{Interfaces Gráficas (GUI) con Tkinter}
+\subtitle{Clase 2: Interactividad y Controles}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Eventos y Funciones}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Dando Vida a los Widgets}
+    
+    \begin{block}{Repaso de la Clase 1}
+    En la clase anterior, creamos una ventana con ''widgets'' (controles), pero eran \textbf{estáticos}. El botón estaba ahí, pero hacer clic en él no provocaba ninguna acción.
+    \end{block}
+    
+    \begin{alertblock}{El Evento \texttt{command}}
+    La forma más simple de hacer que un widget sea interactivo es a través de su propiedad \texttt{command}.
+    \begin{itemize}
+        \item La propiedad \texttt{command} se usa principalmente en los botones.
+        \item Le decimos al botón: ''Cuando alguien te haga clic, ejecuta esta función de Python''.
+        \item A esto se le llama \textbf{''callback''} (llamada de vuelta).
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Conectando un Botón a una Función}
+    
+    \begin{block}{Paso 1: Definir la Función}
+    Primero, creamos una función de Python (con \texttt{def}) que contenga el código que queremos ejecutar.
+    \begin{lstlisting}[language=Python]
+def decir_hola():
+    print("¡Hola! Has hecho clic en el boton.")
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Conectando un Botón a una Función}  
+    \begin{alertblock}{Paso 2: Conectar el Botón con \texttt{command}}
+    Al crear el botón, le asignamos el \textbf{nombre de la función} a su propiedad \texttt{command}.
+    \begin{lstlisting}[language=Python]
+# ¡MUY IMPORTANTE!
+# Se pasa el nombre de la funcion SIN parentesis:
+#
+# Correcto:   command=decir_hola
+# Incorrecto: command=decir_hola()
+
+boton = tk.Button(ventana, 
+                  text="Haz Clic",
+                  command=decir_hola)
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Recolectando Datos del Usuario}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Control de Entrada: \texttt{tk.Entry}}
+    
+    \begin{block}{¿Qué es un Widget \texttt{Entry}?}
+    Es el widget estándar para que el usuario pueda \textbf{ingresar una sola línea de texto} (como un nombre, una contraseña o un número). Es el equivalente gráfico de la función \texttt{input()} de la consola.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Control de Entrada: \texttt{tk.Entry}}    
+    \begin{alertblock}{Creación del Widget}
+    Se crea de la misma forma que un \texttt{Label} o \texttt{Button}.
+    \begin{lstlisting}[language=Python]
+import tkinter as tk
+ventana = tk.Tk()
+
+# Crear un campo de entrada
+etiqueta_nombre = tk.Label(ventana, text=''Nombre:'')
+entrada_nombre = tk.Entry(ventana)
+
+etiqueta_nombre.pack()
+entrada_nombre.pack()
+
+ventana.mainloop()
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Obteniendo el Texto: El Método \texttt{.get()}}
+    
+    \begin{block}{¿Cómo leemos lo que el usuario escribió?}
+    El widget \texttt{Entry} tiene un método especial llamado \texttt{.get()} que nos permite \textbf{extraer} el texto que contiene en ese momento.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Obteniendo el Texto: El Método \texttt{.get()}}
+       
+    \begin{alertblock}{Uso de \texttt{.get()}}
+    La llamada a \texttt{.get()} se hace típicamente \textbf{dentro de la función} que es llamada por el botón.
+    \begin{lstlisting}[language=Python]
+def on_button_click():
+    nombre_usuario = entrada_nombre.get()
+    
+    print(f''El usuario escribio: {nombre_usuario}'')
+
+
+boton = tk.Button(ventana, 
+                  text=''Enviar'', 
+                  command=on_button_click)
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Actualizando la Interfaz en Vivo}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Modificando Widgets: El Método \texttt{.config()}}
+    
+    \begin{block}{El Problema}
+    Hacer \texttt{print()} en la consola no es una verdadera aplicación gráfica. Queremos que la propia ventana \textbf{reaccione y cambie}.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Modificando Widgets: El Método \texttt{.config()}}
+        
+    \begin{alertblock}{La Solución: \texttt{.config()}}
+    Todos los widgets tienen un método \texttt{.config()} que nos permite \textbf{cambiar sus propiedades} (como el texto) \textbf{después} de que han sido creados.
+    \begin{lstlisting}[language=Python]
+
+def on_button_click():
+    # Cambiamos el texto de 'etiqueta_saludo'
+    etiqueta_saludo.config(text="¡Has hecho clic!")
+
+# Creamos una etiqueta...
+etiqueta_saludo = tk.Label(ventana, text="Esperando clic...")
+etiqueta_saludo.pack()
+
+# ...y un boton que la controla
+boton = tk.Button(ventana, command=on_button_click)
+boton.pack()
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Ejemplo Completo: App ``Saludador''}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Proyecto: Aplicación ''Saludador''}
+    
+    \begin{block}{Objetivo}
+    Combinar todo lo aprendido:
+    \begin{enumerate}
+        \item Un \texttt{Label} y un \texttt{Entry} para pedir un nombre.
+        \item Un \texttt{Button} para ejecutar la acción.
+        \item Un \texttt{Label} vacío que se actualizará con el saludo.
+    \end{enumerate}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Proyecto: Aplicación ''Saludador''}
+        
+    \begin{alertblock}{Código Completo}
+    \begin{lstlisting}[language=Python]
+import tkinter as tk
+def saludar():
+    nombre = entrada_nombre.get()
+    saludo_final = f"¡Hola, {nombre}!"
+    etiqueta_resultado.config(text=saludo_final)
+ventana = tk.Tk()
+ventana.title("Saludador v1.0")
+# --- Widgets ---
+etiqueta_instruccion = tk.Label(ventana, text="Escribe tu nombre:")
+entrada_nombre = tk.Entry(ventana)
+boton_saludar = tk.Button(ventana, text="Saludar", command=saludar)
+etiqueta_resultado = tk.Label(ventana, text="")
+# --- Posicionamiento ---
+etiqueta_instruccion.pack()
+entrada_nombre.pack()
+boton_saludar.pack()
+etiqueta_resultado.pack()
+ventana.mainloop()# --- Bucle principal ---
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Tarea 2}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 2: Mini-Calculadora (Sumadora)}
+
+    \begin{block}{Objetivo}
+    Crear una aplicación gráfica que funcione como una sumadora simple, aplicando todo lo visto en clase.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 2: Mini-Calculadora (Sumadora)}
+    \begin{alertblock}{Instrucciones}
+    Tu programa debe tener la siguiente interfaz:
+    \begin{itemize}
+        \item Una etiqueta \texttt{tk.Label} con el texto ''Número 1:''.
+        \item Un campo de entrada \texttt{tk.Entry} para el primer número.
+        \item Una etiqueta \texttt{tk.Label} con el texto ''Número 2:''.
+        \item Un segundo campo de entrada \texttt{tk.Entry} para el segundo número.
+        \item Un botón \texttt{tk.Button} con el texto ''Sumar''.
+        \item Una etiqueta \texttt{tk.Label} (inicialmente vacía) donde se mostrará el resultado (ej: ''Resultado: 15'').
+    \end{itemize}
+    \end{alertblock}
+ \end{frame}
+ \begin{frame}[fragile]
+    \frametitle{Tarea 2: Mini-Calculadora (Sumadora)}   
+    \begin{exampleblock}{Pistas Clave}
+    \begin{itemize}
+        \item El método \texttt{.get()} \textbf{siempre devuelve un string}.
+        \item Deberás \textbf{convertir} esos strings a números (con \texttt{int()} o \texttt{float()}) antes de poder sumarlos.
+        \item Deberás crear una función (ej: \texttt{def sumar():}) y conectarla al \texttt{command} del botón.
+    \end{itemize}
+    \end{exampleblock}
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,21 @@
+\frametitle{Ejemplo 2: Reutilizando Código Complejo}
+
+   \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+# Definimos la subrutina que recibe el
+# numero de la tabla que queremos imprimir
+def imprimir_tabla(numero_tabla):
+    print(f'\n--- Tabla del {numero_tabla} ---')
+
+    # Usamos el parametro en nuestro ciclo
+    for i in range(1, 11):
+        resultado = numero_tabla * i
+        print(f'{numero_tabla} x {i} = {resultado}')
+
+# AHORA ES MUY FACIL USARLO:
+# Llamamos a la subrutina varias veces
+imprimir_tabla(5)
+imprimir_tabla(7)
+imprimir_tabla(9)
+                \end{lstlisting}
+            \end{block}

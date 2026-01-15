@@ -1,0 +1,14 @@
+\frametitle{Tarea 1: Tu Primera Ventana}
+    \begin{alertblock}{Instrucciones}
+    Escribe un programa de Python que haga lo siguiente:
+    \begin{enumerate}
+        \item Importa la biblioteca \texttt{tkinter} (usa el alias \texttt{tk}).
+        \item Crea la ventana principal (formulario) llamada \texttt{ventana}.
+        \item \textbf{(Nuevo)} Dale un título a tu ventana usando: \texttt{ventana.title("Mi Aplicación")}
+        \item Crea un \texttt{tk.Label} que viva en \texttt{ventana} y muestre el texto: "¡Bienvenido a mi primera GUI!".
+        \item Crea un \texttt{tk.Button} que viva en \texttt{ventana} y muestre el texto: "No hago nada (aún)".
+        \item Usa el método \texttt{.pack()} en la etiqueta y luego en el botón para que aparezcan.
+        \item Inicia el bucle de eventos con \texttt{ventana.mainloop()}.
+    \end{enumerate}
+    \end{alertblock}
+

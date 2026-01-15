@@ -1,0 +1,9 @@
+\frametitle{Tarea 2: Mini-Calculadora (Sumadora)}
+    \begin{exampleblock}{Pistas Clave}
+    \begin{itemize}
+        \item El método \texttt{.get()} \textbf{siempre devuelve un string}.
+        \item Deberás \textbf{convertir} esos strings a números (con \texttt{int()} o \texttt{float()}) antes de poder sumarlos.
+        \item Deberás crear una función (ej: \texttt{def sumar():}) y conectarla al \texttt{command} del botón.
+    \end{itemize}
+    \end{exampleblock}
+

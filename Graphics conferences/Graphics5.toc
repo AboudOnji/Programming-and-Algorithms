@@ -1,0 +1,6 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Gestor de Geometría: \texttt {.grid()}}{2}{0}{1}
+\beamer@sectionintoc {2}{Eventos en Cuadrículas: ¿Quién Hizo Clic?}{11}{0}{2}
+\beamer@sectionintoc {3}{Lógica de Juego: Aleatoriedad}{19}{0}{3}
+\beamer@sectionintoc {4}{Lógica de Juego Asíncrona}{27}{0}{4}
+\beamer@sectionintoc {5}{Arquitectura: Separando Lógica y Vista}{37}{0}{5}

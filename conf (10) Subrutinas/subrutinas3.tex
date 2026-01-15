@@ -1,0 +1,365 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{listings}
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+
+
+\title{Rutinas y Subrutinas en Python - Parte 3}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{El Ámbito (Scope) de las Variables}
+%------------------------------------------------
+
+\begin{frame}{¿Dónde "viven" las variables?}
+    
+    \begin{block}{Definición: Ámbito (Scope)}
+    El \textbf{ámbito} de una variable se refiere a la parte del programa donde esa variable es \textbf{visible} y puede ser \textbf{utilizada}.
+    
+    Cuando usamos funciones, creamos dos tipos de ámbitos:
+    \begin{itemize}
+        \item El ámbito \textbf{Global} (el programa principal).
+        \item El ámbito \textbf{Local} (el interior de una función).
+    \end{itemize}
+    \end{block}
+    
+    \begin{alertblock}{La Analogía de la Oficina}
+    Imagina que el \textbf{programa principal} es la \textbf{oficina} completa, con una \textbf{pizarra pública} en la pared.
+    
+    Cada \textbf{función} es un \textbf{trabajador} con su propia \textbf{libreta de notas privada}.
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Variables Locales (La Libreta Privada)}
+    
+    \begin{block}{Definición: Variable Local}
+    Una variable que se crea \textbf{DENTRO} de una función se llama \textbf{variable local}.
+    \begin{itemize}
+        \item \textbf{Nace} cuando se llama a la función.
+        \item \textbf{Vive} solo mientras la función se está ejecutando.
+        \item \textbf{Muere} (se destruye) cuando la función termina (con \texttt{return} o al final).
+        \item Es \textbf{totalmente invisible} para el resto del programa.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Variables Locales (La Libreta Privada)}
+
+    \begin{lstlisting}[language=Python]
+def calcular_promedio(lista):
+    # 'suma' y 'prom' son variables LOCALES
+    suma = 0
+    for nota in lista:
+        suma += nota
+    prom = suma / len(lista)
+    return prom
+
+# El programa principal NO PUEDE ver 'suma' o 'prom'.
+# Son la "libreta privada" de la funcion.
+    \end{lstlisting}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Las Variables Locales están Aisladas}
+    
+    \begin{block}{¡El programa principal NO puede verlas!}
+    Si intentas acceder a una variable local desde fuera de su función, obtendrás un \texttt{NameError}.
+    \end{block}
+    
+            \begin{block}{}
+                \begin{lstlisting}[language=Python]
+def mi_funcion():
+    # 'variable_secreta' es LOCAL
+    variable_secreta = "Hola123"
+    print("Dentro de la funcion, puedo verla:")
+    print(variable_secreta)
+
+# --- Programa Principal ---
+mi_funcion()
+
+# Esta linea causara un ERROR
+print("\nFuera de la funcion, intentando ver...")
+print(variable_secreta)
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+\begin{frame}[fragile]{Las Variables Locales están Aisladas}
+
+            \begin{alertblock}{Salida en Consola}
+                \begin{verbatim}
+Dentro de la funcion, puedo verla:
+Hola123
+
+Fuera de la funcion, intentando ver...
+Traceback (most recent call last):
+  File "test.py", line 12, in <module>
+    print(variable_secreta)
+NameError: name 'variable_secreta' is not defined
+                \end{verbatim}
+            \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Variables Globales (La Pizarra Pública)}
+    
+    \begin{block}{Definición: Variable Global}
+    Una variable que se crea \textbf{FUERA} de todas las funciones (en el programa principal) se llama \textbf{variable global}.
+    \begin{itemize}
+        \item \textbf{Nace} cuando el script comienza.
+        \item \textbf{Vive} durante toda la ejecución del programa.
+        \item Es \textbf{visible} para todas las funciones (pueden \textbf{LEERLA}).
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Variables Globales (La Pizarra Pública)}
+
+\begin{lstlisting}[language=Python]
+# 'nombre_app' es una variable GLOBAL
+nombre_app = "Sistema de Calificaciones v1.0"
+
+def imprimir_bienvenida():
+    # La funcion PUEDE LEER la variable global
+    print(f"Bienvenido a: {nombre_app}")
+
+# --- Programa Principal ---
+imprimir_bienvenida()
+print(f"Fin del programa {nombre_app}")
+    \end{lstlisting}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{El Conflicto: ¿Leer o Modificar?}
+    
+    \begin{alertblock}{¡Cuidado! El Error más Común}
+    ¿Qué pasa si una función intenta \textbf{modificar} una variable global?
+    
+    Python crea una \textbf{nueva variable LOCAL} con el mismo nombre (la ''ensombrece'').
+    \end{alertblock}
+    
+            \begin{block}{}
+                \begin{lstlisting}[language=Python]
+# 'x' es GLOBAL
+x = 100
+print(f"X (global) antes: {x}")
+
+def intentar_modificar_x():
+    # Python crea una NUEVA 'x' LOCAL
+    x = 5
+    print(f"X (dentro) vale: {x}")
+
+# --- Programa Principal ---
+intentar_modificar_x()
+print(f"X (global) despues: {x}")
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+\begin{frame}[fragile]{El Conflicto: ¿Leer o Modificar?}
+
+            \begin{alertblock}{Salida en Consola}
+                \begin{verbatim}
+X (global) antes: 100
+X (dentro) vale: 5
+X (global) despues: 100
+                \end{verbatim}
+            \end{alertblock}
+            \begin{block}{Análisis}
+            La función \textbf{no} cambió la \texttt{x} global. Solo creó una \texttt{x} local y privada que se destruyó al terminar. La \texttt{x} global sigue valiendo 100.
+            \end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{La Palabra Clave: `global`}
+    
+    \begin{block}{¿Cómo forzar la modificación?}
+    Si \textbf{realmente} necesitas modificar una variable global desde una función (lo cual es una práctica peligrosa), debes usar la palabra clave \texttt{\textbf{global}}.
+    
+    Es como decirle a Python: "¡Oye! No crees una variable local, estoy hablando de la de la pizarra pública".
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{La Palabra Clave: `global`}
+
+    \begin{columns}[t]
+        \column{.5\textwidth}
+            \begin{block}{Código (con `global`)}
+                \begin{lstlisting}[language=Python]
+# 'x' es GLOBAL
+x = 100
+print(f"X (global) antes: {x}")
+
+def modificar_x_real():
+    # AVISO: Usare la 'x' global
+    global x
+    x = 5
+    print(f"X (dentro) vale: {x}")
+
+# --- Programa Principal ---
+modificar_x_real()
+print(f"X (global) despues: {x}")
+                \end{lstlisting}
+            \end{block}
+
+        \column{.5\textwidth}
+            \begin{alertblock}{Salida en Consola}
+                \begin{verbatim}
+X (global) antes: 100
+X (dentro) vale: 5
+X (global) despues: 5
+                \end{verbatim}
+            \end{alertblock}
+            \begin{block}{Análisis}
+            Esta vez, la \texttt{x} global \textbf{sí fue modificada} y el cambio permanece.
+            \end{block}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{¡No uses `global`! (Buenas Prácticas)}
+    
+    \begin{block}{¿Por qué es una mala idea?}
+    Usar la palabra clave \texttt{global} hace que tu código sea \textbf{impredecible} y \textbf{difícil de depurar}.
+    \begin{itemize}
+        \item Crea "código espagueti": una función puede cambiar valores en cualquier parte del programa sin previo aviso.
+        \item La función ya no es "pura". Depende de una variable externa y oculta.
+    \end{itemize}
+    \end{block}
+    
+    \begin{alertblock}{La Solución Correcta: ¡Usar `return`!}
+    Si necesitas que una función cambie un valor, haz que lo \textbf{devuelva} con \texttt{return} y re-asígnalo en el programa principal.
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]{¡No uses `global`! (Buenas Prácticas)}
+
+    \begin{columns}[t]
+        \column{.5\textwidth}
+            \begin{block}{MALO (con `global`)}
+                \begin{lstlisting}[language=Python]
+contador = 0
+def incrementar():
+    global contador
+    contador += 1
+
+incrementar()
+print(contador) # 1
+                \end{lstlisting}
+            \end{block}
+        \column{.5\textwidth}
+            \begin{alertblock}{BUENO (con `return`)}
+                \begin{lstlisting}[language=Python]
+contador = 0
+def incrementar(valor_actual):
+    return valor_actual + 1
+
+contador = incrementar(contador)
+print(contador) # 1
+                \end{lstlisting}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Resumen y Conclusiones}
+    
+    \begin{block}{Lo que aprendimos}
+    \begin{itemize}
+        \item \textbf{Subrutinas (Funciones):} Son bloques de código reutilizables definidos con \texttt{\textbf{def}}. Nos ayudan a organizar el código y evitar repetirnos (Principio DRY).
+        \item \textbf{Argumentos y Parámetros:} Son la forma de \textbf{pasar información} (ingredientes) \textit{hacia adentro} de una función.
+        \item \textbf{Valor de Retorno (`return`):} Es la forma en que una función \textbf{devuelve un resultado} (un cálculo) \textit{hacia afuera}.
+        \item \textbf{Ámbito (Scope):}
+            \begin{itemize}
+                \item \textbf{Variables Locales:} Viven \textit{dentro} de la función. Son privadas y se destruyen al terminar.
+                \item \textbf{Variables Globales:} Viven \textit{fuera} de la función. Son públicas.
+            \end{itemize}
+    \end{itemize}
+    \end{block}
+    
+    \begin{alertblock}{La Regla de Oro}
+    Una función debe ser como una ''caja negra'': recibir datos solo por sus \textbf{parámetros} y entregar resultados solo por su \textbf{`return`}. Evita siempre que puedas las variables globales.
+    \end{alertblock}
+
+\end{frame}
+\end{document}

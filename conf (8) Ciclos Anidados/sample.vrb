@@ -1,0 +1,10 @@
+\frametitle{Tarea Final: Simulador de Torneo}
+    \begin{block}{El reto y la lógica a seguir}
+    El reto principal es evitar enfrentamientos repetidos (si ya generaste 'Ana vs. Bruno', no debes generar 'Bruno vs. Ana') y evitar que un jugador se enfrente a sí mismo ('Ana vs. Ana').
+    \begin{itemize}
+        \item Necesitarás dos ciclos \texttt{for} anidados para recorrer la lista de jugadores.
+        \item \textbf{La Clave:} Para evitar repeticiones, el ciclo interno \textbf{no debe empezar desde el principio} de la lista en cada iteración. Debe comenzar desde la posición \textbf{siguiente} a la del jugador actual del ciclo externo.
+        \item (Pista: necesitarás usar \texttt{range()} y \texttt{len()} para controlar los índices de las listas).
+    \end{itemize}
+    \end{block}
+

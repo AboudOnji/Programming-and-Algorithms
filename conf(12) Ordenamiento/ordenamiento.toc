@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Fundamentos de \texttt {.sort()}}{2}{0}{1}
+\beamer@sectionintoc {2}{Ordenamiento Avanzado con \texttt {key}}{9}{0}{2}
+\beamer@sectionintoc {3}{Sort en Arreglos 2D (Matrices)}{16}{0}{3}
+\beamer@sectionintoc {4}{Práctica}{17}{0}{4}

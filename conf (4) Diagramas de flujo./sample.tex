@@ -1,0 +1,318 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y TEMAS
+%----------------------------------------------------------------------------------------
+
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx} % Permite incluir imágenes
+\usepackage{booktabs} % Permite el uso de \toprule, \midrule y \bottomrule en tablas
+\usepackage{amsmath}
+\usepackage{lettrine}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{xurl}
+\usepackage{hyperref} % Para crear hipervínculos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+% --- ¡NUEVO! PAQUETES PARA ALGORITMOS ---
+
+
+% -----------------------------------------
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue, % Color blanco para mejor contraste en tema oscuro
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+% --- Numeración de figuras y tablas ---
+\setbeamertemplate{caption}[numbered]
+
+%----------------------------------------------------------------------------------------
+%	PÁGINA DE TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title{El Pensamiento Algorítmico - Diagrmas de Flujo}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    % Print the title page as the first slide
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+%------------------------------------------------
+\section{Diagramas de flujo: La representación gráfica}
+%------------------------------------------------
+
+\begin{frame}{Diagramas de Flujo: La Representación Gráfica}
+    \begin{block}{Definición}
+    Si el pseudocódigo es la descripción textual de un algoritmo, el \textbf{diagrama de flujo} es su representación gráfica. Consiste en un conjunto de símbolos geométricos estándar conectados por flechas que muestran la dirección del flujo de ejecución.
+    \end{block}
+    
+    \begin{alertblock}{Ventaja Principal: Inmediatez Visual}
+    Permite a cualquier persona, incluso sin formación técnica, seguir la lógica de un proceso de principio a fin. Son herramientas excepcionales para la documentación, la formación y la detección de errores en la fase de diseño.
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Simbología empleada}
+%------------------------------------------------
+
+\begin{frame}{Simbología para Diagramas de Flujo (Parte 1)}
+    \begin{table}
+    \centering
+    \renewcommand{\arraystretch}{1.8} % Aumenta el espaciado vertical
+    \begin{tabular}{c c p{8cm}}
+    \toprule
+    \textbf{Símbolo} & \textbf{Nombre} & \textbf{Descripción} \\
+    \midrule
+    \includegraphics[height=1.2cm]{Figuras/Cap1/start.png} & Terminal & Representa el punto de \textbf{Inicio} o \textbf{Fin} del algoritmo. \\
+    \includegraphics[height=1.2cm]{Figuras/Cap1/operation.png} & Entrada/Salida & Se utiliza para \textbf{leer} datos (entrada) o \textbf{escribir} resultados (salida). \\
+    \includegraphics[height=1.2cm]{Figuras/Cap1/operation2.png} & Proceso & Indica una operación, como un cálculo matemático o una asignación de valor. \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Simbología para Diagramas de Flujo (Parte 2)}
+    \begin{table}
+    \centering
+    \renewcommand{\arraystretch}{1} % Aumenta el espaciado vertical
+    \begin{tabular}{c c p{8cm}}
+    \toprule
+    \textbf{Símbolo} & \textbf{Nombre} & \textbf{Descripción} \\
+    \midrule
+    \includegraphics[height=1.5cm]{Figuras/Cap1/decision.png} & Decisión & Representa una bifurcación en el flujo. Contiene una condición que se evalúa como verdadera o falsa. \\
+    \includegraphics[height=1.5cm]{Figuras/Cap1/flow.png} & Línea de Flujo & Flechas que indican el orden de ejecución, conectando los símbolos. \\
+    
+    \bottomrule
+    \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Simbología para Diagramas de Flujo (Parte 2)}
+    \begin{table}
+    \centering
+    \renewcommand{\arraystretch}{1} % Aumenta el espaciado vertical
+    \begin{tabular}{c c p{8cm}}
+    \toprule
+    \textbf{Símbolo} & \textbf{Nombre} & \textbf{Descripción} \\
+    \midrule
+    
+    \includegraphics[height=1.8cm]{Figuras/Cap1/conector.png} & Conector & Permite conectar partes del diagrama para evitar el cruce de líneas. \\
+    \includegraphics[height=1.8cm]{Figuras/Cap1/groupProcess.png} & Subrgupo & Permite incluir diferentes procesos, un subsystema, dentro de un marco paralelo \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+\end{frame}
+
+%------------------------------------------------
+\subsubsection{Ejemplos de Diagramas de Flujo}
+%------------------------------------------------
+\begin{frame}[fragile]{Ejemplo 1: Área y Perímetro de un Rectángulo}
+    \begin{block}{Descripción}
+    Un algoritmo secuencial clásico. Se leen dos valores, se realizan dos cálculos distintos y se muestran los resultados. El flujo es lineal y directo.
+    \end{block}
+    \end{frame}
+\begin{frame}[fragile]{Ejemplo 1: Área y Perímetro de un Rectángulo}
+    
+    \begin{columns}[c]
+        \column{0.5\textwidth}
+ 
+                \footnotesize
+                \begin{algorithm}[H]
+                \caption{Área y Perímetro}
+                \begin{algorithmic}[1]
+                    \State \textbf{INICIO}
+                    \State \textbf{LEER} L, B
+                    \State \textbf{ASIGNAR} AREA $\leftarrow$ L * B
+                    \State \textbf{ASIGNAR} PERIMETRO $\leftarrow$ 2 * (L + B)
+                    \State \textbf{ESCRIBIR} AREA, PERIMETRO
+                    \State \textbf{FIN}
+                \end{algorithmic}
+                \end{algorithm}
+
+
+        \column{0.4\textwidth}
+            \begin{figure}
+                \includegraphics[width=0.3\linewidth]{Figuras/Cap1/rectángulo.png}
+                \caption{Diagrama de flujo.}
+                \label{fig:df_rectangulo}
+            \end{figure}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Ejemplo 2: Encontrar el Mayor de Tres Números}
+    \frametitle{Descripción del Algoritmo}
+    \begin{block}{Lógica de Decisión Anidada}
+    Este ejemplo es excelente para ilustrar el poder de las decisiones anidadas. Se comparan los números por pares para determinar cuál es el mayor de todos.
+    \end{block}
+    
+    \begin{alertblock}{Flujo del Proceso}
+    El algoritmo primero compara los dos primeros números. Basado en ese resultado, el ganador de esa comparación se enfrenta al tercer número. El diagrama de flujo visualiza claramente las múltiples rutas que puede tomar la ejecución dependiendo de los valores de entrada.
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 2: Pseudocódigo y Diagrama de Flujo}
+\begin{algorithm}[H]
+                \caption{Mayor de Tres Números}
+\begin{tiny}
+                \begin{algorithmic}[1]
+                
+                    \State \textbf{INICIO}
+                    \State \textbf{LEER} num1, num2, num3
+                    \If{num1 > num2}
+                        \If{num1 > num3}
+                            \State \textbf{ESCRIBIR} num1
+                        \Else
+                            \State \textbf{ESCRIBIR} num3
+                        \EndIf
+                    \Else
+                        \If{num2 > num3}
+                            \State \textbf{ESCRIBIR} num2
+                        \Else
+                            \State \textbf{ESCRIBIR} num3
+                        \EndIf
+                    \EndIf
+                    \State \textbf{FIN}
+                    
+
+                \end{algorithmic}
+\end{tiny}
+                \end{algorithm}
+
+            
+    \end{frame}
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 2: Pseudocódigo y Diagrama de Flujo}
+    \begin{figure}
+                \includegraphics[width=0.6\linewidth]{Figuras/Cap1/numbers.png}
+                \caption{Diagrama de flujo.}
+                \label{fig:df_mayor_tres}
+            \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 4: Raíces de una Ecuación Cuadrática}
+
+ \begin{block}{Descripción}
+    Este es un problema más avanzado que requiere una estructura de decisión múltiple para manejar los tres casos posibles basados en el valor del discriminante ($b^2 - 4ac$): dos raíces reales, una raíz real doble, o raíces complejas.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Ejemplo 4: Raíces de una Ecuación Cuadrática}
+   
+    
+                \tiny % Tamaño de letra pequeño para que quepa bien
+                \begin{algorithm}[H]
+                \caption{Raíces de Ecuación Cuadrática}
+                \begin{tiny}
+                \begin{algorithmic}[1]
+                    \State \textbf{INICIO}
+                    \State \textbf{LEER} A, B, C
+                    \State \textbf{ASIGNAR} DISC $\leftarrow$ (B*B) - (4*A*C)
+                    \If{DISC > 0}
+                        \State X1 $\leftarrow$ (-B + RAIZ(DISC)) / (2*A)
+                        \State X2 $\leftarrow$ (-B - RAIZ(DISC)) / (2*A)
+                        \State \textbf{ESCRIBIR} 'Raíces Reales y Distintas'
+                    \ElsIf{DISC = 0}
+                        \State X1 $\leftarrow$ -B / (2*A)
+                        \State \textbf{ESCRIBIR} 'Raíces Reales e Iguales'
+                    \Else
+                        \State \textbf{ESCRIBIR} 'Las raíces son imaginarias.'
+                    \EndIf
+                    \State \textbf{FIN}
+                \end{algorithmic}
+                \end{tiny}
+                \end{algorithm}
+
+           
+
+\end{frame}
+\begin{frame}[fragile]{Ejemplo 4: Raíces de una Ecuación Cuadrática}
+
+ \begin{figure}
+                \includegraphics[width=0.25\linewidth]{Figuras/Cap1/pitagoras.png}
+                \caption{Diagrama de flujo.}
+                \label{fig:df_ecuacion_cuadratica}
+            \end{figure}
+            \end{frame}
+
+\begin{frame}[fragile]{Ejemplo 4: Máximo Común Divisor (MCD) y Mínimo Común Múltiplo (mcm).}
+
+ \begin{block}{Descripción}
+   Este algoritmo aborda un problema clásico de la teoría de números. Primero, calcula el Máximo Común Divisor (MCD) de dos números utilizando el eficiente \textbf{algoritmo de Euclides}, que se basa en la propiedad de que el MCD de dos números no cambia si el número más grande es reemplazado por su diferencia con el número más pequeño. La implementación moderna usa el residuo de la división. Una vez obtenido el MCD, el Mínimo Común Múltiplo (mcm) se calcula fácilmente con la fórmula: $\text{mcm}(A, B) = (|A \cdot B|) / \text{MCD}(A, B)$.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Ejemplo 4:  Máximo Común Divisor (MCD) y Mínimo Común Múltiplo (mcm).}
+   
+    
+                 % Tamaño de letra pequeño para que quepa bien
+                \begin{algorithm}[H]
+\caption{MCD y mcm de dos números}
+\label{alg:mcd_mcm}
+\begin{tiny}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{ESCRIBIR} 'Ingrese el primer número (A):'
+    \State \textbf{LEER} A
+    \State \textbf{ESCRIBIR} 'Ingrese el segundo número (B):'
+    \State \textbf{LEER} B
+    \State \textbf{ASIGNAR} numA $\leftarrow$ A \Comment{Guardar originales para el mcm}
+    \State \textbf{ASIGNAR} numB $\leftarrow$ B
+    \While{numB $\neq$ 0}
+        \State \textbf{ASIGNAR} residuo $\leftarrow$ numA \textbf{MOD} numB
+        \State \textbf{ASIGNAR} numA $\leftarrow$ numB
+        \State \textbf{ASIGNAR} numB $\leftarrow$ residuo
+    \EndWhile
+    \State \textbf{ASIGNAR} mcd $\leftarrow$ numA
+    \State \textbf{ASIGNAR} mcm $\leftarrow$ (A * B) / mcd
+    \State \textbf{ESCRIBIR} 'El MCD es: ', mcd
+    \State \textbf{ESCRIBIR} 'El mcm es: ', mcm
+    \State \textbf{FIN}
+\end{algorithmic}
+\end{tiny}
+\end{algorithm}
+
+           
+
+\end{frame}
+\begin{frame}[fragile]{Ejemplo 4: Máximo Común Divisor (MCD) y Mínimo Común Múltiplo (mcm).}
+
+ \begin{figure}
+                \includegraphics[width=0.38\linewidth]{Figuras/Cap1/lcm.png}
+                \caption{Diagrama de flujo para encontrar el MCD y mcm de dos números.}
+                \label{fig:df_ecuacion_cuwadratica}
+            \end{figure}
+            \end{frame}
+\end{document}

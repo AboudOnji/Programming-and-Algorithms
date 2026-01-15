@@ -1,0 +1,3 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Parte Teórica: ¿Qué son los Ciclos Anidados?}{2}{0}{1}
+\beamer@sectionintoc {2}{Ejemplos Prácticos}{11}{0}{2}

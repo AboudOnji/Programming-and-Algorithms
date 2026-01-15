@@ -1,0 +1,27 @@
+\frametitle{¡No uses `global`! (Buenas Prácticas)}
+
+    \begin{columns}[t]
+        \column{.5\textwidth}
+            \begin{block}{MALO (con `global`)}
+                \begin{lstlisting}[language=Python]
+contador = 0
+def incrementar():
+    global contador
+    contador += 1
+
+incrementar()
+print(contador) # 1
+                \end{lstlisting}
+            \end{block}
+        \column{.5\textwidth}
+            \begin{alertblock}{BUENO (con `return`)}
+                \begin{lstlisting}[language=Python]
+contador = 0
+def incrementar(valor_actual):
+    return valor_actual + 1
+
+contador = incrementar(contador)
+print(contador) # 1
+                \end{lstlisting}
+            \end{alertblock}
+    \end{columns}

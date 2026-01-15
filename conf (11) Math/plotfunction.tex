@@ -1,0 +1,276 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+\title{Dibujando Funciones con Python}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Introducción y Herramientas}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{¿Por qué Dibujar Funciones?}
+    
+    \begin{block}{Más allá de \texttt{print()}}
+    Hasta ahora, la única forma de ver un resultado es con la función \texttt{print()}. Esto funciona para texto y números, pero es muy poco intuitivo para entender una ecuación.
+    \end{block}
+    
+    \begin{alertblock}{Ver para Entender}
+    Para comprender realmente una función, como $y = x^2$, necesitamos \textbf{ver su gráfico}. En programación, a esto se le llama \textbf{visualización} o \textbf{"plotteo"}.
+    \end{alertblock}
+    
+    \begin{exampleblock}{Aplicaciones}
+        \begin{itemize}
+            \item Visualizar datos de un experimento.
+            \item Analizar el rendimiento de un algoritmo.
+            \item Simular un fenómeno físico.
+            \item ¡Entender las matemáticas que estamos programando!
+        \end{itemize}
+    \end{exampleblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Las Herramientas Esenciales}
+    
+    \begin{block}{Python no puede hacerlo solo}
+    Python estándar no incluye herramientas de graficación. Para esto, usamos \textbf{bibliotecas externas}. Dos de las más importantes en el mundo de la ciencia y la ingeniería son:
+    \end{block}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{NumPy (Numerical Python)}
+                Es la biblioteca para cálculos numéricos avanzados.
+                \begin{itemize}
+                    \item Su objeto principal es el \textbf{array}.
+                    \item La usaremos para \textbf{crear los datos} (nuestros puntos en el eje X) de forma rápida y eficiente.
+                \end{itemize}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{exampleblock}{Matplotlib (Plotting Library)}
+                Es la biblioteca más popular para dibujar y crear gráficos en Python.
+                \begin{itemize}
+                    \item Usaremos su módulo \texttt{pyplot}.
+                    \item La usaremos para tomar nuestros datos y \textbf{crear el dibujo} (el gráfico).
+                \end{itemize}
+            \end{exampleblock}
+    \end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Instalación (Un solo paso)}
+    
+    \begin{block}{Instalando las Bibliotecas}
+    Como \texttt{numpy} y \texttt{matplotlib} son bibliotecas externas, debemos instalarlas en nuestra computadora \textbf{una sola vez}.
+    \end{block}
+    
+    \begin{alertblock}{Usando \texttt{pip}}
+    Abrimos una terminal o símbolo del sistema (no es el script de Python) y escribimos el siguiente comando:
+    \begin{lstlisting}[language=bash]
+# Esto descarga e instala ambas bibliotecas
+pip install numpy matplotlib
+    \end{lstlisting}
+    \end{alertblock}
+    
+    \begin{examples}{Nota}
+    Esto solo se hace una vez. Una vez instaladas, ya puedes usarlas en todos tus programas de Python simplemente con \texttt{import}.
+    \end{examples}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Nuestro Primer Gráfico}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{El "Hola, Mundo" del Ploteo}
+    
+    \begin{block}{Objetivo: Dibujar $y = x^2$}
+    Vamos a crear un gráfico simple para la función $y = x^2$ en el rango de $x = -10$ a $x = 10$.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{El "Hola, Mundo" del Ploteo}
+    \begin{alertblock}{Código Completo}
+    Este es el código mínimo para crear un gráfico:
+    \begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Preparar los datos
+x = np.linspace(-10, 10, 100) # 100 puntos entre -10 y 10
+y = x**2                      # Calcula el cuadrado de CADA punto
+
+# 2. Dibujar el grafico
+plt.plot(x, y) # Crea el grafico en memoria
+
+# 3. Mostrar el grafico
+plt.show()     # Abre la ventana con el resultado
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Análisis (Paso 1): Los Datos con NumPy}
+    
+    \begin{block}{\texttt{import numpy as np}}
+    Importamos la biblioteca y le damos un "alias" o apodo (`np`) para escribir menos. Es una convención estándar.
+    \end{block}
+    
+    \begin{alertblock}{\texttt{x = np.linspace(-10, 10, 100)}}
+    Este es el comando clave de NumPy para nosotros.
+    \begin{itemize}
+        \item \textbf{\texttt{linspace}} significa "espacio lineal".
+        \item Genera un array (similar a una lista) con \textbf{100} números, espaciados uniformemente entre \textbf{-10} y \textbf{10}.
+        \item Estos 100 números serán nuestros "puntos X".
+    \end{itemize}
+    \end{alertblock}
+    
+    \begin{examples}{\texttt{y = x**2}}
+    ¡Aquí está la magia de NumPy! No necesitamos un ciclo \texttt{for}. Al elevar el \textit{array} \texttt{x} al cuadrado, NumPy aplica la operación a \textbf{cada uno de los 100 elementos} automáticamente y nos devuelve un nuevo array \texttt{y} con los resultados.
+    \end{examples}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Análisis (Paso 2): El Dibujo con Matplotlib}
+    
+    \begin{block}{\texttt{import matplotlib.pyplot as plt}}
+    De forma similar, importamos el módulo \texttt{pyplot} de \texttt{matplotlib} y le damos el alias estándar \texttt{plt}.
+    \end{block}
+    
+    \begin{alertblock}{\texttt{plt.plot(x, y)}}
+    Este es el comando de dibujo principal. Le decimos a Matplotlib: "Toma el array \texttt{x} como eje horizontal y el array \texttt{y} como eje vertical, y dibuja una línea que los conecte".
+    \end{alertblock}
+    
+    \begin{examples}{\texttt{plt.show()}}
+    Este comando le dice a Python: "He terminado de configurar mi gráfico. Ahora, por favor, abre la ventana y muéstraselo al usuario". Sin \texttt{plt.show()}, el gráfico se crea en memoria pero nunca se muestra.
+    \end{examples}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Tarea 1}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 1: Dibuja una Función Trigonométrica}
+
+    \begin{block}{Objetivo}
+    Usando el código que acabamos de ver como plantilla, crea un programa que dibuje la función \textbf{Seno} ($y = \sin(x)$).
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 1: Dibuja una Función Trigonométrica}
+
+    \begin{alertblock}{Instrucciones}
+    Debes graficar la función en el rango de $x = 0$ a $x = 2\pi$.
+    
+    \begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Pista: NumPy tiene su propia constante 'pi'
+# 1. Crear datos para x:
+#    (Usa np.linspace para ir de 0 a 2*np.pi)
+x = ...
+
+# 2. Crear datos para y:
+#    (Pista: NumPy tiene su propia funcion 'sin')
+y = np.sin(x) 
+    \end{lstlisting}
+    \end{alertblock}
+    
+\end{frame}
+
+\end{document}

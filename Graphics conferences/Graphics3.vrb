@@ -1,0 +1,15 @@
+\frametitle{Tarea 3: Mini Calculadora v2.0 (con Clases)}
+    \begin{exampleblock}{Estructura del Código Principal}
+    El código fuera de la clase debe ser mínimo:
+
+\begin{lstlisting}[language=Python]
+    # ... (aqui va tu 'class Sumadora(tk.Frame):' ...)
+
+if __name__ == "__main__":
+    ventana_raiz = tk.Tk()
+    ventana_raiz.title("Calculadora v2.0")
+    app = Sumadora(master=ventana_raiz)
+    app.mainloop()
+\end{lstlisting}
+    \end{exampleblock}
+

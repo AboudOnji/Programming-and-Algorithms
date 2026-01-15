@@ -1,0 +1,327 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+\title{Interfaces Gráficas (GUI) con Tkinter}
+\subtitle{Clase 4: Múltiples Ventanas y Eventos Avanzados}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Manejo de Múltiples Formularios (Ventanas)}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Aplicaciones Reales}
+    
+    \begin{block}{El Problema}
+    Casi ninguna aplicación real es una sola ventana. Pensemos en cualquier software profesional:
+    \begin{itemize}
+        \item Una ventana principal (el editor de texto, el navegador, etc.).
+        \item Ventanas secundarias para ''Configuración'' o ''Preferencias''.
+        \item Diálogos emergentes para ''Guardar Archivo'' o ''Acerca de...''.
+        \item Una ventana de ''Login'' que da paso a la aplicación principal.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Aplicaciones Reales}
+    \begin{alertblock}{La Solución: \texttt{tk.Toplevel()}}
+    Para crear una nueva ventana que ''flota'' encima de nuestra ventana principal, usamos el widget \texttt{tk.Toplevel()}.
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Crear y Manejar Múltiples Ventanas}
+    
+    \begin{block}{Crear una Ventana \texttt{Toplevel}}
+    Se crea de forma muy similar a otros widgets. Es una ventana ''hija'' de la ventana raíz. Si cierras la raíz, esta también se cierra.
+    \begin{lstlisting}[language=Python]
+# Dentro de un metodo de nuestra clase App
+def abrir_ventana_secundaria(self):
+    # 'self' (el Frame) es el padre de la nueva ventana
+    ventana_nueva = tk.Toplevel(self)
+    
+    ventana_nueva.title('Ventana Secundaria')
+    tk.Label(ventana_nueva, text='¡Soy una nueva ventana!').pack()
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Crear y Manejar Múltiples Ventanas}
+        
+    \begin{alertblock}{Manejo de Formularios}
+    Podemos controlar la visibilidad de las ventanas:
+    \begin{itemize}
+        \item \texttt{ventana.destroy()}: \textbf{Cierra y destruye} la ventana. Se usa para cerrar un pop-up o la ventana de login.
+        \item \texttt{ventana.withdraw()}: \textbf{Oculta} la ventana sin destruirla.
+        \item \texttt{ventana.deiconify()}: \textbf{Muestra} una ventana que estaba oculta.
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Eventos Avanzados}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Más Allá del \texttt{command}}
+    
+    \begin{block}{El Problema}
+    La propiedad \texttt{command} es genial para botones, pero ¿qué pasa si queremos reaccionar a otras acciones?
+    \begin{itemize}
+        \item ¿Hacer clic derecho en una etiqueta?
+        \item ¿Presionar la tecla ''Enter'' en un campo de texto?
+        \item ¿Detectar cuándo el mouse pasa por encima de una imagen?
+    \end{itemize}
+    \end{block}
+    
+    \begin{alertblock}{La Solución: El Método \texttt{.bind()}}
+    Todos los widgets en Tkinter tienen un método universal llamado \texttt{.bind()} que nos permite ''atar'' (bind) una función de Python a un evento específico en ese widget.
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Sintaxis de \texttt{.bind()}}
+    
+    \begin{block}{Paso 1: La Función (Callback)}
+    La función que es llamada por \texttt{.bind()} \textbf{debe} aceptar un argumento, que por convención se llama \texttt{event}. Python pasa automáticamente información sobre el evento (como la posición X/Y del mouse).
+    \begin{lstlisting}[language=Python]
+# La funcion DEBE aceptar el argumento 'event'
+def mi_callback(event):
+    print(''¡Evento detectado!'')
+    # event tiene info util: event.x, event.y
+    print(f''Clic en la posicion: {event.x}, {event.y}'')
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Sintaxis de \texttt{.bind()}}
+    \begin{alertblock}{Paso 2: El ''Atado''}
+    Usamos \texttt{.bind()} con dos argumentos: el string del evento y el nombre de la función (sin paréntesis).
+    \begin{lstlisting}[language=Python]
+# Sintaxis:
+# mi_widget.bind(''<DescriptorDelEvento>'', funcion_callback)
+
+# Ejemplo:
+etiqueta = tk.Label(self, text=''Haz clic derecho en mi'')
+etiqueta.pack()
+
+# Atamos el evento <Button-3> (clic derecho) a la funcion
+etiqueta.bind(''<Button-3>'', mi_callback)
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Principales Eventos de Mouse}
+    
+    \begin{block}{Tipos de Eventos de Clic}
+    Podemos capturar diferentes tipos de clics:
+    \begin{itemize}
+        \item \texttt{<Button-1>}: Clic izquierdo del mouse. (También se le llama \textbf{mouse down}).
+        \item \texttt{<Button-3>}: Clic derecho del mouse.
+        \item \texttt{<Double-Button-1>}: Doble clic izquierdo (\textbf{dbclick}).
+    \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Principales Eventos de Mouse}
+    \begin{alertblock}{Drag y Drop (Arrastrar y Soltar)}
+    El ''arrastrar y soltar'' es una combinación de dos eventos:
+    \begin{itemize}
+        \item \texttt{<B1-Motion>}: \textbf{(Drag)} Se dispara continuamente \textit{mientras} el botón 1 está presionado y el mouse se mueve.
+        \item \texttt{<ButtonRelease-1>}: \textbf{(Drop)} Se dispara cuando el usuario \textit{suelta} el botón 1.
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Principales Eventos de Mouse}   
+    \begin{exampleblock}{Ejemplo: Rastrear el Mouse}
+    \begin{lstlisting}[language=Python]
+def al_arrastrar(event):
+    print(f''Mouse arrastrado a: {event.x}, {event.y}'')
+    
+# Creamos un area de texto
+area_texto = tk.Text(self, height=5, width=30)
+area_texto.pack()
+
+# Atamos el evento de arrastrar
+area_texto.bind(''<B1-Motion>'', al_arrastrar)
+    \end{lstlisting}
+    \end{exampleblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Tarea 4}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 4: Aplicación de Login}
+
+    \begin{block}{Objetivo}
+    Combinar el conocimiento de \textbf{Clases} (Clase 3) con el manejo de \textbf{múltiples ventanas} (Clase 4) para crear una aplicación de login funcional.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 4: Aplicación de Login}
+    \begin{alertblock}{Instrucciones}
+    \begin{itemize}
+        \item \textbf{Estructura:} Crea tu aplicación de Login usando la estructura de \textbf{Clase} que aprendimos.
+        \item \textbf{Ventana de Login:} La ventana principal (`tk.Tk`) será la ventana de Login. Debe contener:
+            \begin{itemize}
+                \item Un \texttt{Label} y un \texttt{Entry} para la contraseña.
+                \item Un \texttt{Button} para ''Ingresar''.
+                \item Un \texttt{Label} para mensajes de error (inicialmente vacío).
+            \end{itemize}
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 4: Aplicación de Login}
+    \begin{alertblock}{Instrucciones}
+    \begin{itemize}
+        \item \textbf{Lógica de Login:} Escribe un \textbf{método} (función) que se ejecute con el \texttt{command} del botón:
+            \begin{itemize}
+                \item Si la contraseña es \texttt{''1234''}, el programa debe \textbf{cerrar} la ventana de Login (`self.master.destroy()`) y \textbf{abrir} una nueva ventana principal (mira la pista).
+                \item Si la contraseña es incorrecta, debe actualizar el \texttt{Label} de error con el texto ''Contraseña incorrecta''.
+            \end{itemize}
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 4: Aplicación de Login}   
+    \begin{exampleblock}{Pista Clave: Dos Clases}
+    La mejor forma de hacerlo es con \textbf{dos clases}: una para la App de Login y otra para la App Principal.
+    \begin{lstlisting}[language=Python, literate=*{_}{{{\_}}}1]
+class AppPrincipal(tk.Frame):
+    def __init__(self, master):
+        super().__init__(master)
+        # ... widgets de la app principal ...  
+class AppLogin(tk.Frame):
+    def __init__(self, master):
+        super().__init__(master)
+        # ... widgets de login (entry, boton) ...
+        self.boton_login.config(command=self.verificar_login)
+    def verificar_login(self):
+        if self.entrada_pass.get() == ''1234'':
+            self.master.destroy() # Cierra la ventana de login
+
+    \end{lstlisting}
+    \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 4: Aplicación de Login}   
+    \begin{exampleblock}{Pista Clave: Dos Clases}
+    La mejor forma de hacerlo es con \textbf{dos clases}: una para la App de Login y otra para la App Principal.
+    \begin{lstlisting}[language=Python, literate=*{_}{{{\_}}}1]
+
+            # Crea la nueva ventana principal
+            nueva_ventana = tk.Tk()
+            app_main = AppPrincipal(master=nueva_ventana)
+            app_main.mainloop()
+        else:
+            # ... mostrar error ... 
+# --- Codigo Principal ---
+if __name__ == ''__main__'':
+    ventana_login = tk.Tk()
+    app = AppLogin(master=ventana_login)
+    app.mainloop()
+    \end{lstlisting}
+    \end{exampleblock}
+
+\end{frame}
+\end{document}

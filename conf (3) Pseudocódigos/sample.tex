@@ -1,0 +1,467 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y TEMAS
+%----------------------------------------------------------------------------------------
+
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{graphicx} % Permite incluir imágenes
+\usepackage{booktabs} % Permite el uso de \toprule, \midrule y \bottomrule en tablas
+\usepackage{amsmath}
+\usepackage{lettrine}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{xurl}
+\usepackage{hyperref} % Para crear hipervínculos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+% --- ¡NUEVO! PAQUETES PARA ALGORITMOS ---
+
+
+% -----------------------------------------
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue, % Color blanco para mejor contraste en tema oscuro
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+% --- Numeración de figuras y tablas ---
+\setbeamertemplate{caption}[numbered]
+
+%----------------------------------------------------------------------------------------
+%	PÁGINA DE TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title{El Pensamiento Algorítmico}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    % Print the title page as the first slide
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{¿Qué es un algoritmo?}
+%------------------------------------------------
+
+\begin{frame}{¿Qué es un Algoritmo?}
+    \begin{block}{Definición Intuitiva: Una Receta}
+    En su esencia, un \textbf{algoritmo} es una \textit{receta}: un conjunto de instrucciones bien definidas, ordenadas y finitas que describen la secuencia de operaciones necesarias para resolver un problema específico o realizar una tarea.
+    \end{block}
+    
+    \begin{alertblock}{Definición Formal}
+    Un algoritmo es una secuencia finita de instrucciones precisas y no ambiguas, cada una ejecutable en tiempo y con esfuerzo finitos, diseñada para resolver una clase particular de problemas.
+    \end{alertblock}
+    
+    
+\end{frame}
+
+\begin{frame}{¿Qué es un Algoritmo?}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\linewidth]{Alkhawarizmi.png}
+
+    \label{fig:placeholder}
+\end{figure}
+\begin{block}{Origen del Término}
+    Deriva del nombre del matemático persa del siglo IX, \textbf{Muhammad ibn Musa al-Khwarizmi}, cuyo trabajo sentó las bases del álgebra. Su nombre latinizado era \textit{Algoritmi}.
+    \end{block}
+\end{frame}
+%------------------------------------------------
+\subsection{Componentes de un algoritmo}
+%------------------------------------------------
+
+\begin{frame}{Componentes de un Algoritmo}
+    \begin{block}{Flujo Básico}
+        \begin{center}
+        \Large \textbf{Entrada} $\rightarrow$ \textbf{Proceso} $\rightarrow$ \textbf{Salida}
+        \end{center}
+    \end{block}
+    
+    \begin{description}
+        \item[\textbf{Entrada (Input):}] Son los datos iniciales que se le proporcionan al algoritmo para que opere. Puede tener cero o más entradas. \pause
+        \item[\textbf{Proceso (Process):}] Es la secuencia de pasos, cálculos y operaciones que transforman los datos de entrada en una solución. \pause
+        \item[\textbf{Salida (Output):}] Es el resultado final que el algoritmo produce. Todo algoritmo debe tener al menos una salida.
+    \end{description}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Características fundamentales de los algoritmos}
+%------------------------------------------------
+
+\begin{frame}{Características Fundamentales de los Algoritmos}
+    \begin{block}{Criterios de Efectividad}
+    Para que una secuencia de instrucciones sea considerada un algoritmo válido, debe cumplir con las siguientes características indispensables:
+    \end{block}
+    
+    \begin{description}
+        \item[\textbf{Preciso:}] Cada paso debe ser definido de manera clara y sin ambigüedad. No debe haber lugar a interpretaciones. \pause
+        
+        \item[\textbf{Definido:}] Si se ejecuta el algoritmo varias veces con la misma entrada, el resultado de salida debe ser \textbf{siempre} el mismo. \pause
+        
+        \item[\textbf{Finito:}] Un algoritmo debe terminar después de un número finito de pasos. No puede entrar en un bucle infinito. \pause
+        
+        \item[\textbf{Legible:}] El algoritmo debe ser comprensible y su lógica debe poder ser entendida. Cada paso debe ser lo suficientemente básico como para poder ser realizado, en principio, con lápiz y papel.
+    \end{description}
+\end{frame}
+
+%------------------------------------------------
+\section{Herramientas de Diseño de Algoritmos}
+%------------------------------------------------
+
+\begin{frame}{Herramientas de Diseño de Algoritmos}
+    \begin{block}{Del Problema al Código}
+    Antes de escribir una sola línea de código, es fundamental plasmar la lógica de nuestra solución de una manera clara y estructurada. Las herramientas de diseño nos permiten concentrarnos en la lógica sin preocuparnos por la sintaxis de un lenguaje específico.
+    \end{block}
+    
+    \begin{alertblock}{El Puente entre el Humano y la Máquina}
+    Las dos herramientas más utilizadas en el desarrollo de software son:
+        \begin{itemize}
+            \item \textbf{Pseudocódigo:} Una descripción textual y estructurada.
+            \item \textbf{Diagramas de Flujo:} Una representación gráfica del proceso.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Pseudocódigo: Hablando el lenguaje de la lógica}
+%------------------------------------------------
+
+\begin{frame}{Pseudocódigo: Hablando el Lenguaje de la Lógica}
+    \begin{block}{Definición}
+    El \textbf{pseudocódigo} (del griego \textit{pseudo}, 'falso') es una descripción de alto nivel, compacta e informal, del principio operativo de un algoritmo.
+    \end{block}
+    
+    \begin{alertblock}{Características Principales}
+        \begin{itemize}
+            \item Utiliza las convenciones estructurales de un lenguaje de programación, pero está diseñado para la \textbf{lectura humana}, no para la máquina.
+            \item Su principal ventaja es la \textbf{flexibilidad}: no está atado a ninguna sintaxis estricta, permitiendo al programador expresar la lógica de forma clara y concisa.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\subsubsection{Estructura y palabras clave comunes}
+%------------------------------------------------
+
+\begin{frame}{Estructura y Palabras Clave Comunes}
+    \begin{block}{Convenciones Estructurales}
+    Aunque no hay un estándar universal, se suelen adoptar ciertas palabras clave que imitan a los lenguajes de programación estructurados.
+    \end{block}
+    
+    
+            \begin{itemize}
+                \item \textbf{INICIO / FIN:} Delimitan el algoritmo.
+                \item \textbf{LEER / OBTENER:} Para recibir datos de entrada.
+                \item \textbf{ESCRIBIR / MOSTRAR:} Para presentar datos en la salida.
+                \item \textbf{ASIGNAR / HACER} o \textbf{$\leftarrow$}: Para asignar un valor a una variable.
+            \end{itemize}
+ 
+           
+
+\end{frame}
+\begin{frame}{Estructura y Palabras Clave Comunes}
+    \frametitle{Estructuras de Control}
+
+    \begin{block}{Condicionales}
+        \textbf{IF} (\textit{una condición} is True) \\\textbf{THEN}...(Haz esto) \\\textbf{ELSE}...(Haz esto) \\\textbf{END\_IF} \\
+        Se utiliza para tomar decisiones y ejecutar diferentes bloques de código basados en si una condición es verdadera o falsa.
+    \end{block}
+\end{frame}   
+
+\begin{frame}{Estructura y Palabras Clave Comunes}
+
+    \begin{alertblock}{Bucles Condicionales}
+        \textbf{WHILE} (\textit{una condición} is True)\\ \textbf{DO SOMTHING}...(Haz esto)\\ \textbf{END\_WHILE} \\
+        Repite un bloque de código continuamente mientras una condición especificada siga siendo verdadera.
+    \end{alertblock}
+
+\end{frame}  
+
+\begin{frame}{Estructura y Palabras Clave Comunes}
+
+    \begin{block}{Bucles Controlados por Contador}
+        \textbf{FOR}...(inicio) \textbf{TO}...(fin)\\ \textbf{DO SOMTHING}...(Haz esto)\\ \textbf{END\_FOR} \\
+        Repite un bloque de código un número predeterminado de veces.
+    \end{block}
+
+\end{frame}
+
+%------------------------------------------------
+\subsubsection{Ejemplos de Pseudocódigo}
+%------------------------------------------------
+\begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 1: Área y Perímetro de un Rectángulo.}
+    
+    \begin{block}{Descripción}
+    Un algoritmo secuencial clásico. Se leen dos valores, se realizan dos cálculos distintos y se muestran los resultados. El flujo es lineal y directo.
+    \end{block}
+    
+\end{frame}
+\begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 1:Área y Perímetro de un Rectángulo.}
+
+\begin{algorithm}[H]
+\caption{Área y Perímetro de un Rectángulo}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{LEER} L, B \Comment{Largo y Ancho}
+    \State \textbf{ASIGNAR} AREA $\leftarrow$ L * B
+    \State \textbf{ASIGNAR} PERIMETRO $\leftarrow$ 2 * (L + B)
+    \State \textbf{ESCRIBIR} AREA, PERIMETRO
+    \State \textbf{FIN}
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+ 
+\begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 2: Calcular el Área de un Círculo}
+    
+    \begin{block}{Descripción}
+    Este es un algoritmo secuencial simple que sigue los pasos de entrada, proceso y salida sin ninguna bifurcación o bucle.
+    \end{block}
+    
+\end{frame}
+\begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 2: Calcular el Área de un Círculo}
+
+\begin{algorithm}[H]
+\caption{Calcular el Área de un Círculo}
+\label{alg:area_circulo}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{DEFINIR} la constante PI $\leftarrow$ 3.14159
+    \State \textbf{ESCRIBIR} 'Por favor, ingrese el radio del círculo:'
+    \State \textbf{LEER} radio
+    \State \textbf{ASIGNAR} area $\leftarrow$ PI * (radio * radio)
+    \State \textbf{ESCRIBIR} 'El área del círculo es: ', area
+    \State \textbf{FIN}
+\end{algorithmic}
+\end{algorithm}
+ \end{frame}   
+
+ \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 3: Sumar los primeros 100 números enteros.}
+    
+    \begin{block}{Descripción}
+    Aquí utilizamos un bucle \texttt{For} para realizar una tarea repetitiva un número fijo de veces. Introducimos el concepto de un \textit{acumulador} (\texttt{suma}).
+    \end{block}
+    
+\end{frame}
+ \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 3: Sumar los primeros 100 números enteros.}
+
+\begin{algorithm}[H]
+\caption{Sumar los Primeros 100 Enteros Positivos}
+\label{alg:suma_100}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{ASIGNAR} suma $\leftarrow$ 0
+    \For{contador $\leftarrow$ 1 \textbf{to} 100}
+        \State \textbf{ASIGNAR} suma $\leftarrow$ suma + contador
+    \EndFor
+    \State \textbf{ESCRIBIR} 'La suma total es: ', suma
+    \State \textbf{FIN}
+\end{algorithmic}
+\end{algorithm}
+ \end{frame}   
+
+
+ \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 4: Conversión de Grados Celsius a Fahrenheit.}
+    
+    \begin{block}{Descripción}
+   Un ejemplo práctico de un algoritmo secuencial que aplica una fórmula matemática para la conversión de unidades. Demuestra la importancia de usar tipos de datos adecuados (números reales o flotantes) para cálculos precisos.
+    \end{block}
+    
+\end{frame}
+ \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 4: Conversión de Grados Celsius a Fahrenheit.}
+
+\begin{algorithm}[H]
+\caption{Convertir Celsius a Fahrenheit}
+\label{alg:celsius_fahrenheit}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{ESCRIBIR} 'Ingrese la temperatura en grados Celsius:'
+    \State \textbf{LEER} gradosCelsius
+    \State \textbf{ASIGNAR} gradosFahrenheit $\leftarrow$ (gradosCelsius * 9/5) + 32
+    \State \textbf{ESCRIBIR} gradosCelsius, '°C equivalen a ', gradosFahrenheit, '°F.'
+    \State \textbf{FIN}
+\end{algorithmic}
+\end{algorithm}
+ \end{frame}   
+ 
+  \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 5: Calcular el factorial de un número.}
+    
+    \begin{block}{Descripción}
+    El factorial de un entero no negativo $n$, denotado como $n!$, es el producto de todos los enteros positivos menores o iguales a $n$. Este algoritmo utiliza un bucle \texttt{FOR} cuyo rango depende de la entrada del usuario y un acumulador que multiplica en lugar de sumar.
+    \end{block}
+    
+\end{frame}
+ \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 5: Calcular el factorial de un número.}
+
+\begin{algorithm}[H]
+\caption{Cálculo del Factorial}
+\label{alg:factorial}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{ESCRIBIR} 'Ingrese un número entero no negativo para calcular su factorial:'
+    \State \textbf{LEER} numero
+    \If{numero $<$ 0}
+        \State \textbf{ESCRIBIR} 'Error: El factorial no está definido para números negativos.'
+    \Else
+        \State \textbf{ASIGNAR} factorial $\leftarrow$ 1
+        \For{$i \leftarrow 1$ \textbf{to} $numero$}
+            \State \textbf{ASIGNAR} factorial $\leftarrow$ factorial * i
+        \EndFor
+        \State \textbf{ESCRIBIR} 'El factorial de ', numero, ' es: ', factorial
+    \EndIf
+    \State \textbf{FIN}
+\end{algorithmic}
+\end{algorithm}
+ \end{frame} 
+
+
+  \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 6: Encontrar el mayor de tres números}
+    
+    \begin{block}{Descripción}
+   Este ejemplo es excelente para ilustrar el poder de las decisiones anidadas. Se comparan los números por pares para determinar cuál es el mayor de todos. El diagrama de flujo visualiza claramente las múltiples rutas que puede tomar la ejecución.
+    \end{block}
+    
+\end{frame}
+ \begin{frame}[fragile]
+    \frametitle{Ejemplo 6: Encontrar el mayor de tres números.}
+
+\begin{algorithm}[H]
+\caption{Encontrar el Mayor de Tres Números}
+\begin{footnotesize}
+  \begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{LEER} num1, num2, num3
+    \If{num1 $>$ num2}
+        \If{num1 $>$ num3}
+            \State \textbf{ESCRIBIR} 'El mayor es: ', num1
+        \Else
+            \State \textbf{ESCRIBIR} 'El mayor es: ', num3
+        \EndIf
+    \Else
+        \If{num2 $>$ num3}
+            \State \textbf{ESCRIBIR} 'El mayor es: ', num2
+        \Else
+            \State \textbf{ESCRIBIR} 'El mayor es: ', num3
+        \EndIf
+    \EndIf
+    \State \textbf{FIN}
+\end{algorithmic}  
+\end{footnotesize}
+\end{algorithm}
+
+\end{frame}
+  \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 7: Encontrar el máximo de una lista de números}
+    
+    \begin{block}{Descripción}
+   Este algoritmo muestra cómo recorrer una colección de datos (una lista o arreglo) para encontrar un valor específico. Se inicializa una variable \texttt{maximo} con el primer elemento y luego se compara con los demás, actualizándola si se encuentra un valor mayor.
+    \end{block}
+    
+\end{frame}
+ \begin{frame}[fragile]
+    \frametitle{Ejemplo 7: Encontrar el máximo de una lista de números}
+
+\begin{algorithm}[H]
+\caption{Encontrar el Máximo en una Lista}
+\label{alg:maximo_lista}
+\begin{footnotesize}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{DEFINIR} listaNumeros $\leftarrow$ [15, 9, 27, 4, 12, 33, 8]
+    \If{la lista está vacía}
+        \State \textbf{ESCRIBIR} 'La lista no puede estar vacía.'
+    \Else
+        \State \textbf{ASIGNAR} maximo $\leftarrow$ listaNumeros[0] \Comment{Asumimos el primero como máximo inicial}
+        \For{cada numero \textbf{EN} listaNumeros}
+            \If{numero $>$ maximo}
+                \State \textbf{ASIGNAR} maximo $\leftarrow$ numero
+            \EndIf
+        \EndFor
+        \State \textbf{ESCRIBIR} 'El número más grande en la lista es: ', maximo
+    \EndIf
+    \State \textbf{FIN}
+
+\end{algorithmic}
+\end{footnotesize}
+\end{algorithm}
+
+\end{frame}
+
+  \begin{frame}{Ejemplos de Pseudocódigo}
+    \frametitle{Ejemplo 8: Validar una contraseña simple.}
+    
+    \begin{block}{Descripción}
+   Este algoritmo solicita al usuario una contraseña y utiliza un bucle \texttt{MIENTRAS} para asegurarse de que cumple con un requisito mínimo (en este caso, tener al menos 8 caracteres). Es un ejemplo fundamental de validación de entrada.
+    \end{block}
+    
+\end{frame}
+ \begin{frame}[fragile]
+    \frametitle{Ejemplo 8: Validar una contraseña simple.}
+
+\begin{algorithm}[H]
+\caption{Validación de Contraseña Simple}
+\label{alg:validar_pass}
+\begin{algorithmic}[1]
+    \State \textbf{INICIO}
+    \State \textbf{ASIGNAR} contrasenaValida $\leftarrow$ \textbf{FALSO}
+    \While{\textbf{NO} contrasenaValida}
+        \State \textbf{ESCRIBIR} 'Cree una contraseña (mínimo 8 caracteres):'
+        \State \textbf{LEER} contrasena
+        \If{LONGITUD(contrasena) $>= 8$}
+            \State \textbf{ASIGNAR} contrasenaValida $\leftarrow$ \textbf{VERDADERO}
+            \State \textbf{ESCRIBIR} 'Contraseña creada exitosamente.'
+        \Else
+            \State \textbf{ESCRIBIR} 'Error: La contraseña es demasiado corta. Inténtelo de nuevo.'
+        \EndIf
+    \EndWhile
+    \State \textbf{FIN}
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+ \begin{frame}{Tarea}
+    \frametitle{Tarea: Calculadora de promedios y asignación de nota final.}
+    
+    \begin{block}{Descripción}
+   Este algoritmo es más interactivo y robusto. Permite al usuario ingresar un número indeterminado de calificaciones hasta que introduce un valor centinela (-1) para finalizar. Luego, calcula el promedio, se asegura de no dividir por cero si no se ingresaron calificaciones, y finalmente asigna una nota cualitativa (letra) basada en el promedio numérico. Este ejemplo combina bucles controlados por eventos, acumuladores, contadores y condicionales anidados.
+    \end{block}
+    
+\end{frame}
+\end{document}

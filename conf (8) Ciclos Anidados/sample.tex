@@ -1,0 +1,338 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+%	PÁGINA DE TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title{Ciclos Anidados}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Parte Teórica: ¿Qué son los Ciclos Anidados?}
+%------------------------------------------------
+
+\begin{frame}{¿Qué es un Ciclo Anidado?}
+    
+    \begin{block}{Definición}
+    Un ciclo anidado es, en su forma más simple, un ciclo que se encuentra \textbf{dentro de otro ciclo}. El ciclo exterior se conoce como \textbf{ciclo externo} y el ciclo interior como \textbf{ciclo interno}.
+    \end{block}
+    
+    \begin{alertblock}{La Analogía del Reloj}
+    La forma más intuitiva de entenderlo es pensar en las manecillas de un reloj:
+    \begin{itemize}
+        \item El \textbf{ciclo externo} es el \textbf{horario}: se mueve lentamente, una vez por hora.
+        \item El \textbf{ciclo interno} es el \textbf{minutero}: se mueve rápidamente.
+    \end{itemize}
+    \textbf{Por cada hora} que avanza el horario, el minutero debe completar su \textbf{ciclo completo} de 60 minutos. Esta es la esencia de un ciclo anidado.
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Estructura y Flujo de Ejecución}
+    
+            \begin{block}{¿Qué va a mostrar el código?}
+                La indentación (sangría) es clave para definir qué ciclo está dentro de cuál.
+                \begin{lstlisting}[language=Python]
+
+for i in range(5):    
+    for j in range(3):
+        print(f"i={i}, j={j}")
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Estructura y Flujo de Ejecución}
+
+            \begin{alertblock}{Flujo de Ejecución}
+                 El orden de ejecución es el siguiente:
+                 \begin{enumerate}
+                    \item El ciclo \textbf{externo} comienza su primera iteración.
+                    \item El ciclo \textbf{interno} se activa y ejecuta \textbf{todas} sus iteraciones, de principio a fin.
+                    \item Una vez que el ciclo interno termina, el ciclo \textbf{externo} comienza su \textbf{segunda} iteración.
+                    \item El ciclo \textbf{interno} se \textbf{reinicia} y vuelve a ejecutar \textbf{todas} sus iteraciones.
+                    \item El proceso se repite hasta que el ciclo externo finaliza.
+                \end{enumerate}
+            \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Estructura y Flujo de Ejecución}
+    
+            \begin{block}{¿Qué va a mostrar el código?}
+                La indentación (sangría) es clave para definir qué ciclo está dentro de cuál.
+                \begin{lstlisting}[language=Python]
+
+for i in range(5):    
+    for j in range(3):
+        print(f"i={i}, j={j}")
+    print(f"i={i}, j={j}")
+print(f"i={i}, j={j}")
+                \end{lstlisting}
+            \end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Usos Comunes de los Ciclos Anidados}
+
+    \begin{block}{¿Para qué sirven?}
+    Los ciclos anidados son fundamentales para resolver problemas que tienen una naturaleza bidimensional o jerárquica.
+    \end{block}
+    
+    \begin{alertblock}{Aplicaciones Típicas}
+        \begin{itemize}
+            \item \textbf{Procesar estructuras de datos 2D:} Recorrer matrices, tablas o "listas de listas". El ciclo externo itera sobre las filas y el interno sobre las columnas de cada fila.
+            \pause
+            \item \textbf{Generar Patrones:} Dibujar figuras geométricas en la consola, como cuadrados, triángulos o pirámides de asteriscos.
+            \pause
+            \item \textbf{Crear Combinaciones:} Emparejar cada elemento de un conjunto con cada elemento de otro. Por ejemplo, generar todas las combinaciones posibles de un mazo de cartas (palos y números).
+            \pause
+            \item \textbf{Simulaciones Simples:} Iterar a través del tiempo (ciclo externo) y, para cada paso de tiempo, actualizar el estado de múltiples objetos o agentes (ciclo interno).
+        \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Ejemplos Prácticos}
+%------------------------------------------------
+
+\begin{frame}{Ejemplo 1: Tablas de Multiplicar}
+    
+    \begin{block}{Objetivo}
+    Vamos a crear un programa que imprima en la consola las tablas de multiplicar del 1 al 10. Este es el ejemplo perfecto para ver cómo el ciclo interno se ejecuta por completo para cada paso del ciclo externo.
+    \end{block}
+    
+    \begin{alertblock}{Nuestra Lógica}
+    Usaremos dos ciclos \texttt{for} anidados:
+    \begin{itemize}
+        \item \textbf{Ciclo Externo:} Iterará a través del número de la tabla que queremos calcular (del 1 al 10).
+        \item \textbf{Ciclo Interno:} Para cada tabla, iterará a través del número por el cual vamos a multiplicar (también del 1 al 10).
+    \end{itemize}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Ejemplo 1: Código y Salida}
+    
+    \begin{columns}[t]
+        \column{.5\textwidth}
+            \begin{block}{Código en Python}
+                \begin{lstlisting}[language=Python]
+# Ciclo externo para el numero de la tabla
+for tabla in range(1, 11):
+    print(f"\n--- Tabla del {tabla} ---")
+    
+    # Ciclo interno para el multiplicador
+    for multiplicador in range(1, 11):
+        resultado = tabla * multiplicador
+        print(f"{tabla} x {multiplicador} = {resultado}")
+                \end{lstlisting}
+            \end{block}
+
+        \column{.5\textwidth}
+            \begin{alertblock}{Salida en Consola (Fragmento)}
+                \begin{verbatim}
+--- Tabla del 1 ---
+1 x 1 = 1
+1 x 2 = 2
+...
+1 x 10 = 10
+
+--- Tabla del 2 ---
+2 x 1 = 2
+2 x 2 = 4
+... etc.
+                \end{verbatim}
+                \end{alertblock}
+    \end{columns}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 2: Creando Combinaciones}
+
+    \begin{block}{Objetivo}
+    Imagina que tienes dos listas: una con tipos de plato principal y otra con tipos de bebida. Escribe un programa para generar e imprimir todas las combinaciones posibles de menús que se pueden crear. Utiliza ciclos anidados de for para lograr esto.
+    \end{block}
+    
+    \begin{alertblock}{Estructura de Datos}
+    Trabajaremos con dos listas simples de strings.
+    \begin{lstlisting}[language=Python]
+platos_principales = ["Pasta", "Pizza", "Ensalada"]
+bebidas = ["Agua", "Refresco", "Jugo"]
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 2: Creando Combinaciones}
+    \begin{block}{Nuestra Lógica}
+    \begin{itemize}
+        \item \textbf{Ciclo Externo:} Recorrerá la lista de 'platos-principales', tomando un plato en cada iteración.
+        \item \textbf{Ciclo Interno:} Para \textbf{cada} plato del ciclo externo, este ciclo recorrerá la lista \textbf{completa} de 'bebidas'.
+        \item \textbf{Acción:} Dentro del ciclo interno, imprimiremos la combinación del plato actual con la bebida actual.
+    \end{itemize}
+    \end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 3: Encontrando Elementos Comunes}
+
+    \begin{block}{Objetivo}
+    Tenemos dos listas de invitados para dos eventos diferentes. Escribe un programa que compare ambas listas y genere una nueva lista que contenga únicamente los nombres de las personas que están invitadas a \textbf{ambos} eventos. Utiliza ciclos anidados de for y una condición if para lograr esto.
+    \end{block}
+    
+    \begin{alertblock}{Estructura de Datos}
+    Trabajaremos con dos listas simples de strings.
+    \begin{lstlisting}[language=Python]
+invitados_evento_A = ["Ana", "Carlos", "Sofia", "Luis"]
+invitados_evento_B = ["Sofia", "Pedro", "Ana", "Laura"]
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Ejemplo 3: Encontrando Elementos Comunes}
+    
+    \begin{block}{Nuestra Lógica}
+    \begin{itemize}
+        \item \textbf{Ciclo Externo:} Recorrerá la primera lista de invitados, tomando un nombre en cada iteración.
+        \item \textbf{Ciclo Interno:} Para \textbf{cada} nombre del ciclo externo, este ciclo recorrerá la \textbf{segunda lista completa}.
+        \item \textbf{Condición 'if':} Dentro del ciclo interno, una condición 'if' comparará el nombre del ciclo externo con el nombre del ciclo interno. Si son idénticos, significa que hemos encontrado un invitado en común.
+    \end{itemize}
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{Códigos de Solución}
+\begin{block}{Códigos de Solución: Ejemplo1}
+\url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example23.py}
+\end{block}
+\begin{block}{Códigos de Solución: Ejemplo2}
+\url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example24.py}
+\end{block}
+\begin{block}{Códigos de Solución: Ejemplo3}
+\url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example25.py}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea Final: Simulador de Torneo}
+
+    \begin{block}{Objetivo}
+    Escribir un programa que tome una lista de jugadores (Ana, Bruno, Carlos, Diana) y que genere todos los enfrentamientos posibles para un torneo "todos contra todos", donde cada jugador se enfrenta a cada uno de los otros jugadores \textbf{una sola vez}.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea Final: Simulador de Torneo}
+    \begin{alertblock}{Estructura de Datos y Salida Esperada}
+    Dado una lista de jugadores:
+    \begin{lstlisting}[language=Python]
+jugadores = ["Ana", "Bruno", "Carlos", "Diana"]
+    \end{lstlisting}
+    La salida en consola debe ser la siguiente (el orden puede variar):
+    \begin{verbatim}
+--- Rondas del Torneo ---
+Ana vs. Bruno
+Ana vs. Carlos
+Ana vs. Diana
+Bruno vs. Carlos
+Bruno vs. Diana
+Carlos vs. Diana
+    \end{verbatim}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea Final: Simulador de Torneo}
+    \begin{block}{El reto y la lógica a seguir}
+    El reto principal es evitar enfrentamientos repetidos (si ya generaste 'Ana vs. Bruno', no debes generar 'Bruno vs. Ana') y evitar que un jugador se enfrente a sí mismo ('Ana vs. Ana').
+    \begin{itemize}
+        \item Necesitarás dos ciclos \texttt{for} anidados para recorrer la lista de jugadores.
+        \item \textbf{La Clave:} Para evitar repeticiones, el ciclo interno \textbf{no debe empezar desde el principio} de la lista en cada iteración. Debe comenzar desde la posición \textbf{siguiente} a la del jugador actual del ciclo externo.
+        \item (Pista: necesitarás usar \texttt{range()} y \texttt{len()} para controlar los índices de las listas).
+    \end{itemize}
+    \end{block}
+
+\end{frame}
+\end{document}

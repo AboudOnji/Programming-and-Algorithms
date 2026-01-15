@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{El Problema del Código Desorganizado}{2}{0}{1}
+\beamer@sectionintoc {2}{La Solución: Programación Orientada a Objetos}{4}{0}{2}
+\beamer@sectionintoc {3}{Recursos (Data) e Imágenes}{10}{0}{3}
+\beamer@sectionintoc {4}{Tarea 3}{16}{0}{4}

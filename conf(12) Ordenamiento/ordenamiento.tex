@@ -1,0 +1,383 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin} % Elegir un tema de beamer
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+
+
+\title{Ordenando Arreglos: El M\'etodo \texttt{.sort()}}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Fundamentos de \texttt{.sort()}}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{¿Qu\'e es Ordenar?}
+    
+    \begin{block}{Ordenar una Lista}
+    'Ordenar' es el proceso algorítmico de reorganizar los elementos de una lista (o arreglo) para que sigan un criterio específico, comúnmente numérico (de menor a mayor) o alfabético.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{¿Qu\'e es Ordenar?}
+    \begin{alertblock}{Diferencia Clave: \texttt{.sort()} vs. \texttt{sorted()}}
+    Python tiene dos formas de ordenar, y es crucial entender la diferencia:
+    \begin{itemize}
+        \item \textbf{\texttt{mi\_lista.sort()}} (M\'etodo):
+        \begin{itemize}
+            \item \textbf{Modifica la lista original} (la ordena 'in-place').
+            \item No devuelve nada (retorna \texttt{None}).
+        \end{itemize}
+        \item \textbf{\texttt{nueva\_lista = sorted(mi\_lista)}} (Funci\'on):
+        \begin{itemize}
+            \item \textbf{Devuelve una nueva lista} ordenada.
+            \item La lista original no sufre ningún cambio.
+        \end{itemize}
+    \end{itemize}
+    \textbf{Hoy nos enfocaremos en el m\'etodo \texttt{.sort()} de las listas.}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Sintaxis B\'asica: \texttt{mi\_lista.sort()}}
+    
+    \begin{block}{Comportamiento por Defecto}
+    Por defecto, \texttt{.sort()} ordena la lista de forma \textbf{ascendente} (de menor a mayor, o alfabéticamente).
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Sintaxis B\'asica: \texttt{mi\_lista.sort()}}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{Ejemplo 1: Números}
+                \begin{lstlisting}[language=Python]
+numeros = [5, 1, 10, -2, 8]
+
+# Ordenamos la lista
+numeros.sort()
+
+print(numeros)
+# Imprime: [-2, 1, 5, 8, 10]
+                \end{lstlisting}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{exampleblock}{Ejemplo 2: Strings}
+                 \begin{lstlisting}[language=Python]
+palabras = ['Zebra', 'Manzana', 'Auto']
+
+# Ordenamos alfabeticamente
+palabras.sort()
+
+print(palabras)
+# Imprime: ['Auto', 'Manzana', 'Zebra']
+                \end{lstlisting}
+            \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Par\'ametro 1: \texttt{reverse}}
+    
+    \begin{block}{Sintaxis}
+    \texttt{mi\_lista.sort(reverse=False)}
+    \end{block}
+    
+    \begin{alertblock}{Orden Descendente}
+    El método \texttt{.sort()} acepta un parámetro opcional llamado \texttt{reverse}.
+    \begin{itemize}
+        \item Por defecto, \texttt{reverse} es \texttt{False} (orden ascendente).
+        \item Si lo establecemos a \texttt{True}, la lista se ordenará de forma \textbf{descendente} (de mayor a menor).
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Par\'ametro 1: \texttt{reverse}} 
+    \begin{exampleblock}{Ejemplo de Uso}
+    \begin{lstlisting}[language=Python]
+numeros = [5, 1, 10, -2, 8]
+
+# Ordenamos en reversa (descendente)
+numeros.sort(reverse=True)
+
+print(numeros)
+# Imprime: [10, 8, 5, 1, -2]
+    \end{lstlisting}
+    \end{exampleblock}
+
+\end{frame}
+
+
+%------------------------------------------------
+\section{Ordenamiento Avanzado con \texttt{key}}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Par\'ametro 2: \texttt{key}}
+    
+    \begin{block}{Sintaxis}
+    \texttt{mi\_lista.sort(key=None, reverse=False)}
+    \end{block}
+    
+    \begin{alertblock}{El Par\'ametro M\'as Poderoso: \texttt{key}}
+    El parámetro \texttt{key} nos permite cambiar \textbf{c\'omo} Python compara los elementos.
+    \begin{itemize}
+        \item La \texttt{key} (llave) debe ser una \textbf{funci\'on}.
+        \item Python aplicará esta función a \textbf{cada elemento} de la lista \textit{antes} de compararlos.
+        \item El ordenamiento se basará en el \textbf{resultado} de esa función, no en el elemento original.
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Par\'ametro 2: \texttt{key}}   
+    \begin{exampleblock}{Analogía: Ordenar Libros}
+    Imagina que tienes una pila de libros. ¿Cómo los ordenas?
+    \begin{itemize}
+        \item \textbf{Sin \texttt{key} (por defecto):} Los ordenas por título (alfabéticamente).
+        \item \textbf{Con \texttt{key=obtener\_num\_paginas}:} Los ordenas por su número de páginas (de menor a mayor).
+        \item \textbf{Con \texttt{key=obtener\_apellido\_autor}:} Los ordenas alfabéticamente por el apellido del autor.
+    \end{itemize}
+    La \texttt{key} es la 'llave' o 'criterio' que usamos para decidir el orden.
+    \end{exampleblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo de \texttt{key}: Ordenar por Longitud}
+    
+    \begin{block}{Usando la Función \texttt{len()}}
+    Queremos ordenar una lista de palabras, no alfabéticamente, sino por su \textbf{longitud} (de la más corta a la más larga).
+    
+    Podemos usar la función incorporada \texttt{len()} (que devuelve la longitud de un string) como nuestra \texttt{key}.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo de \texttt{key}: Ordenar por Longitud}
+    
+    \begin{alertblock}{Código de Ejemplo}
+    \begin{lstlisting}[language=Python]
+palabras = ['Gato', 'Mariposa', 'Pez', 'Elefante']
+
+# Le decimos a .sort() que use la funcion 'len'
+# como el criterio de ordenamiento.
+palabras.sort(key=len)
+
+print(palabras)
+# Imprime: ['Pez', 'Gato', 'Mariposa', 'Elefante']
+# (3, 4, 8, 8) <-- OJO: 'Mariposa' y 'Elefante'
+# tienen la misma longitud (8), por lo que
+# mantienen su orden relativo original (orden estable).
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Ejemplo de \texttt{key}: Ignorar Mayúsculas}
+    
+    \begin{block}{El Problema del Orden ASCII}
+    Por defecto, Python ordena las letras mayúsculas \textbf{antes} que las minúsculas (orden ASCII). Esto lleva a resultados confusos:
+    \begin{lstlisting}[language=Python]
+palabras = ['Zebra', 'manzana', 'Auto', 'elefante']
+
+palabras.sort() # Orden por defecto (ASCII)
+print(palabras)
+# Imprime: ['Auto', 'Zebra', 'elefante', 'manzana']
+# (A, Z, e, m) <-- ¡Incorrecto!
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Ejemplo de \texttt{key}: Ignorar Mayúsculas}
+    \begin{alertblock}{La Solución: \texttt{key=str.lower}}
+    Podemos pasar el método \texttt{str.lower} como la \texttt{key}. Esto le dice a Python que, \textit{solo para propósitos de comparación}, trate a todas las palabras como si estuvieran en minúsculas.
+    \begin{lstlisting}[language=Python]
+palabras = ['Zebra', 'manzana', 'Auto', 'elefante']
+
+# Orden correcto, ignorando mayusculas
+palabras.sort(key=str.lower)
+
+print(palabras)
+# Imprime: ['Auto', 'elefante', 'manzana', 'Zebra']
+# (Compara: 'auto', 'elefante', 'manzana', 'zebra')
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+\section{Sort en Arreglos 2D (Matrices)}
+
+%------------------------------------------------
+\section{Práctica}
+%------------------------------------------------
+
+\begin{frame}[fragile, allowframebreaks]
+    \frametitle{Tarea: Ordenando Datos Complejos}
+    
+    \begin{block}{El Problema}
+    Tenemos una lista de estudiantes. Cada estudiante es, a su vez, una lista que contiene su nombre, su calificación y su número de faltas:
+    
+    \texttt{[Nombre, Calificaci\'on, Faltas]}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile, allowframebreaks]
+    \frametitle{Tarea: Ordenando Datos Complejos}
+    \begin{alertblock}{Estructura de Datos}
+    \begin{lstlisting}[language=Python]
+estudiantes = [
+    ['Ana', 85, 2],
+    ['Luis', 92, 0],
+    ['Carla', 92, 3], # Carla y Luis tienen la misma nota
+    ['Bruno', 76, 1]
+]
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile, allowframebreaks]
+    \frametitle{Tarea: Ordenando Datos Complejos}   
+    \begin{examples}{Tu Tarea}
+    \begin{itemize}
+        \item \textbf{Parte 1:} Ordena la lista de estudiantes por \textbf{calificaci\'on} (de menor a mayor).
+        \item \textbf{Parte 2:} Ordena la lista de estudiantes por \textbf{n\'umero de faltas} (de menor a mayor).
+    \end{itemize}
+    \end{examples}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Tarea: Pista (Definir una Función \texttt{key})}
+    
+    \begin{block}{No podemos usar \texttt{len} o \texttt{str.lower}}
+    Necesitamos crear nuestra \textbf{propia función} que le diga a \texttt{.sort()} qu\'e \'indice de la sub-lista debe mirar.
+    \end{block}
+    \begin{alertblock}{Usamos \texttt{key = lambda}}
+        key lambda nos ayuda a ordenar la matriz de acuerdo a una columna específica.
+        \texttt{lambda columna: columna[indice]} donde \texttt{indice} es la columna que queremos usar para ordenar.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea: Pista (Definir una Función \texttt{key})}
+    
+    \begin{alertblock}{Código de Ejemplo (Parte 1: Por Calificaci\'on)}
+    \begin{lstlisting}[language=Python]
+estudiantes = [
+    ['Ana', 85, 2], ['Luis', 92, 0],
+    ['Carla', 92, 3], ['Bruno', 76, 1]
+]
+
+estudiantes.sort(key=lambda columna: columna[1])
+
+print('Ordenados por calificacion (con lambda):')
+print(estudiantes)
+    \end{lstlisting}
+    \end{alertblock}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+    \frametitle{Desafío de Programación: El Censo del Distrito}
+
+    
+    \begin{block}{Eres un trabajador del censo y necesitas registrar a los habitantes de un distrito.}
+    \begin{itemize}
+        \item Crear una lista vacía llamada \texttt{censo}.
+        \item Iniciar un bucle infinito (\texttt{while True}) que pida al usuario: Nombre (string), Edad (int), Código Postal (int)
+        \item \textbf{Condición de salida:} Si el usuario escribe \textbf{\texttt{"salir"}} en el nombre, el bucle debe romperse (\texttt{break}).
+        \item \textbf{Almacenamiento:} Guardar cada ciudadano como una lista (ej. \texttt{['Ana', 30, 10300]}) dentro de la lista principal \texttt{censo}.
+        \item \textbf{Reporte Final:} Al terminar el bucle, ordenar el \texttt{censo} por \textbf{edad}, de la persona \textbf{más vieja a la más joven}.
+        \item Imprimir la lista \texttt{censo} ya ordenada.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\end{document}
+

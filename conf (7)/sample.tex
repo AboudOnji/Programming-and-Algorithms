@@ -1,0 +1,515 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y TEMAS
+%----------------------------------------------------------------------------------------
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+%	PÁGINA DE TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title{Manejo de Cadenas (Strings) y Listas en Python}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Accediendo y Representando Caracteres}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Extrayendo Caracteres: Los Índices}
+    \begin{block}{Los Strings son Secuencias Ordenadas}
+    Cada carácter en un string tiene una posición o \textbf{índice}. En Python, la numeración de los índices siempre comienza en \textbf{cero (0)}.
+    \begin{center}
+    \ttfamily
+    \begin{tabular}{c c c c c c}
+    P & Y & T & H & O & N \\
+    \hline
+    0 & 1 & 2 & 3 & 4 & 5
+    \end{tabular}
+    \end{center}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Extrayendo Caracteres: Los Índices}
+
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{Índices Positivos (de Izq. a Der.)}
+                 Se usan para acceder a los caracteres desde el principio del string.
+                 \begin{lstlisting}
+palabra = 'PYTHON'
+
+# Acceder al primer caracter
+primer_letra = palabra[0] # 'P'
+
+# Acceder al tercer caracter
+tercer_letra = palabra[2] # 'T'
+                 \end{lstlisting}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{block}{Índices Negativos (de Der. a Izq.)}
+                Permiten acceder a los caracteres desde el final del string. \texttt{-1} es el último carácter.
+                 \begin{lstlisting}
+palabra = 'PYTHON'
+
+# Acceder al ultimo caracter
+ultima_letra = palabra[-1] # 'N'
+
+# Acceder al penultimo caracter
+penultima_letra = palabra[-2] # 'O'
+                 \end{lstlisting}
+            \end{block}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\section{Introducción a las Listas}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Introducción a las Listas: Contenedores Ordenados}
+    \begin{block}{¿Qué es una Lista?}
+    Una \textbf{lista} es una colección de elementos que está \textbf{ordenada} y es \textbf{mutable} (es decir, se puede cambiar después de crearla). Se definen con corchetes \texttt{[]} y los elementos se separan por comas.
+    \begin{itemize}
+        \item Pueden contener diferentes tipos de datos a la vez.
+    \end{itemize}
+    \end{block}
+\end{frame}   
+\begin{frame}[fragile]{Introducción a las Listas: Contenedores Ordenados}
+
+    \begin{alertblock}{Accediendo a Elementos con Índices}
+    Las listas usan el \textbf{mismo sistema de índices que los strings} para acceder a sus elementos:
+    \begin{itemize}
+        \item El primer elemento está en el índice \texttt{0}.
+        \item El último elemento está en el índice \texttt{-1}.
+    \end{itemize}
+    \begin{lstlisting}
+# Una lista con 4 elementos de diferentes tipos
+calificaciones = [10, 9.5, 'Aprobado', True]
+# Acceder al primer elemento
+primer_elemento = calificaciones[0] # 10
+# Acceder al tercer elemento
+tercer_elemento = calificaciones[2] # 'Aprobado'
+# Acceder al ultimo elemento
+ultimo_elemento = calificaciones[-1] # True
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+
+\section{Secuencias de Escape}
+\begin{frame}[fragile]{Caracteres Especiales: Secuencias de Escape}
+    \begin{block}{¿Cómo Escribir Caracteres ''Invisibles''?}
+    Para representar caracteres especiales como saltos de línea, tabulaciones o incluso comillas dentro de un string, usamos \textbf{secuencias de escape}, que comienzan con una barra invertida (\textbackslash).
+    \end{block}
+    \centering
+            \begin{alertblock}{Secuencias Comunes}
+                \begin{tabular}{ll}
+                \toprule
+                \textbf{Secuencia} & \textbf{Significado} \\
+                \midrule
+                \texttt{\textbackslash n} & Salto de línea \\
+                \texttt{\textbackslash t} & Tabulación \\
+                \texttt{\textbackslash\textbackslash} & Barra invertida \\
+                \texttt{\textbackslash'} & Comilla simple \\
+                \texttt{\textbackslash''} & Comilla doble \\
+                \bottomrule
+                \end{tabular}
+            \end{alertblock}
+\end{frame}
+
+
+\begin{frame}[fragile]{Caracteres Especiales: Secuencias de Escape}
+
+            \begin{examples}
+                 \begin{lstlisting}
+# Salto de linea con \n
+mensaje = 'Linea 1 \n Linea 2'
+print(mensaje)
+# Linea 1
+# Linea 2
+
+# Tabulacion con \t
+lista = 'Productos: \n \t -Manzanas \n \t -Leche'
+print(lista)
+
+# Comillas dentro de un string
+cita = 'El me dijo: \'Python es genial\'.'
+print(cita)
+# El me dijo: 'Python es genial'.
+                 \end{lstlisting}
+            \end{examples}
+\end{frame}
+
+%------------------------------------------------
+\section{Formateo de Strings e Introspección}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Formateando Strings con f-strings}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{El Método 'Antiguo'}
+                Antes, para combinar texto y variables, se usaba la concatenación y la función 'str()', lo que podía volverse verboso y difícil de leer.
+                \begin{lstlisting}
+nombre = 'Maria'
+edad = 30
+promedio = 9.5
+
+# Dificil de leer y escribir
+print('Estudiante: ' + nombre + ', Edad: ' + str(edad) + ', Promedio: ' + str(promedio))
+                \end{lstlisting}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{La Solución Moderna: f-strings}
+                Un \textbf{f-string} (string formateado) simplifica enormemente esto. Solo debes poner una \texttt{f} antes de las comillas e insertar las variables directamente dentro de llaves \texttt{\{\}}.
+                 \begin{lstlisting}
+nombre = 'Maria'
+edad = 30
+promedio = 9.5
+
+# Mucho mas limpio y legible
+print(f'Estudiante: {nombre}, Edad: {edad}, Promedio: {promedio}')
+                 \end{lstlisting}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Formateo Avanzado de Números con f-strings}
+    \begin{block}{Controlando la Apariencia de los Números}
+    Los f-strings no solo insertan valores, sino que también nos permiten controlar con precisión cómo se muestran los números, lo cual es fundamental para crear salidas de datos limpias y profesionales.
+    \end{block}
+\end{frame}  
+\begin{frame}[fragile]{Formateo Avanzado de Números con f-strings}
+
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{Precisión Fija para Flotantes}
+                Podemos especificar el número de decimales a mostrar usando \texttt{:.Nf}, donde \texttt{N} es el número de decimales.
+                 \begin{lstlisting}
+pi = 3.14159265
+total = 1234.5
+# Mostrar pi con 2 decimales
+print(f'El valor de pi es: {pi:.2f}')
+# Salida: El valor de pi es: 3.14
+# Formato de moneda
+print(f'Total a pagar: ${total:.2f}')
+# Salida: Total a pagar: $1234.50
+                 \end{lstlisting}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{block}{Ceros a la Izquierda para Enteros}
+                Podemos rellenar un número con ceros a la izquierda para que tenga un ancho fijo usando \texttt{:0Nd}, donde \texttt{N} es el ancho total.
+                 \begin{lstlisting}
+numero_factura = 45
+dia = 7
+mes = 9
+# Rellenar a 5 digitos
+print(f'Factura No: {numero_factura:05d}')
+# Salida: Factura No: 00045
+# Formato de fecha
+print(f'Fecha: {dia:02d}/{mes:02d}/2023')
+# Salida: Fecha: 07/09/2023
+                 \end{lstlisting}
+            \end{block}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Conociendo Nuestras Variables: 'type()' y 'id()'}
+    \begin{block}{Funciones de Introspección}
+    Python nos ofrece funciones para 'preguntar' a nuestras variables qué son y dónde están en la memoria.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Conociendo Nuestras Variables: 'type()' y 'id()'}
+
+            \begin{alertblock}{'type()' - ¿Qué es esto?}
+                Devuelve el \textbf{tipo de dato} de una variable. Es muy útil para depurar y entender cómo se están manejando los datos.
+                 \begin{lstlisting}
+numero = 100
+texto = 'Hola'
+es_valido = True
+print(type(numero))
+# Salida: <class 'int'>
+print(type(texto))
+# Salida: <class 'str'>
+print(type(es_valido))
+# Salida: <class 'bool'>
+                 \end{lstlisting}
+            \end{alertblock}
+\end{frame}
+
+    \begin{frame}[fragile]{Conociendo Nuestras Variables: 'type()' y 'id()'}
+        \begin{block}{'id()' - ¿Dónde está esto?}
+                Devuelve el \textbf{identificador de memoria} único de un objeto. Es un número que representa la dirección donde está guardado el dato en la memoria RAM.
+                 \begin{lstlisting}
+x = 10
+y = x # 'y' apunta al mismo objeto que 'x'
+z = 10 # Python es eficiente, reutiliza el objeto
+# Muestran el mismo ID, porque apuntan
+# al mismo objeto '10' en memoria
+print(id(x)) 
+print(id(y))
+print(id(z))
+                 \end{lstlisting}
+            \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 1: Decodificador de Mensaje Secreto}
+    
+    \begin{block}{Objetivo}
+    Usar el conocimiento de \textbf{índices} para extraer caracteres de un string y revelar un mensaje oculto. Deberás usar un bucle \texttt{for} para resolverlo.
+    \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 1: Decodificador de Mensaje Secreto}    
+    \begin{alertblock}{El Código a Completar}
+    \begin{lstlisting}
+# El mensaje cifrado contiene la informacion oculta
+mensaje_cifrado = 'aPzYleTtnHhOoNnlax'
+
+# Estos son los indices de los caracteres correctos
+indices_secretos = [1, 5, 7, 8, 10, 12]
+
+# Variable para guardar el resultado
+mensaje_decodificado = ''
+# -----------------------
+# Debes crear un bucle 'for' que recorra los 'indices_secretos'.
+# En cada paso, extrae el caracter de 'mensaje_cifrado'
+# usando el indice actual y anadelo a 'mensaje_decodificado'.
+# Pista: usa el operador '+=' para anadir caracteres.
+# Al final, imprime el mensaje decodificado
+print('El mensaje secreto es:', mensaje_decodificado)
+# La salida deberia ser: Python
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 1: Decodificador de Mensaje Secreto}
+    
+    \begin{block}{Revisa el código completo}
+    \url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example15.py}
+    \end{block}
+\end{frame}
+%------------------------------------------------
+\begin{frame}[fragile]
+    \frametitle{Tarea 2: Generador de Recibos Formateado}
+    
+    \begin{block}{Objetivo}
+    Utilizar \textbf{listas} para almacenar datos y \textbf{f-strings} para generar un recibo de compra con un formato profesional y alineado.
+    \end{block}
+\end{frame}  
+\begin{frame}[fragile]
+    \frametitle{Tarea 2: Generador de Recibos Formateado}
+    \begin{alertblock}{El Código a Completar}
+    \begin{lstlisting}
+productos = ['Leche Entera', 'Pan de Caja', 'Huevo (12pza)']
+precios = [25.50, 42.00, 38.95]
+total = 0.0
+print('--- RECIBO DE COMPRA ---')
+print('No. | Producto      | Precio')
+print('--------------------------')
+# Crea un bucle 'for' que recorra las listas usando un rango
+# de indices (pista: for i in range(len(productos)):).
+# Dentro del bucle, imprime una linea formateada para cada producto:
+# 1. El numero de item (i+1), con un cero a la izquierda (ej: 01).
+# 2. El nombre del producto (productos[i]).
+# 3. El precio (precios[i]), con exactamente 2 decimales.
+# 4. Acumula el precio en la variable 'total'.
+# Al final, imprime una linea de separacion y el total
+print('--------------------------')
+
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 2: Generador de Recibos Formateado}
+    \begin{alertblock}{El Código a Completar}
+    \begin{lstlisting}
+# print(f'TOTAL:          ${total:.2f}')
+# La salida deberia verse asi:
+# --- RECIBO DE COMPRA ---
+# No. | Producto      | Precio
+# --------------------------
+# 01  | Leche Entera  | 25.50
+# 02  | Pan de Caja   | 42.00
+# 03  | Huevo (12pza) | 38.95
+# --------------------------
+# TOTAL:          $106.45
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 2: Generador de Recibos Formateado}
+    
+    \begin{block}{Revisa el código completo}
+    \url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example16.py}
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Traduciendo Caracteres: 'ord()' y 'chr()'}
+    \begin{block}{El Código Detrás de Cada Carácter}
+    Cada carácter que ves en la pantalla (como 'A', 'b', o '\$') está almacenado en la memoria como un número. El estándar que define esta correspondencia se llama \textbf{Unicode} (y su subconjunto más conocido es ASCII).
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]{Traduciendo Caracteres: 'ord()' y 'chr()'}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{De Carácter a Número: 'ord()'}
+                La función \texttt{ord()} (de 'ordinal') toma un carácter y devuelve su código numérico Unicode.
+                 \begin{lstlisting}
+# Obtener el codigo de 'A'
+codigo_A = ord('A')
+print(codigo_A) # Imprime: 65
+
+# Obtener el codigo de 'b'
+codigo_b = ord('b')
+print(codigo_b) # Imprime: 98
+                 \end{lstlisting}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{block}{De Número a Carácter: 'chr()'}
+                La función \texttt{chr()} (de 'character') hace lo opuesto: toma un código numérico y devuelve el carácter correspondiente.
+                 \begin{lstlisting}
+# Obtener el caracter para 65
+caracter_1 = chr(65)
+print(caracter_1) # Imprime: 'A'
+
+# Obtener el caracter para 98
+caracter_2 = chr(98)
+print(caracter_2) # Imprime: 'b'
+                 \end{lstlisting}
+            \end{block}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Tarea 3: Cifrador César Simple}
+    
+    \begin{block}{Objetivo}
+    Escribir un programa que cifre un mensaje moviendo cada letra un número determinado de posiciones en el alfabeto. Para esto, deberás combinar el uso de bucles \texttt{for} con las funciones \texttt{ord()} y \texttt{chr()}.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 3: Cifrador César Simple}
+    \begin{alertblock}{El Código a Completar}
+    \begin{lstlisting}
+mensaje_original = input('Introduce el mensaje a cifrar: ')
+desplazamiento = int(input('Introduce el desplazamiento (ej: 3): '))
+
+mensaje_cifrado = ''
+
+# --- TU CODIGO AQUI ---
+# Crea un bucle 'for' que recorra cada 'letra' en 'mensaje_original'.
+# Dentro del bucle:
+# 1. Obtiene el codigo numerico de la 'letra' con ord().
+# 2. Sumale el 'desplazamiento' para obtener el nuevo codigo.
+# 3. Convierte el nuevo codigo de vuelta a un caracter con chr().
+# 4. Anade el nuevo caracter a 'mensaje_cifrado'.
+print('Mensaje cifrado:', mensaje_cifrado)
+# Ejemplo de salida:
+# Si mensaje='HOLA' y desplazamiento=3, la salida deberia ser 'KROD'
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Tarea 3: Cifrador César Simple}
+    
+    \begin{block}{Revisa el código completo}
+    \url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example17.py}
+    \end{block}
+\end{frame}
+
+%------------------------------------------------
+%------------------------------------------------
+\end{document}

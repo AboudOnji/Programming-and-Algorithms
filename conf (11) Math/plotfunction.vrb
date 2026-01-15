@@ -1,0 +1,20 @@
+\frametitle{Tarea 1: Dibuja una Función Trigonométrica}
+
+    \begin{alertblock}{Instrucciones}
+    Debes graficar la función en el rango de $x = 0$ a $x = 2\pi$.
+
+    \begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Pista: NumPy tiene su propia constante 'pi'
+# 1. Crear datos para x:
+#    (Usa np.linspace para ir de 0 a 2*np.pi)
+x = ...
+
+# 2. Crear datos para y:
+#    (Pista: NumPy tiene su propia funcion 'sin')
+y = np.sin(x)
+    \end{lstlisting}
+    \end{alertblock}
+

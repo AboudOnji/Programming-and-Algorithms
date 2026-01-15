@@ -1,0 +1,443 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+
+
+\title{Funciones Matemáticas: La Biblioteca \texttt{math}}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Introducción a la Biblioteca \texttt{math}}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{¿Qué es la Biblioteca \texttt{math}?}
+    
+    \begin{block}{¿Por qué la necesitamos?}
+    Los operadores básicos de Python (`+`, `-`, `*`, `/`, `**`) son excelentes para aritmética simple. Pero, ¿qué pasa si necesitamos calcular la raíz cuadrada, el seno de un ángulo o un logaritmo?
+    \end{block}
+    
+    \begin{alertblock}{Una Caja de Herramientas Matemáticas}
+    La biblioteca \texttt{math} es un módulo incorporado en Python que nos da acceso a un conjunto de funciones y constantes matemáticas avanzadas, estandarizadas y optimizadas.
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{¿Qué es la Biblioteca \texttt{math}?}
+
+    \begin{examples}{¿Cómo se usa? El comando \texttt{import}}
+    Para poder usar las funciones de esta biblioteca, \textbf{primero debemos importarla} al inicio de nuestro programa.
+    \begin{lstlisting}[language=Python]
+import math
+    \end{lstlisting}
+    \end{examples}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Sintaxis: Cómo Llamar a una Función}
+    
+    \begin{block}{Usando la Notación de Punto ('.')}
+    Una vez que hemos importado la biblioteca, usamos la sintaxis \texttt{math.nombre\_funcion()} para llamar a la función que necesitamos.
+    \end{block}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{exampleblock}{Ejemplo Correcto}
+                \begin{lstlisting}[language=Python]
+import math
+
+raiz = math.sqrt(25)
+print(raiz) # Imprime 5.0
+                \end{lstlisting}
+            \end{exampleblock}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Error Común}
+                \begin{lstlisting}[language=Python]
+# Incorrecto:
+# Python no conoce una funcion
+# llamada 'sqrt' por si sola.
+raiz = sqrt(25)
+
+# NameError: name 'sqrt' is not defined
+                \end{lstlisting}
+            \end{alertblock}
+    \end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Funciones Esenciales}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Constantes Fundamentales}
+    
+    \begin{block}{Valores Predefinidos}
+    La biblioteca \texttt{math} nos da constantes matemáticas universales para que no tengamos que escribirlas a mano (¡y con mayor precisión!).
+    \end{block}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{\texttt{math.pi}}
+                El número Pi ($\pi$), la relación entre la circunferencia de un círculo y su diámetro.
+                \begin{lstlisting}[language=Python]
+import math
+print(math.pi)
+# Imprime: 3.141592653589793
+                \end{lstlisting}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{exampleblock}{\texttt{math.e}}
+                El número de Euler ($e$), la base de los logaritmos naturales.
+                \begin{lstlisting}[language=Python]
+import math
+print(math.e)
+# Imprime: 2.718281828459045
+                \end{lstlisting}
+            \end{exampleblock}
+    \end{columns}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Constantes Fundamentales}
+    \begin{block}{Ejemplo de Uso: Área de un Círculo}
+    \begin{lstlisting}[language=Python]
+import math
+radio = 5
+area = math.pi * (radio ** 2)
+print(f"El area es: {area}")
+# Imprime: El area es: 78.5398...
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Funciones de Potencia y Logaritmos}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{Raíz Cuadrada: \texttt{math.sqrt()}}
+                Calcula la raíz cuadrada de un número. Es más rápido y preciso que usar \texttt{x ** 0.5}.
+                \begin{lstlisting}[language=Python]
+import math
+# Raiz cuadrada de 81
+raiz = math.sqrt(81)
+print(raiz) # Imprime: 9.0
+                \end{lstlisting}
+            \end{block}
+    
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Potencia: \texttt{math.pow()}}
+                Eleva un número \texttt{x} a la potencia \texttt{y}. Similar a \texttt{x ** y}, pero \texttt{pow()} siempre devuelve un flotante.
+                \begin{lstlisting}[language=Python]
+import math
+# 3 elevado a la 4
+potencia = math.pow(3, 4)
+print(potencia) # Imprime: 81.0
+                \end{lstlisting}
+            \end{alertblock}
+            
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Funciones de Potencia y Logaritmos}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            
+            
+            \begin{block}{Logaritmos: \texttt{math.log ()}}
+                \begin{itemize}
+                    \item \texttt{math.log (x)}: Logaritmo natural (base $e$).
+                    \item \texttt{math.log10 (x)}: Logaritmo base 10.
+                    \item \texttt{math.log (x, base)}: Logaritmo en cualquier base.
+                \end{itemize}
+            \end{block}
+            
+
+        \column{.48\textwidth}
+
+
+            \begin{exampleblock}{Exponencial: \texttt{math.exp ()}}
+                Calcula $e^x$.
+                 \begin{lstlisting}[language=Python]
+import math
+# e elevado a la 1
+resultado = math.exp(1)
+print(resultado) # Imprime: 2.71828...
+                \end{lstlisting}
+            \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Redondeo: \texttt{floor()}, \texttt{ceil()} y \texttt{trunc()}}
+    
+    \begin{block}{Controlando los Decimales}
+    Estas funciones nos permiten "limpiar" números flotantes, pero lo hacen de formas muy diferentes.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Redondeo: \texttt{floor()}, \texttt{ceil()} y \texttt{trunc()}}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{\texttt{math.floor(x)} (Piso)}
+                Redondea un número \textbf{hacia abajo} al entero más cercano.
+                \begin{lstlisting}[language=Python]
+import math
+x = 9.8
+print(math.floor(x)) # Imprime: 9
+                \end{lstlisting}
+            \end{alertblock}
+            
+            
+
+        \column{.48\textwidth}
+            \begin{exampleblock}{\texttt{math.ceil(x)} (Techo)}
+                Redondea un número \textbf{hacia arriba} al entero más cercano.
+                 \begin{lstlisting}[language=Python]
+import math
+x = 9.2
+print(math.ceil(x)) # Imprime: 10
+                \end{lstlisting}
+            \end{exampleblock}
+            
+    
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Redondeo: \texttt{floor()}, \texttt{ceil()} y \texttt{trunc()}}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            
+            
+            \begin{alertblock}{\texttt{math.trunc(x)} (Truncar)}
+                Simplemente \textbf{corta los decimales}, sin redondear. Para números positivos, es igual a \texttt{floor()}.
+                \begin{lstlisting}[language=Python]
+import math
+print(math.trunc(9.8)) # Imprime: 9
+print(math.trunc(-3.7)) # Imprime: -3
+                \end{lstlisting}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            
+             \begin{exampleblock}{\texttt{round(x)} (Función Nativa)}
+                Redondea al entero más cercano (el .5 lo redondea al par más cercano). \textbf{No requiere} \texttt{import math}.
+                 \begin{lstlisting}[language=Python]
+# No se necesita importar math
+print(round(9.8)) # Imprime: 10
+print(round(9.2)) # Imprime: 9
+                \end{lstlisting}
+            \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Trigonometría: \texttt{sin()}, \texttt{cos()}, \texttt{tan()}}
+    
+    \begin{block}{Funciones Trigonométricas}
+    La biblioteca \texttt{math} incluye todas las funciones trigonométricas estándar.
+    \begin{itemize}
+        \item \texttt{math.sin(x)}
+        \item \texttt{math.cos(x)}
+        \item \texttt{math.tan(x)}
+        \item Y también las inversas: \texttt{math.asin(x)}, \texttt{math.acos(x)}, \texttt{math.atan(x)}
+    \end{itemize}
+    \end{block}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Trigonometría: \texttt{sin()}, \texttt{cos()}, \texttt{tan()}}
+    
+    
+    \begin{alertblock}{¡ADVERTENCIA! Python usa Radianes}
+    Todas las funciones trigonométricas en Python (y la mayoría de los lenguajes de programación) esperan que los ángulos estén medidos en \textbf{RADIANES}, no en Grados.
+    
+    Este es el error más común al usar estas funciones.
+    \begin{lstlisting}[language=Python]
+import math
+
+angulo_rad = math.pi / 2
+resultado = math.sin(angulo_rad)
+print(resultado)
+    \end{lstlisting}
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Conversión de Ángulos: \texttt{radians()} y \texttt{degrees()}}
+    
+    \begin{block}{La Solución Fácil}
+    Para evitar tener que hacer las conversiones a mano (como \texttt{grados * math.pi / 180}), la biblioteca \texttt{math} nos da dos funciones de ayuda.
+    \end{block}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{\texttt{math.radians(grados)}}
+                Convierte un ángulo de grados a radianes.
+                \begin{lstlisting}[language=Python]
+import math
+angulo_grados = 90
+angulo_radianes = math.radians(angulo_grados)
+
+print(angulo_radianes)
+# Imprime: 1.5707... (que es pi/2)
+                \end{lstlisting}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{exampleblock}{\texttt{math.degrees(radianes)}}
+                Convierte un ángulo de radianes a grados.
+                 \begin{lstlisting}[language=Python]
+import math
+angulo_radianes = math.pi
+angulo_grados = math.degrees(angulo_radianes)
+
+print(angulo_grados)
+# Imprime: 180.0
+                \end{lstlisting}
+            \end{exampleblock}
+    \end{columns}
+    
+    \begin{block}{Ejemplo de Uso Correcto}
+    \begin{lstlisting}[language=Python]
+import math
+# Calcular el coseno de 60 grados
+angulo_grados = 60
+angulo_radianes = math.radians(angulo_grados)
+resultado = math.cos(angulo_radianes)
+print(resultado) # Imprime: 0.5
+    \end{lstlisting}
+    \end{block}
+\end{frame}
+
+%------------------------------------------------
+\section{Tarea Práctica}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Tarea: Calculadora de Triángulo Rectángulo 📐}
+
+    \begin{block}{Objetivo}
+    Escribir un programa que utilice la biblioteca \texttt{math} para resolver un triángulo rectángulo. El usuario debe proveer el valor de los dos catetos.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tarea: Calculadora de Triángulo Rectángulo 📐}
+
+    \begin{alertblock}{Instrucciones}
+    Tu programa debe hacer lo siguiente:
+    \begin{enumerate}
+        \item \textbf{Importar} la biblioteca \texttt{math}.
+        \item \textbf{Pedir} al usuario la longitud del \textbf{Cateto A} (un número).
+        \item \textbf{Pedir} al usuario la longitud del \textbf{Cateto B} (un número).
+        \item \textbf{Calcular y mostrar} la longitud de la \textbf{Hipotenusa}.
+        \begin{itemize}
+            \item Pista: Teorema de Pitágoras ($c = \sqrt{a^2 + b^2}$). Usa \texttt{math.sqrt()}.
+        \end{itemize}
+        \item \textbf{Calcular y mostrar} los dos ángulos agudos (Ángulo A y Ángulo B) en \textbf{GRADOS}.
+        \begin{itemize}
+            \item Pista: Usa una función trigonométrica inversa como \texttt{math.atan()} (arco tangente).
+            \item Pista: $\tan(A) = \text{Opuesto} / \text{Adyacente} = a / b$.
+            \item Pista: ¡Recuerda convertir el resultado de radianes a grados usando \texttt{math.degrees()}!
+        \end{itemize}
+    \end{enumerate}
+    \end{alertblock}
+
+\end{frame}
+\end{document}

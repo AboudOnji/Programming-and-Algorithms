@@ -1,0 +1,12 @@
+\frametitle{Ejemplo 3:}
+    \scriptsize
+    \begin{block}{Ejemplo 3}
+        Escriba un programa para una competencia de atletismo que realice las siguientes acciones:
+        \begin{itemize}
+            \item Solicite al usuario el nombre de un competidor y los tiempos (en segundos) de sus 6 carreras (vueltas). Guarde los tiempos en un arreglo (lista). Utilice únicamente ciclo(s) WHILE para solicitar los 6 tiempos.
+            \item Copia la lista de tiempos en otro arreglo nuevo. Ordene este nuevo arreglo de menor a mayor (del más rápido al más lento).
+            \item Imprima el nombre del competidor y ambos arreglos (el original y el ordenado).
+            \item Al imprimir el arreglo original, a la derecha de cada tiempo, imprima "RÉCORD" si el tiempo es menor a 9.5 segundos, e imprima "NORMAL" si el tiempo es 9.5 segundos o más. Utilice únicamente ciclo(s) WHILE para imprimir los arreglos.
+        \end{itemize}
+Nota: Utilice únicamente los ciclos solicitados. No agregue más arreglos que los dos solicitados (el original y la copia ordenada).
+    \end{block}

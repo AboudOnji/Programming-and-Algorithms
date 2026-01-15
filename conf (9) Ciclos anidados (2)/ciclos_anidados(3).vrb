@@ -1,0 +1,8 @@
+\frametitle{Ejemplo: Código Completo y Salida}
+            \begin{block}{Punto Clave}
+            Estamos modificando la \texttt{fila} ''en el lugar''. Como las listas son mutables, la matriz \texttt{calificaciones} original se actualiza automáticamente.
+            \end{block}
+\begin{block}{código en Python}
+    \url{https://github.com/AboudOnji/ExamplesAyP/blob/main/Example30.py}
+\end{block}
+

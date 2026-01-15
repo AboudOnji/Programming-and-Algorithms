@@ -1,0 +1,23 @@
+\frametitle{Ejemplo 2: Refactorizando Código (Avanzado)}
+
+    \begin{lstlisting}[language=Python]
+# --- Definicion de la Funciona ---
+def calcular_promedio(lista_de_notas):
+    suma = 0
+    for nota in lista_de_notas:
+        suma += nota
+
+    promedio = suma / len(lista_de_notas)
+    return promedio # Devuelve el numero calculado
+
+# --- Programa Principal (MAS LIMPIO) ---
+calif_estudiante1 = [10, 9, 10]
+calif_estudiante2 = [8, 7, 8]
+
+# Usamos nuestra funcion
+prom1 = calcular_promedio(calif_estudiante1)
+prom2 = calcular_promedio(calif_estudiante2)
+
+print(f"El promedio del Estudiante 1 es: {prom1:.2f}")
+print(f"El promedio del Estudiante 2 es: {prom2:.2f}")
+    \end{lstlisting}

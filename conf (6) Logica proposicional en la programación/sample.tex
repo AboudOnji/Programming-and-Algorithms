@@ -1,0 +1,472 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y TEMAS
+%----------------------------------------------------------------------------------------
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}% Para definir y usar colores (ej. en hipervínculos)
+\usepackage{xurl}
+\usepackage{hyperref}       % Para crear hipervínculos internos y externos
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,        % Colorear los enlaces en lugar de usar recuadros
+    linkcolor=blue,     % Color para enlaces internos (índice, referencias cruzadas)
+    filecolor=blue, % Color para enlaces a archivos locales
+    urlcolor=blue,      % Color para URLs
+    citecolor=blue,     % Color para citas bibliográficas
+}
+%----------------------------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor} % Para colores en listings
+ \definecolor{codegreen}{rgb}{0,0.6,0}
+ \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{codepurple}{rgb}{0.58,0,0.82}
+ \definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{gray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines, % Añade un marco alrededor del código
+  framerule=0.4pt, % Grosor del marco
+  backgroundcolor=\color{backcolour} % Color de fondo suave
+}
+\lstset{style=PythonStyle}
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+%	PÁGINA DE TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title{Lógica Proposicional en la Programación}
+\subtitle{Materia: Algoritmos y Programación}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute
+{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+% --- Agenda automática al inicio de cada sección ---
+\AtBeginSection[]
+{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    % Print the title page as the first slide
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\section{Lógica Proposicional en la Programación}
+%------------------------------------------------
+
+\begin{frame}{Lógica Proposicional en la Programación}
+    \begin{block}{Más Allá de las Decisiones Simples}
+    ¿Qué sucede cuando una decisión depende de múltiples condiciones?
+    \begin{center}
+    'Si un estudiante tiene un promedio $>$ 90 \textbf{Y} no tiene faltas, \textbf{ENTONCES} obtiene una beca'.
+    \end{center}
+    Para manejar estas situaciones, la programación se apoya en los principios de la \textbf{lógica proposicional} o \textbf{álgebra de Boole}.
+    \end{block}
+\end{frame}
+\begin{frame}{Lógica Proposicional en la Programación}
+
+    \begin{alertblock}{Valores Booleanos y Operadores Lógicos}
+    Esta rama de la lógica trabaja con valores que solo pueden ser \textbf{Verdadero ('True')} o \textbf{Falso ('False')}. En programación, estos valores se conocen como \textbf{booleanos}. Toda decisión en un programa se reduce a evaluar si una expresión booleana es verdadera o falsa.
+    \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Operadores lógicos: AND, OR, NOT, XOR}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Operador Lógico: AND (Conjunción)}
+    \begin{block}{AND (Y)}
+    Evalúa si \textbf{ambas} proposiciones son verdaderas. El resultado es \texttt{Verdadero} únicamente si la Proposición A \textbf{y} la Proposición B son verdaderas.
+    \end{block}
+
+    \begin{columns}[T]
+        \column{0.4\textwidth}
+            \begin{alertblock}{Tabla de Verdad}
+                \begin{tabular}{cc|c}
+                \toprule
+                \textbf{A} & \textbf{B} & \textbf{A AND B} \\
+                \midrule
+                V & V & \textbf{V} \\
+                V & F & F \\
+                F & V & F \\
+                F & F & F \\
+                \bottomrule
+                \end{tabular}
+            \end{alertblock}
+        
+        \column{0.6\textwidth}
+            \begin{examples}
+                \tiny
+                \begin{algorithm}[H]
+                \caption{¿Puedo conducir el vehículo?}
+                \begin{algorithmic}[1]
+                    \If{(edad >= 18) \textbf{AND} (tieneLicencia = \textbf{VERDADERO})}
+                        \State \textbf{ESCRIBIR} 'Puede conducir.'
+                    \EndIf
+                \end{algorithmic}
+                \end{algorithm}
+            \end{examples}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Operador Lógico: OR (Disyunción)}
+    \begin{block}{OR (O)}
+    Evalúa si \textbf{al menos una} de las proposiciones es verdadera. Solo es \texttt{Falso} si ambas proposiciones son falsas.
+    \end{block}
+
+    \begin{columns}[T]
+        \column{0.4\textwidth}
+            \begin{alertblock}{Tabla de Verdad}
+                \begin{tabular}{cc|c}
+                \toprule
+                \textbf{A} & \textbf{B} & \textbf{A OR B} \\
+                \midrule
+                V & V & \textbf{V} \\
+                V & F & \textbf{V} \\
+                F & V & \textbf{V} \\
+                F & F & F \\
+                \bottomrule
+                \end{tabular}
+            \end{alertblock}
+        
+        \column{0.6\textwidth}
+            \begin{examples}
+                \tiny
+                \begin{algorithm}[H]
+                \caption{¿Hoy es un día libre?}
+                \begin{algorithmic}[1]
+                    \If{(esFeriado = \textbf{VERDADERO}) \textbf{OR} (dia = 'Sábado')}
+                        \State \textbf{ESCRIBIR} 'Hoy no se trabaja.'
+                    \EndIf
+                \end{algorithmic}
+                \end{algorithm}
+            \end{examples}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Operadores Lógicos: NOT y XOR}
+
+            \begin{block}{NOT (Negación)}
+                Es un operador unario: actúa sobre una sola proposición e \textbf{invierte} su valor de verdad.
+                \begin{center}
+                \begin{tabular}{c|c}
+                \toprule
+                \textbf{A} & \textbf{NOT A} \\
+                \midrule
+                V & F \\
+                F & V \\
+                \bottomrule
+                \end{tabular}
+                \end{center}
+                \tiny
+                \begin{algorithm}[H]
+                \caption{¿Salir a caminar?}
+                \begin{algorithmic}[1]
+                    \If{\textbf{NOT} (estaLloviendo)}
+                        \State \textbf{ESCRIBIR} '¡Sal a caminar!'
+                    \EndIf
+                \end{algorithmic}
+                \end{algorithm}
+            \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Operadores Lógicos: NOT y XOR}
+
+            \begin{alertblock}{XOR (Disyunción Exclusiva)}
+                Devuelve \texttt{Verdadero} solo si las dos proposiciones tienen valores de verdad \textbf{diferentes}.
+                \begin{center}
+                \small
+                \begin{tabular}{cc|c}
+                \toprule
+                \textbf{A} & \textbf{B} & \textbf{A XOR B} \\
+                \midrule
+                V & V & F \\
+                V & F & \textbf{V} \\
+                F & V & \textbf{V} \\
+                F & F & F \\
+                \bottomrule
+                \end{tabular}
+                \end{center}
+                \tiny
+                \begin{algorithm}[H]
+                \caption{Modo de Visualización}
+                \small
+                \begin{algorithmic}[1]
+                    \If{(modoNocturno) \textbf{XOR} (modoDiurno)}
+                        \State \textbf{ESCRIBIR} 'Estado válido.'
+                    \Else
+                        \State \textbf{ESCRIBIR} 'Error de estado.'
+                    \EndIf
+                \end{algorithmic}
+                \end{algorithm}
+            \end{alertblock}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Tablas de verdad}
+%------------------------------------------------
+
+\begin{frame}{Tablas de Verdad}
+    \begin{block}{¿Qué es una Tabla de Verdad?}
+    Es una herramienta matemática que desglosa una expresión lógica compleja en todas sus posibles combinaciones de valores de verdad ('Verdadero' / 'Falso'), mostrando el resultado final para cada caso.
+    \end{block}
+\end{frame}
+\begin{frame}{Tablas de Verdad}
+
+    \begin{alertblock}{Utilidad en Programación}
+        Nos permiten:
+        \begin{itemize}
+            \item \textbf{Verificar la lógica:} Asegurarnos de que una condición compleja se comporta como esperamos.
+            \item \textbf{Simplificar expresiones:} Encontrar una forma más simple y eficiente de escribir la misma condición.
+            \item \textbf{Depurar errores:} Encontrar la causa de un comportamiento inesperado en una estructura condicional.
+        \end{itemize}
+    \end{alertblock}
+    
+    \begin{block}{Tamaño de la Tabla}
+    El número de filas en una tabla de verdad es $\mathbf{2^n}$, donde $n$ es el número de variables distintas en la expresión.
+    \end{block}
+\end{frame}
+
+%------------------------------------------------
+\subsubsection{Construcción de Tablas de Verdad para Expresiones Complejas}
+%------------------------------------------------
+
+\begin{frame}{Construcción de Tablas de Verdad}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{Ejemplo 1: (A OR B) AND (NOT A)}
+                \tiny % Letra pequeña para la tabla
+                \renewcommand{\arraystretch}{1.2}
+                \begin{tabular}{cc|cc|c}
+                \toprule
+                \textbf{A} & \textbf{B} & \textbf{NOT A} & \textbf{A OR B} & \textbf{Resultado} \\
+                \midrule
+                V & V & F & V & \textbf{F} \\
+                V & F & F & V & \textbf{F} \\
+                F & V & V & V & \textbf{V} \\
+                F & F & V & F & \textbf{F} \\
+                \bottomrule
+                \end{tabular}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Ejemplo 2: (A AND B) OR C}
+                \tiny % Letra pequeña para la tabla
+                \renewcommand{\arraystretch}{1.2}
+                 \begin{tabular}{ccc|c|c}
+                \toprule
+                \textbf{A} & \textbf{B} & \textbf{C} & \textbf{A AND B} & \textbf{Resultado} \\
+                \midrule
+                V & V & V & V & \textbf{V} \\
+                V & V & F & V & \textbf{V} \\
+                V & F & V & F & \textbf{V} \\
+                V & F & F & F & \textbf{F} \\
+                F & V & V & F & \textbf{V} \\
+                F & V & F & F & \textbf{F} \\
+                F & F & V & F & \textbf{V} \\
+                F & F & F & F & \textbf{F} \\
+                \bottomrule
+                \end{tabular}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\subsubsection{Tautologías y Contradicciones}
+%------------------------------------------------
+
+\begin{frame}{Tautologías y Contradicciones}
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{block}{Tautología}
+                Es una expresión que es \textbf{siempre verdadera}, sin importar los valores de sus componentes.
+                \begin{center}
+                \textbf{A OR (NOT A)}
+                \begin{tabular}{c|c|c}
+                \toprule
+                \textbf{A} & \textbf{NOT A} & \textbf{Resultado} \\
+                \midrule
+                V & F & \textbf{V} \\
+                F & V & \textbf{V} \\
+                \bottomrule
+                \end{tabular}
+                \end{center}
+            \end{block}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Contradicción}
+                Es una expresión que es \textbf{siempre falsa}, sin importar los valores de sus componentes.
+                \begin{center}
+                \textbf{A AND (NOT A)}
+                \begin{tabular}{c|c|c}
+                \toprule
+                \textbf{A} & \textbf{NOT A} & \textbf{Resultado} \\
+                \midrule
+                V & F & \textbf{F} \\
+                F & V & \textbf{F} \\
+                \bottomrule
+                \end{tabular}
+                \end{center}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Teoremas de De Morgan y su aplicación práctica}
+%------------------------------------------------
+
+\begin{frame}{Teoremas de De Morgan}
+    \begin{block}{¿Qué son?}
+    Dos teoremas formulados por Augustus De Morgan que proporcionan un método poderoso para transformar y \textbf{simplificar expresiones lógicas}, especialmente aquellas que involucran negaciones de operaciones AND y OR.
+    \end{block}
+    
+    \begin{columns}[t]
+        \column{.48\textwidth}
+            \begin{alertblock}{Teorema 1: Negación de un AND}
+                La negación de una conjunción (AND) es la disyunción (OR) de las negaciones.
+                \begin{center}
+                \texttt{NOT (A AND B)} \\ $\Updownarrow$ \\ \texttt{(NOT A) OR (NOT B)}
+                \end{center}
+            \end{alertblock}
+
+        \column{.48\textwidth}
+            \begin{alertblock}{Teorema 2: Negación de un OR}
+                La negación de una disyunción (OR) es la conjunción (AND) de las negaciones.
+                \begin{center}
+                \texttt{NOT (A OR B)} \\ $\Updownarrow$ \\ \texttt{(NOT A) AND (NOT B)}
+                \end{center}
+            \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\subsubsection{Aplicación Práctica en Programación}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+    \frametitle{Aplicación Práctica en Programación}
+            \begin{block}{1. Simplificar Condiciones Complejas}
+                Las condiciones negadas son difíciles de leer. Aplicar las leyes de De Morgan las hace más intuitivas.
+                
+                \vspace{1em}
+                \textbf{Condición Confusa:}
+                \begin{verbatim}
+SI NO ((esCliente=FALSO) O (deuda>0)) ENTONCES...
+                \end{verbatim}
+
+                \vspace{1em}
+                \textbf{Condición Simplificada (equivalente):}
+                \begin{verbatim}
+SI (esCliente=VERDADERO) Y (deuda<=0) ENTONCES...
+                \end{verbatim}
+            \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Aplicación Práctica en Programación}
+            \begin{alertblock}{2. Formular Condiciones de Bucle}
+                Son muy útiles en bucles \texttt{MIENTRAS}. A menudo es más fácil definir la condición para \textbf{terminar} y luego negarla para obtener la condición de \textbf{continuación}.
+                
+                \vspace{1em}
+                \textbf{Condición para terminar un juego:}
+                \begin{verbatim}
+(vidas = 0) O (tiempoAgotado)
+                \end{verbatim}
+
+                \vspace{1em}
+                \textbf{Condición para continuar el bucle (negada y simplificada):}
+                \begin{verbatim}
+MIENTRAS (vidas > 0) Y (NO tiempoAgotado) HACER...
+                \end{verbatim}
+            \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Homework: Validador de Acceso para Montaña Rusa}
+    
+    \begin{block}{Objetivo}
+    Escribir un programa en Python que determine si una persona puede subir a una montaña rusa, basándose en un conjunto de reglas de seguridad que combinan múltiples condiciones lógicas (`and`, `or`, `not`).
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Homework: Validador de Acceso para Montaña Rusa}
+    \begin{alertblock}{Requisitos del Programa}
+    \begin{enumerate}
+        \item \textbf{Recopilar Datos del Usuario:} El programa debe solicitar la siguiente información:
+        \begin{itemize}
+            \item La edad de la persona (como un número entero).
+            \item La altura de la persona en metros (puede ser un número con decimales).
+            \item Si trae puesto un pase especial 'V.I.P.' (responder 'Sí' o 'No').
+        \end{itemize}
+        
+        \item \textbf{Implementar las Reglas de Acceso:} Una persona puede subir \textbf{SOLAMENTE SI} se cumple la siguiente condición principal:
+        \begin{itemize}
+            \item La persona mide más de 1.40 metros \textbf{Y} su edad está entre 10 y 60 años (inclusive).
+        \end{itemize}
+        \textbf{O BIEN}, si la regla anterior no se cumple, hay una excepción:
+         \begin{itemize}
+            \item La persona tiene un pase 'V.I.P.' \textbf{Y NO} es menor de 7 años.
+        \end{itemize}
+        
+        \item \textbf{Mostrar el Resultado:}
+        \begin{itemize}
+            \item Si la persona cumple las condiciones, el programa debe imprimir: \texttt{Acceso Concedido. ¡Disfrute la atracción!}
+            \item Si no las cumple, debe imprimir: \texttt{Acceso Denegado. No cumple con los requisitos de seguridad.}
+        \end{itemize}
+    \end{enumerate}
+    \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Homework: Validador de Acceso para Montaña Rusa}
+    \begin{block}{Pistas y Consejos}
+    \begin{itemize}
+        \item Recuerda convertir la edad a \texttt{int()} y la altura a \texttt{float()} después de pedirlas.
+        \item Para la pregunta del pase V.I.P., puedes convertir la respuesta 'Sí'/'No' a un booleano. Una forma fácil es: \texttt{tiene\_pase = input('...').lower() == 'sí'}.
+        \item ¡La clave del problema está en construir una única y gran condición \texttt{if} que represente todas las reglas usando \texttt{and}, \texttt{or} y paréntesis \texttt{()} para agrupar la lógica correctamente!
+    \end{itemize}
+    \end{block}
+\end{frame}
+\end{document}
