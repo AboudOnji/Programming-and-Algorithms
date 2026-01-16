@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 JAN 2026 14:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  16 JAN 2026 11:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -979,9 +979,9 @@ Overfull \hbox (165.85736pt too wide) detected at line 164
 File: Figuras/Cap0/fig0-2.png Graphic file (type png)
 <use Figuras/Cap0/fig0-2.png>
 Package pdftex.def Info: Figuras/Cap0/fig0-2.png  used on input line 164.
-(pdftex.def)             Requested size: 298.75394pt x 157.92076pt.
+(pdftex.def)             Requested size: 278.83578pt x 147.39493pt.
 
-Overfull \vbox (29.68506pt too high) detected at line 164
+Overfull \vbox (19.15923pt too high) detected at line 164
  []
 
 
@@ -1016,9 +1016,9 @@ Overfull \hbox (165.85736pt too wide) detected at line 187
 File: Figuras/Cap0/fig0-3.png Graphic file (type png)
 <use Figuras/Cap0/fig0-3.png>
 Package pdftex.def Info: Figuras/Cap0/fig0-3.png  used on input line 187.
-(pdftex.def)             Requested size: 159.333pt x 147.56953pt.
+(pdftex.def)             Requested size: 139.42093pt x 129.11989pt.
 
-Overfull \vbox (30.28938pt too high) detected at line 187
+Overfull \vbox (11.83974pt too high) detected at line 187
  []
 
 
@@ -1039,14 +1039,14 @@ Overfull \hbox (165.85736pt too wide) detected at line 196
 File: Figuras/Cap0/motherboard.jpg Graphic file (type jpg)
 <use Figuras/Cap0/motherboard.jpg>
 Package pdftex.def Info: Figuras/Cap0/motherboard.jpg  used on input line 196.
-(pdftex.def)             Requested size: 338.59023pt x 209.1108pt.
+(pdftex.def)             Requested size: 278.83578pt x 172.20818pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{fig:ucp_detalle}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.196             \end{frame}
                              
-Overfull \vbox (51.33064pt too high) detected at line 196
+Overfull \vbox (14.42802pt too high) detected at line 196
  []
 
 
@@ -1064,7 +1064,7 @@ Overfull \hbox (165.85736pt too wide) detected at line 227
  []
 
 
-Overfull \vbox (15.35732pt too high) detected at line 227
+Overfull \vbox (1.75731pt too high) detected at line 227
  []
 
 
@@ -1894,13 +1894,13 @@ Package rerunfilecheck Info: File `sample.out' has not changed.
 Here is how much of TeX's memory you used:
  24597 strings out of 473190
  475803 string characters out of 5715801
- 937921 words of memory out of 5000000
+ 937891 words of memory out of 5000000
  47189 multiletter control sequences out of 15000+600000
  567367 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,19n,123p,462b,906s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on sample.pdf (62 pages, 1466422 bytes).
+Output written on sample.pdf (62 pages, 1466018 bytes).
 PDF statistics:
  8655 PDF objects out of 8907 (max. 8388607)
  5393 compressed objects within 54 object streams

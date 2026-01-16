@@ -3,6 +3,7 @@
 \begin{algorithm}[H]
 \caption{Validación de Contraseña Simple}
 \label{alg:validar_pass}
+\tiny
 \begin{algorithmic}[1]
     \State \textbf{INICIO}
     \State \textbf{ASIGNAR} contrasenaValida $\leftarrow$ \textbf{FALSO}
