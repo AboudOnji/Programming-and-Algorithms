@@ -2,7 +2,7 @@
 %	PAQUETES Y TEMAS
 %----------------------------------------------------------------------------------------
 \documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
-\usetheme{SimpleDarkBlue}
+\usetheme{Berlin}
 
 \usepackage[spanish]{babel}
 \usepackage{hyperref}
@@ -63,7 +63,7 @@
 \title{Tipos de variables y operaciones en Python}
 \subtitle{Materia: Algoritmos y Programación}
 
-\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\author{Prof. Dr. Aboud BARSEKH-ONJI}
 \institute
 {
     Facultad de Ingeniería \\
@@ -395,11 +395,12 @@ print(resultado) # Imprime 23
     Escribir un programa en Python que simule las operaciones básicas de un cajero automático. Deberás aplicar todo lo aprendido: variables, input, casting, operaciones matemáticas y estructuras de control ('if'/'elif'/'else' y 'while').
     \end{block}
 \end{frame}
+
 \begin{frame}[fragile]
     \frametitle{Homework: Simulador de Cajero Automático (ATM)}
     
     \begin{alertblock}{Requisitos del Programa}
-    \begin{enumerate}
+    \begin{itemize}
         \item \textbf{Saldo Inicial:} El programa debe comenzar con un saldo inicial (por ejemplo, \texttt{saldo = 1000.0}).
         
         \item \textbf{Menú Interactivo:} El programa debe mostrar un menú con 4 opciones y repetirse hasta que el usuario elija "Salir".
@@ -410,6 +411,16 @@ print(resultado) # Imprime 23
             \item 4. Salir
         \end{itemize}
         
+    \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Homework: Simulador de Cajero Automático (ATM)}
+    
+    \begin{alertblock}{Requisitos del Programa}
+    \begin{itemize}
+
         \item \textbf{Funcionalidad de Opciones:}
         \begin{itemize}
             \item \textbf{Opción 1:} Muestra el saldo actual formateado.
@@ -417,9 +428,10 @@ print(resultado) # Imprime 23
             \item \textbf{Opción 3:} Pide al usuario una cantidad. \textbf{Si hay fondos suficientes}, la resta del saldo. Si no, muestra un mensaje de "Fondos insuficientes".
             \item \textbf{Opción 4:} Muestra un mensaje de despedida y termina el programa.
         \end{itemize}
-    \end{enumerate}
+    \end{itemize}
     \end{alertblock}
 \end{frame}
+
 \begin{frame}[fragile]
     \frametitle{Homework: Simulador de Cajero Automático (ATM)}
     
