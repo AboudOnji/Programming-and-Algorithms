@@ -1,0 +1,470 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[utf8]{inputenc}   % UTF-8 encoding for Spanish accents in text
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{xurl}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{adjustbox}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cyan,
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+%----------------------------------------------------------------------------------------
+%   CODE LISTINGS SETTINGS
+%----------------------------------------------------------------------------------------
+\usepackage{listings}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{red},
+  breaklines=true,
+  numbers=left,
+  numbersep=5pt,
+  frame=lines,
+  backgroundcolor=\color{backcolour},
+  showstringspaces=false,
+  morekeywords={True,False,None}
+}
+\lstset{style=PythonStyle}
+
+%----------------------------------------------------------------------------------------
+%   TITLE CONFIGURATION
+%----------------------------------------------------------------------------------------
+\title{Listas en Python}
+\subtitle{Estructuras de datos unidimensionales (vectores)}
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   AUTO AGENDA AT EACH SECTION
+%----------------------------------------------------------------------------------------
+\AtBeginSection[]{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Agenda}
+    \tableofcontents
+\end{frame}
+
+%------------------------------------------------
+\section{¿Qué es una lista?}
+%------------------------------------------------
+
+\begin{frame}{¿Qué es una lista en Python?}
+    \begin{block}{Definición}
+        Una \textbf{lista} es una estructura de datos que almacena una colección ordenada de elementos. En Python, los elementos pueden ser de cualquier tipo: números, cadenas de texto (\textit{strings}), booleanos, etc.
+    \end{block}
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item Es una estructura \textbf{mutable}: se puede modificar después de crearla.
+        \item Los elementos están \textbf{indexados}: el primer elemento tiene índice \texttt{0}.
+        \item Se puede almacenar elementos de \textbf{diferente tipo} en la misma lista.
+        \item En este curso la usaremos como \textbf{vector unidimensional}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Crear una lista}
+    \begin{block}{Sintaxis básica}
+        \texttt{nombre\_lista = [elemento0, elemento1, elemento2, \ldots]}
+    \end{block}
+    \vspace{0.2cm}
+\begin{lstlisting}[style=PythonStyle]
+# Lista de enteros
+notas = [85, 90, 72, 95, 60]
+# Lista de strings (cadenas de texto)
+nombres = ["Ana", "Luis", "Maria", "Carlos"]
+# Lista de flotantes
+precios = [10.5, 23.0, 8.75, 45.99]
+# Lista vacia
+vacia = []
+print(notas)    # [85, 90, 72, 95, 60]
+print(nombres)  # ['Ana', 'Luis', 'Maria', 'Carlos']
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Índices de una lista}
+    \begin{block}{Índice positivo}
+        El primer elemento tiene índice \textbf{0}, el segundo índice \textbf{1}, y así sucesivamente.
+    \end{block}
+    \vspace{0.3cm}
+    \begin{center}
+    \begin{tabular}{ccccc}
+        \toprule
+        \textbf{Índice} & 0 & 1 & 2 & 3 \\
+        \midrule
+        \textbf{Valor}  & ``Ana'' & ``Luis'' & ``Maria'' & ``Carlos'' \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    \vspace{0.3cm}
+    \begin{alertblock}{¡Cuidado!}
+        Si intentas acceder a un índice fuera del rango, Python genera un error: \texttt{IndexError: list index out of range}.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Acceder a elementos de una lista}
+\begin{lstlisting}[style=PythonStyle]
+nombres = ["Ana", "Luis", "Maria", "Carlos"]
+# Acceder por indice positivo
+print(nombres[0])   # Ana
+print(nombres[2])   # Maria
+# Acceder por indice negativo
+print(nombres[-1])  # Carlos (ultimo elemento)
+print(nombres[-2])  # Maria  (penultimo elemento)
+# Longitud de la lista
+print(len(nombres)) # 4
+\end{lstlisting}
+    \begin{exampleblock}{Índices negativos}
+        Python permite índices negativos: \texttt{-1} accede al último elemento, \texttt{-2} al penúltimo, etc.
+    \end{exampleblock}
+\end{frame}
+
+%------------------------------------------------
+\section{Operaciones básicas}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Modificar elementos}
+\begin{lstlisting}[style=PythonStyle]
+notas = [85, 90, 72, 95, 60]
+# Modificar un elemento por su indice
+notas[2] = 80
+print(notas)  # [85, 90, 80, 95, 60]
+# Agregar un elemento al final
+notas.append(88)
+print(notas)  # [85, 90, 80, 95, 60, 88]
+# Eliminar el ultimo elemento
+notas.pop()
+print(notas)  # [85, 90, 80, 95, 60]
+# Eliminar un elemento por su indice
+notas.pop(1)
+print(notas)  # [85, 80, 95, 60]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Operaciones con \texttt{len}, \texttt{sum}, \texttt{min}, \texttt{max}}
+\begin{lstlisting}[style=PythonStyle]
+notas = [85, 90, 72, 95, 60]
+# Numero de elementos
+print(len(notas))   # 5
+# Suma de todos los elementos
+print(sum(notas))   # 402
+# Valor minimo
+print(min(notas))   # 60
+# Valor maximo
+print(max(notas))   # 95
+# Promedio (suma / cantidad)
+promedio = sum(notas) / len(notas)
+print(promedio)     # 80.4
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Recorrer una lista con \texttt{for}}
+    \begin{block}{Patrón fundamental}
+        Usamos un ciclo \texttt{for} para acceder a cada elemento de la lista uno por uno.
+    \end{block}
+\begin{lstlisting}[style=PythonStyle]
+frutas = ["manzana", "naranja", "uva", "mango"]
+# Iterar sobre los elementos directamente
+for fruta in frutas:
+    print(fruta)
+# Iterar usando el indice
+for i in range(len(frutas)):
+    print(i, frutas[i])
+# Salida:
+# 0 manzana
+# 1 naranja
+# 2 uva
+# 3 mango
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Buscar un elemento: operador \texttt{in}}
+\begin{lstlisting}[style=PythonStyle]
+frutas = ["manzana", "naranja", "uva", "mango"]
+# Verificar si un elemento esta en la lista
+if "uva" in frutas:
+    print("Si esta la uva")
+else:
+    print("No esta la uva")
+# Encontrar el indice de un elemento
+posicion = frutas.index("naranja")
+print(posicion)   # 1
+# Contar cuantas veces aparece un elemento
+repeticiones = frutas.count("mango")
+print(repeticiones)  # 1
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Ordenar y otras operaciones útiles}
+\begin{lstlisting}[style=PythonStyle]
+numeros = [30, 10, 50, 20, 40]
+# Ordenar de menor a mayor (modifica la lista original)
+numeros.sort()
+print(numeros)  # [10, 20, 30, 40, 50]
+# Ordenar de mayor a menor
+numeros.sort(reverse=True)
+print(numeros)  # [50, 40, 30, 20, 10]
+# Invertir el orden
+numeros.reverse()
+print(numeros)  # [10, 20, 30, 40, 50]
+# Crear lista con range
+pares = list(range(0, 11, 2))
+print(pares)    # [0, 2, 4, 6, 8, 10]
+\end{lstlisting}
+\end{frame}
+
+%------------------------------------------------
+\section{Ejemplos resueltos}
+%------------------------------------------------
+
+\begin{frame}[fragile]{Ejemplo 1 -- Contar aprobados y reprobados}
+    \begin{exampleblock}{Problema}
+        Dada una lista de calificaciones, contar cuántos alumnos aprobaron (nota $\geq 70$) y cuántos reprobaron.
+    \end{exampleblock}
+\begin{lstlisting}[style=PythonStyle]
+notas = [85, 60, 72, 45, 90, 68, 78, 55]
+aprobados = 0
+reprobados = 0
+for nota in notas:
+    if nota >= 70:
+        aprobados = aprobados + 1
+    else:
+        reprobados = reprobados + 1
+print("Aprobados: ", aprobados)   # Aprobados:  5
+print("Reprobados:", reprobados)  # Reprobados: 3
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 2 -- Calcular el promedio de una lista}
+    \begin{exampleblock}{Problema}
+        Calcular el promedio de una lista de números ingresados por el usuario.
+    \end{exampleblock}
+\begin{lstlisting}[style=PythonStyle]
+# Crear lista vacia
+datos = []
+# Pedir 5 numeros al usuario
+for i in range(5):
+    valor = float(input("Ingresa un numero: "))
+    datos.append(valor)
+# Calcular el promedio
+total = 0
+for numero in datos:
+    total = total + numero
+promedio = total / len(datos)
+print("Los datos:", datos)
+print("Promedio:", promedio)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 3 -- Encontrar el mayor sin usar \texttt{max()}}
+    \begin{exampleblock}{Problema}
+        Encontrar el valor máximo de una lista \textbf{sin} usar la función \texttt{max()}.
+    \end{exampleblock}
+\begin{lstlisting}[style=PythonStyle]
+numeros = [34, 12, 78, 5, 56, 90, 23]
+# Suponemos que el mayor es el primer elemento
+mayor = numeros[0]
+for i in range(1, len(numeros)):
+    if numeros[i] > mayor:
+        mayor = numeros[i]
+print("El valor maximo es:", mayor)  # 90
+\end{lstlisting}
+    \begin{block}{Idea clave}
+        Se inicializa \texttt{mayor} con el primer elemento y se recorre el resto comparando uno a uno.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 4 -- Filtrar elementos de una lista}
+    \begin{exampleblock}{Problema}
+        Dada una lista de nombres, crear una nueva lista con los nombres que empiezan con la letra ``A''.
+    \end{exampleblock}
+\begin{lstlisting}[style=PythonStyle]
+nombres = ["Ana", "Bruno", "Alicia", "Carlos", "Alejandro", "Diana"]
+# Lista para guardar los resultados
+nombres_A = []
+for nombre in nombres:
+    if nombre[0] == "A":
+        nombres_A.append(nombre)
+print("Nombres con A:", nombres_A)
+# Nombres con A: ['Ana', 'Alicia', 'Alejandro']
+\end{lstlisting}
+    \begin{alertblock}{Nota}
+        \texttt{nombre[0]} accede al \textbf{primer carácter} del string, ya que un string también es indexable.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 5 -- Clasificar elementos en tres categorías}
+    \begin{exampleblock}{Problema}
+        Clasificar las calificaciones en: Excelente ($\geq 90$), Bueno ($70$--$89$) y Reprobado ($< 70$).
+    \end{exampleblock}
+\begin{lstlisting}[style=PythonStyle]
+calificaciones = [95, 65, 88, 72, 55, 91, 78, 45, 83]
+excelente = []
+bueno = []
+reprobado = []
+for cal in calificaciones:
+    if cal >= 90:
+        excelente.append(cal)
+    elif cal >= 70:
+        bueno.append(cal)
+    else:
+        reprobado.append(cal)
+
+print("Excelente:", excelente)   # [95, 91]
+print("Bueno:",     bueno)       # [88, 72, 78, 83]
+print("Reprobado:", reprobado)   # [65, 55, 45]
+\end{lstlisting}
+\end{frame}
+
+%------------------------------------------------
+\section{Ejercicios para resolver}
+%------------------------------------------------
+
+\begin{frame}{Ejercicios para resolver}
+    \begin{alertblock}{Instrucciones}
+        Resuelve cada ejercicio en Python usando listas y los ciclos \texttt{for} e instrucciones \texttt{if / elif / else} aprendidas. No uses funciones avanzadas fuera de las vistas en clase.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Ejercicio 1 -- Suma de pares}
+    \begin{block}{Enunciado}
+        Dada la siguiente lista de enteros:
+        \[ \texttt{numeros = [3, 8, 15, 22, 7, 14, 5, 18, 11, 6]} \]
+        \begin{enumerate}
+            \item Calcula la \textbf{suma} de todos los números pares de la lista.
+            \item Imprime cuántos números pares hay en total.
+        \end{enumerate}
+    \end{block}
+    \vspace{0.3cm}
+    \textbf{Pista:} Un número es par si \texttt{numero \% 2 == 0}.
+\end{frame}
+
+\begin{frame}{Ejercicio 2 -- Lista invertida}
+    \begin{block}{Enunciado}
+        Dada la siguiente lista:
+        \[ \texttt{original = [10, 20, 30, 40, 50]} \]
+        \begin{enumerate}
+            \item Crea una \textbf{nueva lista} llamada \texttt{invertida} que contenga los mismos elementos pero en orden inverso, \textbf{sin} usar \texttt{.reverse()} ni \texttt{[::-1]}.
+            \item Imprime ambas listas.
+        \end{enumerate}
+    \end{block}
+    \vspace{0.3cm}
+    \textbf{Pista:} Recorre la lista original de atrás hacia adelante usando \texttt{range(len(original)-1, -1, -1)}.
+\end{frame}
+
+\begin{frame}{Ejercicio 3 -- Temperatura promedio}
+    \begin{block}{Enunciado}
+        Se tienen las temperaturas (en °C) registradas durante una semana:
+        \[ \texttt{temps = [22.5, 25.0, 19.8, 30.1, 27.3, 21.0, 23.6]} \]
+        \begin{enumerate}
+            \item Calcula la \textbf{temperatura promedio} de la semana.
+            \item Imprime los días (índice) donde la temperatura fue \textbf{mayor al promedio}.
+            \item Indica cuántos días estuvieron \textbf{por debajo} del promedio.
+        \end{enumerate}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Ejercicio 4 -- Contar vocales en una lista de nombres}
+    \begin{block}{Enunciado}
+        Dada la lista:
+        \[ \texttt{nombres = ["Eduardo", "Iris", "Omar", "Ursula", "Pablo"]} \]
+        \begin{enumerate}
+            \item Para cada nombre, cuenta cuántas \textbf{vocales} (a, e, i, o, u) contiene (sin importar mayúsculas/minúsculas).
+            \item Imprime el nombre junto con su cantidad de vocales.
+        \end{enumerate}
+    \end{block}
+    \vspace{0.2cm}
+    \textbf{Pista:} Puedes usar \texttt{nombre.lower()} para convertir a minúsculas y luego recorrer cada carácter con \texttt{for letra in nombre}.
+\end{frame}
+
+\begin{frame}{Ejercicio 5 -- Reemplazar negativos}
+    \begin{block}{Enunciado}
+        Dada la lista de mediciones:
+        \[ \texttt{datos = [4.5, -2.1, 8.3, -0.5, 6.0, -3.7, 1.2]} \]
+        \begin{enumerate}
+            \item Recorre la lista y \textbf{reemplaza} cada valor negativo por \texttt{0.0}.
+            \item Imprime la lista original (antes de modificar) y la lista resultante.
+        \end{enumerate}
+    \end{block}
+    \vspace{0.2cm}
+    \textbf{Pista:} Necesitas acceder por índice: \texttt{for i in range(len(datos))}.\\
+    Usa \texttt{datos\_copia = datos.copy()} para guardar la original antes de modificar.
+\end{frame}
+
+\begin{frame}[fragile]{Resumen de operaciones vistas}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Crear y modificar:}
+        \begin{itemize}
+            \item \texttt{lista = []}
+            \item \texttt{lista.append(x)}
+            \item \texttt{lista.pop(i)}
+            \item \texttt{lista[i] = valor}
+        \end{itemize}
+        \vspace{0.2cm}
+        \textbf{Información:}
+        \begin{itemize}
+            \item \texttt{len(lista)}
+            \item \texttt{sum(lista)}
+            \item \texttt{min(lista)} / \texttt{max(lista)}
+            \item \texttt{lista.count(x)}
+            \item \texttt{lista.index(x)}
+        \end{itemize}
+
+        \column{0.5\textwidth}
+        \textbf{Recorrer:}
+        \begin{itemize}
+            \item \texttt{for x in lista:}
+            \item \texttt{for i in range(len(lista)):}
+        \end{itemize}
+        \vspace{0.2cm}
+        \textbf{Buscar / Ordenar:}
+        \begin{itemize}
+            \item \texttt{if x in lista:}
+            \item \texttt{lista.sort()}
+            \item \texttt{lista.sort(reverse=True)}
+            \item \texttt{lista.reverse()}
+            \item \texttt{lista.copy()}
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{}
+    \centering
+    \large Facultad de Ingeniería\\
+    Universidad Anáhuac México\\[0.3cm]
+    \normalsize \texttt{aboud.barsekh@anahuac.mx}
+\end{frame}
+
+\end{document}

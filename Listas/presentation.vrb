@@ -1,0 +1,36 @@
+\frametitle{Resumen de operaciones vistas}
+\begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Crear y modificar:}
+        \begin{itemize}
+            \item \texttt{lista = []}
+            \item \texttt{lista.append(x)}
+            \item \texttt{lista.pop(i)}
+            \item \texttt{lista[i] = valor}
+        \end{itemize}
+        \vspace{0.2cm}
+        \textbf{Información:}
+        \begin{itemize}
+            \item \texttt{len(lista)}
+            \item \texttt{sum(lista)}
+            \item \texttt{min(lista)} / \texttt{max(lista)}
+            \item \texttt{lista.count(x)}
+            \item \texttt{lista.index(x)}
+        \end{itemize}
+
+        \column{0.5\textwidth}
+        \textbf{Recorrer:}
+        \begin{itemize}
+            \item \texttt{for x in lista:}
+            \item \texttt{for i in range(len(lista)):}
+        \end{itemize}
+        \vspace{0.2cm}
+        \textbf{Buscar / Ordenar:}
+        \begin{itemize}
+            \item \texttt{if x in lista:}
+            \item \texttt{lista.sort()}
+            \item \texttt{lista.sort(reverse=True)}
+            \item \texttt{lista.reverse()}
+            \item \texttt{lista.copy()}
+        \end{itemize}
+    \end{columns}

@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{¿Qué es una lista?}{3}{0}{1}
+\beamer@sectionintoc {2}{Operaciones básicas}{8}{0}{2}
+\beamer@sectionintoc {3}{Ejemplos resueltos}{14}{0}{3}
+\beamer@sectionintoc {4}{Ejercicios para resolver}{20}{0}{4}
