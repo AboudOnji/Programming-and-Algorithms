@@ -1,0 +1,559 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{setspace}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{xurl}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{adjustbox}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cyan,
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+%----------------------------------------------------------------------------------------
+%   CODE LISTINGS SETTINGS
+%----------------------------------------------------------------------------------------
+\usepackage{listings}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+
+\lstdefinestyle{MATLABStyle}{
+  language=Matlab,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  breaklines=true,
+  numbers=left,
+  numbersep=5pt,
+  frame=lines,
+  backgroundcolor=\color{backcolour}
+}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{red},
+  breaklines=true,
+  numbers=left,
+  numbersep=5pt,
+  frame=lines,
+  backgroundcolor=\color{backcolour}
+}
+
+\lstset{style=MATLABStyle}
+
+%----------------------------------------------------------------------------------------
+%   TITLE
+%----------------------------------------------------------------------------------------
+\title{Ciclos \texttt{while}}
+\subtitle{Algoritmos y Programaci\'on}
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute{
+    Facultad de Ingenier\'ia \\
+    Universidad An\'ahuac M\'exico
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   AUTO AGENDA
+%----------------------------------------------------------------------------------------
+\AtBeginSection[]{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Contenido general}
+    \tableofcontents
+\end{frame}
+
+%================================================
+\section{Introducci\'on a los ciclos}
+%================================================
+
+\begin{frame}{?`Por qu\'e necesitamos ciclos?}
+    \begin{block}{Motivaci\'on}
+        En programaci\'on, muchas tareas requieren \textbf{repetir} un conjunto de instrucciones
+        varias veces. Sin ciclos, tendr\'iamos que escribir el mismo c\'odigo una y otra vez.
+    \end{block}
+    \vspace{0.3cm}
+    \textbf{Ejemplos de la vida real:}
+    \begin{itemize}
+        \item Revisar todos los correos de una bandeja de entrada.
+        \item Calcular la suma de 1000 n\'umeros.
+        \item Pedir al usuario que ingrese datos hasta que sean v\'alidos.
+        \item Actualizar una simulaci\'on en cada paso de tiempo.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de ciclos}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Ciclo \texttt{for}}
+        \begin{itemize}
+            \item Se usa cuando se conoce \textbf{de antemano} el n\'umero de iteraciones.
+            \item Ejemplo: recorrer una lista, iterar $n$ veces.
+        \end{itemize}
+        \vspace{0.3cm}
+        \begin{exampleblock}{Ejemplo conceptual}
+            ``Ejecutar estas instrucciones \textbf{10 veces}''
+        \end{exampleblock}
+
+        \column{0.5\textwidth}
+        \textbf{Ciclo \texttt{while}}
+        \begin{itemize}
+            \item Se usa cuando \textbf{no se sabe} cu\'antas veces se repetir\'a.
+            \item Repite mientras una \textbf{condici\'on sea verdadera}.
+        \end{itemize}
+        \vspace{0.3cm}
+        \begin{exampleblock}{Ejemplo conceptual}
+            ``Ejecutar estas instrucciones \textbf{mientras} el usuario no diga 'salir' ''
+        \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+%================================================
+\section{Sintaxis y estructura del \texttt{while}}
+%================================================
+
+\begin{frame}{Estructura del ciclo \texttt{while}}
+    \begin{block}{Definici\'on}
+        Un ciclo \texttt{while} ejecuta un bloque de c\'odigo \textbf{repetidamente}
+        mientras que una \textbf{condici\'on l\'ogica} sea \texttt{True}.
+        Cuando la condici\'on se vuelve \texttt{False}, el ciclo termina.
+    \end{block}
+
+    \vspace{0.3cm}
+    \textbf{Sintaxis general en Python:}
+    \[
+    \underbrace{\texttt{while}}_{\text{palabra clave}}\;\;
+    \underbrace{\texttt{condici\'on}}_{\text{expresi\'on booleana}}\texttt{:}
+    \]
+    \begin{itemize}
+        \item La \textbf{condici\'on} se eval\'ua \emph{antes} de cada iteraci\'on.
+        \item Si la condici\'on es \texttt{False} desde el principio, el cuerpo \textbf{nunca} se ejecuta.
+        \item El cuerpo del ciclo debe \textbf{modificar la condici\'on} para evitar ciclos infinitos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Diagrama de flujo del \texttt{while}}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \textbf{Flujo de ejecuci\'on:}
+        \begin{enumerate}
+            \item Se eval\'ua la \textbf{condici\'on}.
+            \item Si es \texttt{True} $\rightarrow$ se ejecuta el \textbf{cuerpo}.
+            \item Se regresa al paso 1.
+            \item Si es \texttt{False} $\rightarrow$ el ciclo \textbf{termina}.
+        \end{enumerate}
+
+        \column{0.45\textwidth}
+        \begin{alertblock}{Regla de oro}
+            Siempre aseg\'urate de que la condici\'on eventualmente se vuelva \texttt{False},
+            o usa \texttt{break} para salir del ciclo.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%================================================
+\section{\texttt{while} con condici\'on}
+%================================================
+
+\begin{frame}[fragile]{\texttt{while} con condici\'on expl\'icita}
+    \begin{block}{Descripci\'on}
+        La forma m\'as com\'un. El ciclo repite \textbf{mientras la condici\'on sea verdadera}.
+        Normalmente se usa un \textbf{contador} o una variable que cambia en cada iteraci\'on.
+    \end{block}
+
+    \vspace{0.2cm}
+    \textbf{Ejemplo 1 --- Contador ascendente:}
+\begin{lstlisting}[style=PythonStyle]
+contador = 1          # Inicializacion
+
+while contador <= 5:  # Condicion
+    print(f"Iteracion:{contador}")
+    contador += 1     # Actualizacion (ESENCIAL)
+
+print("Ciclo terminado.")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{\texttt{while} con condici\'on expl\'icita}
+
+    \begin{exampleblock}{Salida esperada}
+        \texttt{Iteracion numero: 1} \quad
+        \texttt{Iteracion numero: 2} \quad \ldots \quad
+        \texttt{Iteracion numero: 5} \quad
+        \texttt{Ciclo terminado.}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 2 --- Suma acumulada}
+    \textbf{Problema:} Sumar todos los n\'umeros del 1 al 100 usando \texttt{while}.
+
+\begin{lstlisting}[style=PythonStyle]
+n = 1
+suma = 0
+
+while n <= 100:
+    suma += n   # suma = suma + n
+    n += 1
+
+print(f"La suma de 1 a 100 es: {suma}")
+# Resultado: La suma de 1 a 100 es: 5050
+\end{lstlisting}
+
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Variables clave:}
+        \begin{itemize}
+            \item \texttt{n}: contador (1 a 101)
+            \item \texttt{suma}: acumulador
+        \end{itemize}
+        \column{0.5\textwidth}
+        
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 3 --- Validaci\'on de entrada}
+    \textbf{Problema:} Pedir al usuario un n\'umero entre 1 y 10 hasta que lo ingrese correctamente.
+
+\begin{lstlisting}[style=PythonStyle]
+numero = int(input("Ingresa un numero entre 1 y 10: "))
+
+while numero < 1 or numero > 10:
+    print("Numero invalido. Intenta de nuevo.")
+    numero = int(input("Ingresa un numero entre 1 y 10: "))
+
+print(f"Numero aceptado: {numero}")
+\end{lstlisting}
+
+    \vspace{0.2cm}
+    \begin{block}{Patr\'on: ciclo de validaci\'on}
+        Este patr\'on es muy com\'un en aplicaciones reales. El ciclo act\'ua como
+        un \textbf{guardabarrera}: solo deja pasar datos correctos.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 4 --- Adivina el n\'umero}
+    \textbf{Problema:} El programa elige el n\'umero secreto 7; el usuario adivina hasta acertar.
+
+\begin{lstlisting}[style=PythonStyle]
+secreto = 7
+intento = int(input("Adivina el numero (1-10): "))
+intentos = 1
+
+while intento != secreto:
+    if intento < secreto:
+        print("Muy bajo. Intenta de nuevo.")
+    else:
+        print("Muy alto. Intenta de nuevo.")
+    intento = int(input("Tu intento: "))
+    intentos += 1
+
+print(f"Correcto! Lo lograste en {intentos} intento(s).")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Ejemplo 4 --- Adivina el n\'umero}
+
+    \begin{exampleblock}{Concepto reforzado}
+        La condici\'on \texttt{intento != secreto} se eval\'ua cada vez.
+        El ciclo termina exactamente cuando el usuario acierta.
+    \end{exampleblock}
+\end{frame}
+
+%================================================
+\section{\texttt{while True} y control con \texttt{break}}
+%================================================
+
+\begin{frame}{\texttt{while True}: ciclo infinito controlado}
+    \begin{block}{Concepto}
+        \texttt{while True} crea un ciclo \textbf{infinito intencionalmente}.
+        La salida se controla con la instrucci\'on \texttt{break}, que interrumpe
+        el ciclo desde cualquier punto dentro del cuerpo.
+    \end{block}
+
+    \vspace{0.3cm}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{?`Cu\'ando usarlo?}
+        \begin{itemize}
+            \item Men\'us interactivos.
+            \item Servidores o daemons.
+            \item Cuando la condici\'on de salida se calcula \emph{dentro} del cuerpo.
+            \item Re-intentos hasta \'exito.
+        \end{itemize}
+
+        \column{0.5\textwidth}
+        \begin{alertblock}{Diferencia clave}
+            \textbf{\texttt{while condici\'on}:} la condici\'on se verifica \emph{al inicio}.\\[4pt]
+            \textbf{\texttt{while True + break}:} la condici\'on de salida puede estar
+            \emph{en cualquier lugar} del cuerpo.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{break} y \texttt{continue}}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{\texttt{break} --- salir del ciclo:}
+\begin{lstlisting}[style=PythonStyle]
+i = 0
+while True:
+    if i == 3:
+        break  # Sale del ciclo
+    print(i)
+    i += 1
+# Imprime: 0, 1, 2
+\end{lstlisting}
+
+        \column{0.5\textwidth}
+        \textbf{\texttt{continue} --- saltar iteraci\'on:}
+\begin{lstlisting}[style=PythonStyle]
+i = 0
+while i < 6:
+    i += 1
+    if i == 4:
+        continue # Salta al siguiente
+    print(i)
+# Imprime: 1, 2, 3, 5, 6
+\end{lstlisting}
+    \end{columns}
+
+    \vspace{0.3cm}
+    \begin{block}{Resumen}
+        \begin{itemize}
+            \item \texttt{break}: termina el ciclo inmediatamente.
+            \item \texttt{continue}: omite el resto del cuerpo en la iteraci\'on actual y pasa a la siguiente.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 5 --- Men\'u interactivo con \texttt{while True}}
+    \textbf{Problema:} Men\'u de opciones que se repite hasta que el usuario elige salir.
+
+\begin{lstlisting}[style=PythonStyle]
+while True:
+    print("\n--- MENU ---")
+    print("1. Saludar")
+    print("2. Mostrar la fecha")
+    print("3. Salir")
+
+    opcion = input("Elige una opcion: ")
+
+    if opcion == "1":
+        print("Hola, bienvenido!")
+    elif opcion == "2":
+        print("Hoy es lunes.")
+    elif opcion == "3":
+        print("Hasta luego.")
+        break          # Salida controlada
+    else:
+        print("Opcion invalida.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 6 --- Reintentos con \texttt{while True}}
+    \textbf{Problema:} Solicitar contrase\~na hasta 3 intentos fallidos o \'exito.
+
+\begin{lstlisting}[style=PythonStyle]
+clave_correcta = "anahuac2025"
+intentos = 0
+MAX_INTENTOS = 3
+while True:
+    clave = input("Ingresa tu contrasena: ")
+    intentos += 1
+
+    if clave == clave_correcta:
+        print("Acceso concedido.")
+        break
+    elif intentos >= MAX_INTENTOS:
+        print("Cuenta bloqueada. Demasiados intentos.")
+        break
+    else:
+        restantes = MAX_INTENTOS - intentos
+        print(f"Clave incorrecta. Te quedan {restantes} intento(s).")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo 6 --- Reintentos con \texttt{while True}}
+    \begin{exampleblock}{Concepto reforzado}
+        Dos condiciones de salida posibles dentro del cuerpo: \'exito o l\'imite de intentos.
+    \end{exampleblock}
+\end{frame}
+
+%================================================
+\section{Comparaci\'on y buenas pr\'acticas}
+%================================================
+
+\begin{frame}{Comparaci\'on: \texttt{while cond} vs \texttt{while True}}
+    \begin{center}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Aspecto} & \texttt{while condici\'on} & \texttt{while True + break} \\
+        \midrule
+        Condici\'on de salida & Al \textit{inicio} del ciclo & Dentro del cuerpo \\
+        Legibilidad          & Alta (simple)               & Media (requiere \texttt{break}) \\
+        Uso t\'ipico           & Contadores, rangos          & Men\'us, servidores, reintentos \\
+        Riesgo ciclo infinito & Bajo (con cuidado)          & Alto sin \texttt{break} \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \vspace{0.3cm}
+    \begin{alertblock}{Recomendaci\'on general}
+        Prefiere \texttt{while condici\'on} cuando sea posible.
+        Usa \texttt{while True} solo cuando la condici\'on de salida no puede evaluarse antes del cuerpo.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Errores comunes y c\'omo evitarlos}
+    \footnotesize
+    \begin{enumerate}
+        \item \textbf{Olvidar actualizar la variable de control}
+        \begin{itemize}
+            \item Causa un \textbf{ciclo infinito}.
+            \item Soluci\'on: aseg\'urate de que \texttt{contador += 1} (o equivalente) est\'e en el cuerpo.
+        \end{itemize}
+
+        \vspace{0.2cm}
+        \item \textbf{Condici\'on que nunca es \texttt{True} desde el inicio}
+        \begin{itemize}
+            \item El cuerpo \textbf{nunca} se ejecuta.
+            \item Revisa los valores iniciales antes de entrar al ciclo.
+        \end{itemize}
+
+        \vspace{0.2cm}
+        \item \textbf{Error de indentaci\'on}
+        \begin{itemize}
+            \item Python usa la \textbf{indentaci\'on} para delimitar el cuerpo del ciclo.
+            \item Cada l\'inea del cuerpo debe tener exactamente 4 espacios de sangr\'ia.
+        \end{itemize}
+
+        \vspace{0.2cm}
+        \item \textbf{Usar \texttt{while True} sin \texttt{break}}
+        \begin{itemize}
+            \item Programa colgado. Usa \texttt{Ctrl+C} para detenerlo.
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+%================================================
+\section{Tareas}
+%================================================
+
+\begin{frame}{Tarea 1 --- Tabla de multiplicar interactiva}
+    \begin{block}{Objetivo}
+        Aplicar \texttt{while} con condici\'on para generar tablas de multiplicar y
+        practicar la validaci\'on de entrada del usuario.
+    \end{block}
+
+    \vspace{0.2cm}
+    \textbf{Instrucciones:}
+    \begin{enumerate}
+        \item Pide al usuario que ingrese un n\'umero entero entre 1 y 12.
+              \textbf{Valida} la entrada: si est\'a fuera del rango, vuelve a pedirlo (usa \texttt{while}).
+        \item Una vez validado, imprime la tabla de multiplicar completa del 1 al 12
+              usando un ciclo \texttt{while}.
+        \item Al terminar, pregunta: ``\textit{?`Deseas calcular otra tabla? (s/n)}''.
+              Si el usuario responde \texttt{s}, repite el proceso. Si responde \texttt{n}, termina.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Tarea 1 --- Tabla de multiplicar interactiva}
+
+    \vspace{0.2cm}
+    \begin{exampleblock}{Ejemplo de salida esperada (n\'umero = 7)}
+        \texttt{7 x 1 = 7} \quad \texttt{7 x 2 = 14} \quad \ldots \quad \texttt{7 x 12 = 84}
+    \end{exampleblock}
+
+    \begin{alertblock}{Criterios de evaluaci\'on}
+        Validaci\'on de entrada (30\%) \quad Ciclo de tabla (40\%) \quad Repetici\'on del programa (30\%)
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Tarea 2 --- Adivina el n\'umero (versi\'on completa)}
+    \begin{block}{Objetivo}
+        Combinar \texttt{while True} con \texttt{break} y el m\'odulo \texttt{random}
+        para construir un juego interactivo completo.
+    \end{block}
+
+    \vspace{0.2cm}
+    \textbf{Instrucciones:}
+    \footnotesize
+    \begin{enumerate}
+        \item Genera un n\'umero secreto \textbf{aleatorio} entre 1 y 50 usando \texttt{random.randint(1, 50)}.
+        \item Usa \texttt{while True} para pedir al usuario que adivine el n\'umero.
+        \item En cada intento, indica si el n\'umero es ``demasiado alto'', ``demasiado bajo'' o ``correcto''.
+        \item Cuando el usuario adivine, muestra el \textbf{n\'umero de intentos} utilizados y termina con \texttt{break}.
+        \item \textbf{Mejora opcional (+20\% extra):} Agrega un l\'imite de 7 intentos.
+              Si se agota, revela el n\'umero secreto y termina.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Tarea 2 --- Adivina el n\'umero (versi\'on completa)}
+    \begin{alertblock}{Criterios de evaluaci\'on}
+        Generaci\'on aleatoria (20\%) \quad L\'ogica de pistas (40\%) \quad
+        Conteo de intentos (20\%) \quad \texttt{break} correcto (20\%)
+    \end{alertblock}
+\end{frame}
+
+%================================================
+%   FINAL SLIDE
+%================================================
+
+\begin{frame}{Resumen}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{\texttt{while condici\'on}}
+        \begin{itemize}
+            \item Condici\'on al inicio.
+            \item Ideal para contadores y rangos.
+            \item Requiere actualizar la variable de control.
+        \end{itemize}
+        \vspace{0.3cm}
+        \textbf{\texttt{while True + break}}
+        \begin{itemize}
+            \item Salida desde dentro del cuerpo.
+            \item Ideal para men\'us y reintentos.
+            \item Siempre debe haber un \texttt{break}.
+        \end{itemize}
+
+        \column{0.5\textwidth}
+        \begin{exampleblock}{Comandos adicionales}
+            \begin{itemize}
+                \item \texttt{break}: salir del ciclo.
+                \item \texttt{continue}: saltar iteraci\'on actual.
+            \end{itemize}
+        \end{exampleblock}
+        \vspace{0.3cm}
+        \begin{alertblock}{Recuerda}
+            Todo ciclo \texttt{while} debe tener
+            una condici\'on de salida garantizada.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+\end{document}

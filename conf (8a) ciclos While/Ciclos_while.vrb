@@ -1,0 +1,4 @@
+\frametitle{Ejemplo 6 --- Reintentos con \texttt {while True}}
+\begin{exampleblock}{Concepto reforzado}
+        Dos condiciones de salida posibles dentro del cuerpo: \'exito o l\'imite de intentos.
+    \end{exampleblock}
