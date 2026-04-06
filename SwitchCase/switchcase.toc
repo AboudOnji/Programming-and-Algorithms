@@ -1,0 +1,7 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Motivación y Contexto}{3}{0}{1}
+\beamer@sectionintoc {2}{Sintaxis Básica de \texttt {match/case}}{5}{0}{2}
+\beamer@sectionintoc {3}{Comparación con \texttt {if/elif}}{8}{0}{3}
+\beamer@sectionintoc {4}{Patrones Avanzados}{11}{0}{4}
+\beamer@sectionintoc {5}{Ejemplo Integrador}{16}{0}{5}
+\beamer@sectionintoc {6}{Ejercicios para Casa}{19}{0}{6}

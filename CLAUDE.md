@@ -60,7 +60,7 @@ Standard preamble pattern:
 
 ```latex
 \documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
-\usetheme{SimpleDarkBlue}
+\usetheme{Berlin}
 \usepackage[spanish]{babel}
 \usepackage{listings}   % code blocks
 \usepackage{algorithm,algorithmicx,algpseudocode}

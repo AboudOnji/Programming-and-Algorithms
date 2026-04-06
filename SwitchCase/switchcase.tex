@@ -1,0 +1,498 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Berlin}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{lettrine}
+\setbeamertemplate{caption}[numbered]
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{xurl}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+%----------------------------------------------------------------------------------------
+%   LISTINGS — PYTHON STYLE
+%----------------------------------------------------------------------------------------
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.99}
+
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegreen},
+  stringstyle=\color{violet},
+  numberstyle=\tiny\color{codegray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=lines,
+  framerule=0.4pt,
+  backgroundcolor=\color{backcolour},
+  extendedchars=true,
+  inputencoding=utf8
+}
+\lstset{style=PythonStyle}
+
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE
+%----------------------------------------------------------------------------------------
+\title{Estructuras de Selección Múltiple}
+\subtitle{Materia: Algoritmos y Programación --- \texttt{match/case} en Python}
+
+\author{Prof. D.Sc. BARSEKH-ONJI Aboud}
+\institute{
+    Facultad de Ingeniería \\
+    Universidad Anáhuac México
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%   AGENDA AUTOMÁTICA POR SECCIÓN
+%----------------------------------------------------------------------------------------
+\AtBeginSection[]{
+  \begin{frame}{Agenda}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+    \titlepage
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}{Agenda}
+    \tableofcontents
+\end{frame}
+
+%================================================
+\section{Motivación y Contexto}
+%================================================
+
+\begin{frame}{¿Por qué necesitamos selección múltiple?}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Problema frecuente en programación:}
+        \begin{itemize}
+            \item Evaluar \textbf{una misma variable} contra muchos valores posibles.
+            \item Con \texttt{if/elif} anidado el código crece y se vuelve difícil de leer.
+            \item En lenguajes como C, Java o JavaScript existe la instrucción \texttt{switch/case}.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{alertblock}{Python antes de la versión 3.10}
+            Python \textbf{no} tenía \texttt{switch/case}. Los programadores usaban largas cadenas de \texttt{if/elif/else} o diccionarios de funciones.
+        \end{alertblock}
+        \vspace{0.3cm}
+        \begin{block}{Python 3.10+ — Structural Pattern Matching}
+            Se introduce la instrucción \texttt{match/case}, más poderosa que el \texttt{switch} clásico.
+        \end{block}
+    \end{columns}
+\end{frame}
+
+%================================================
+\section{Sintaxis Básica de \texttt{match/case}}
+%================================================
+
+\begin{frame}[fragile]{Estructura General}
+    \begin{columns}
+        \column{0.45\textwidth}
+        \textbf{Sintaxis:}
+        \begin{lstlisting}[style=PythonStyle]
+match variable:
+    case valor1:
+        # bloque 1
+    case valor2:
+        # bloque 2
+    case _:
+        # bloque por defecto
+        \end{lstlisting}
+
+        \column{0.55\textwidth}
+        \begin{block}{Elementos clave}
+            \begin{itemize}
+                \item \texttt{match} — palabra clave, recibe la expresión a evaluar.
+                \item \texttt{case valor} — compara con un patrón específico.
+                \item \texttt{case \_} — comodín (\textit{wildcard}), equivale al \texttt{else}; se ejecuta si ningún caso anterior coincide.
+                \item No es necesario \texttt{break} (a diferencia de C/Java).
+                \item Disponible desde \textbf{Python 3.10}.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo Mínimo — Día de la Semana}
+\begin{lstlisting}[style=PythonStyle]
+dia = int(input("Ingresa un numero de dia (1-7): "))
+
+match dia:
+    case 1:
+        print("Lunes")
+    case 2:
+        print("Martes")
+    case 3:
+        print("Miercoles")
+    case 4:
+        print("Jueves")
+    case 5:
+        print("Viernes")
+    case 6:
+        print("Sabado")
+    case 7:
+        print("Domingo")
+    case _:
+        print("Numero invalido. Ingresa un valor entre 1 y 7.")
+\end{lstlisting}
+
+    \begin{exampleblock}{Nota}
+        El caso \texttt{\_} actúa como valor por defecto — siempre se coloca al final.
+    \end{exampleblock}
+\end{frame}
+
+%================================================
+\section{Comparación con \texttt{if/elif}}
+%================================================
+
+\begin{frame}[fragile]{match/case vs.\ if/elif — Lado a Lado}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Con \texttt{if/elif}:}
+        \begin{lstlisting}[style=PythonStyle]
+color = input("Color: ")
+
+if color == "rojo":
+    print("Stop")
+elif color == "amarillo":
+    print("Precaucion")
+elif color == "verde":
+    print("Avanza")
+else:
+    print("Color desconocido")
+        \end{lstlisting}
+
+        \column{0.5\textwidth}
+        \textbf{Con \texttt{match/case}:}
+        \begin{lstlisting}[style=PythonStyle]
+color = input("Color: ")
+
+match color:
+    case "rojo":
+        print("Stop")
+    case "amarillo":
+        print("Precaucion")
+    case "verde":
+        print("Avanza")
+    case _:
+        print("Color desconocido")
+        \end{lstlisting}
+    \end{columns}
+
+    \vspace{0.2cm}
+    \begin{alertblock}{Diferencia clave}
+        \texttt{match/case} hace \textbf{comparación de patrones} (\textit{pattern matching}), no solo igualdad. Esto lo hace más expresivo que \texttt{if/elif}.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Ventajas y Limitaciones}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{Ventajas de \texttt{match/case}}
+            \begin{itemize}
+                \item Código más \textbf{legible} y estructurado.
+                \item Evita repetir la variable comparada.
+                \item Soporta patrones complejos (tuplas, clases, guardas).
+                \item Sin riesgo de olvidar \texttt{break}.
+            \end{itemize}
+        \end{block}
+
+        \column{0.5\textwidth}
+        \begin{alertblock}{Limitaciones}
+            \begin{itemize}
+                \item Solo disponible en \textbf{Python 3.10+}.
+                \item No evalúa rangos directamente (se usa guarda \texttt{if}).
+                \item No reemplaza al \texttt{if/elif} en comparaciones complejas con múltiples condiciones booleanas.
+            \end{itemize}
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+%================================================
+\section{Patrones Avanzados}
+%================================================
+
+\begin{frame}[fragile]{Múltiples Valores en un Caso (\texttt{|} OR)}
+\begin{lstlisting}[style=PythonStyle]
+mes = int(input("Ingresa el numero de mes (1-12): "))
+
+match mes:
+    case 1 | 3 | 5 | 7 | 8 | 10 | 12:
+        print(f"El mes {mes} tiene 31 dias.")
+    case 4 | 6 | 9 | 11:
+        print(f"El mes {mes} tiene 30 dias.")
+    case 2:
+        print("Febrero: 28 o 29 dias (bisiesto).")
+    case _:
+        print("Mes invalido.")
+\end{lstlisting}
+
+    \begin{block}{Operador \texttt{|} en \texttt{case}}
+        El operador \texttt{|} permite agrupar varios valores en un mismo caso, equivalente a \texttt{elif x == 1 or x == 3 or ...}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Guardas (\textit{Guards}) con \texttt{if}}
+\begin{lstlisting}[style=PythonStyle]
+nota = float(input("Ingresa la calificacion (0-10): "))
+
+match nota:
+    case n if n >= 9.0:
+        print(f"Calificacion {n}: Excelente")
+    case n if n >= 7.0:
+        print(f"Calificacion {n}: Aprobado")
+    case n if n >= 6.0:
+        print(f"Calificacion {n}: Suficiente")
+    case n if n >= 0.0:
+        print(f"Calificacion {n}: Reprobado")
+    case _:
+        print("Calificacion fuera de rango.")
+\end{lstlisting}
+
+    \begin{exampleblock}{Guardas}
+        Una \textit{guarda} (\texttt{case n if condicion}) permite agregar condiciones adicionales dentro del patrón. La variable \texttt{n} captura el valor de \texttt{nota}.
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Patrones con Tuplas}
+\begin{lstlisting}[style=PythonStyle]
+punto = (int(input("x: ")), int(input("y: ")))
+
+match punto:
+    case (0, 0):
+        print("Origen")
+    case (x, 0):
+        print(f"Sobre el eje X en x={x}")
+    case (0, y):
+        print(f"Sobre el eje Y en y={y}")
+    case (x, y):
+        print(f"Punto en ({x}, {y})")
+\end{lstlisting}
+
+    \begin{block}{Desestructuración de tuplas}
+        \texttt{match/case} puede \textbf{desestructurar} estructuras de datos. Las variables \texttt{x} e \texttt{y} dentro del \texttt{case} capturan automáticamente los valores del \textit{match}.
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Patrones con Clases y Objetos}
+\begin{lstlisting}[style=PythonStyle]
+from dataclasses import dataclass
+
+@dataclass
+class Figura:
+    tipo: str
+    lado: float = 0
+    base: float = 0
+    altura: float = 0
+
+figura = Figura(tipo="triangulo", base=5.0, altura=3.0)
+
+match figura:
+    case Figura(tipo="cuadrado", lado=l):
+        print(f"Area del cuadrado: {l**2:.2f}")
+    case Figura(tipo="triangulo", base=b, altura=h):
+        print(f"Area del triangulo: {b*h/2:.2f}")
+    case Figura(tipo="rectangulo", base=b, altura=h):
+        print(f"Area del rectangulo: {b*h:.2f}")
+    case _:
+        print("Figura no reconocida.")
+\end{lstlisting}
+\end{frame}
+
+%================================================
+\section{Ejemplo Integrador}
+%================================================
+
+\begin{frame}[fragile]{Calculadora con \texttt{match/case}}
+\begin{lstlisting}[style=PythonStyle]
+def calculadora(a, operacion, b):
+    match operacion:
+        case "+":
+            return a + b
+        case "-":
+            return a - b
+        case "*":
+            return a * b
+        case "/":
+            if b != 0:
+                return a / b
+            else:
+                return "Error: division entre cero"
+        case "**":
+            return a ** b
+        case _:
+            return f"Operacion '{operacion}' no reconocida."
+
+print(calculadora(10, "+", 5))   # 15
+print(calculadora(8,  "/", 0))   # Error
+print(calculadora(2,  "**", 8))  # 256
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Menú Interactivo de Aplicación}
+\begin{lstlisting}[style=PythonStyle]
+def menu():
+    print("\n=== MENU PRINCIPAL ===")
+    print("1. Ver lista de estudiantes")
+    print("2. Agregar estudiante")
+    print("3. Eliminar estudiante")
+    print("4. Salir")
+
+    opcion = input("Selecciona una opcion: ")
+
+    match opcion:
+        case "1":
+            print("Mostrando lista...")
+        case "2":
+            nombre = input("Nombre del nuevo estudiante: ")
+            print(f"Estudiante '{nombre}' agregado.")
+        case "3":
+            nombre = input("Nombre a eliminar: ")
+            print(f"Estudiante '{nombre}' eliminado.")
+        case "4":
+            print("Saliendo del sistema.")
+        case _:
+            print("Opcion no valida. Intenta de nuevo.")
+
+menu()
+\end{lstlisting}
+\end{frame}
+
+%================================================
+\section{Ejercicios para Casa}
+%================================================
+
+\begin{frame}{Ejercicio 1 — Conversor de Unidades}
+    \begin{block}{Descripcion}
+        Escribe un programa en Python que pida al usuario:
+        \begin{enumerate}
+            \item Un \textbf{valor numérico} (flotante).
+            \item El \textbf{tipo de conversión} a realizar (elige una opción de menú).
+        \end{enumerate}
+    \end{block}
+
+    \vspace{0.3cm}
+    El programa debe usar \texttt{match/case} para manejar las siguientes conversiones:
+
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \texttt{"km\_mi"} $\rightarrow$ km a millas \hfill ($\times\,0.621$)
+            \item \texttt{"mi\_km"} $\rightarrow$ millas a km \hfill ($\times\,1.609$)
+            \item \texttt{"kg\_lb"} $\rightarrow$ kg a libras \hfill ($\times\,2.205$)
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \texttt{"lb\_kg"} $\rightarrow$ libras a kg \hfill ($\div\,2.205$)
+            \item \texttt{"c\_f"}   $\rightarrow$ Celsius a Fahrenheit \hfill ($\times\frac{9}{5}+32$)
+            \item \texttt{"f\_c"}   $\rightarrow$ Fahrenheit a Celsius \hfill ($(\text{val}-32)\times\frac{5}{9}$)
+            \item Cualquier otro valor $\rightarrow$ mensaje de error.
+        \end{itemize}
+    \end{columns}
+
+    \vspace{0.2cm}
+    \begin{alertblock}{Requisito}
+        Usar obligatoriamente \texttt{match/case}. Mostrar el resultado con 3 decimales usando f-string.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Ejercicio 2 — Clasificador de Figuras Geométricas}
+    \begin{block}{Descripcion}
+        Escribe un programa que clasifique triángulos usando \textbf{patrones con guardas} en \texttt{match/case}.
+    \end{block}
+
+    \vspace{0.2cm}
+    \textbf{El programa debe:}
+    \begin{enumerate}
+        \item Pedir al usuario los \textbf{tres lados} del triángulo ($a$, $b$, $c$) como flotantes.
+        \item Verificar si los tres lados forman un triángulo válido: $a + b > c$, $a + c > b$, $b + c > a$.
+        \item Usar \texttt{match/case} con \textbf{guardas} para clasificar:
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \textbf{Equilátero:} $a = b = c$
+            \item \textbf{Isósceles:} exactamente dos lados iguales
+            \item \textbf{Escaleno:} los tres lados diferentes
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \textbf{Rectángulo:} cumple teorema de Pitágoras ($c^2 = a^2 + b^2$, con $c$ el mayor)
+            \item \textbf{Triángulo inválido:} si no se cumple la desigualdad triangular
+        \end{itemize}
+    \end{columns}
+
+    \vspace{0.2cm}
+    \begin{alertblock}{Requisito extra}
+        El programa debe también calcular e imprimir el \textbf{perímetro} y el \textbf{área} (fórmula de Herón) del triángulo si es válido.
+    \end{alertblock}
+\end{frame}
+
+%================================================
+\begin{frame}{Resumen}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{block}{Lo que aprendimos hoy}
+            \begin{itemize}
+                \item \texttt{match/case} — disponible desde Python 3.10.
+                \item Sintaxis básica y comodín \texttt{\_}.
+                \item Operador \texttt{|} para múltiples valores.
+                \item Guardas con \texttt{if} para rangos.
+                \item Patrones con tuplas y clases.
+                \item Comparación con \texttt{if/elif}.
+            \end{itemize}
+        \end{block}
+
+        \column{0.45\textwidth}
+        \begin{exampleblock}{Cuándo usar \texttt{match/case}}
+            \begin{itemize}
+                \item Menús de opciones.
+                \item Procesamiento de comandos.
+                \item Desestructuración de objetos.
+                \item Código más legible que largas cadenas \texttt{elif}.
+            \end{itemize}
+        \end{exampleblock}
+
+        \vspace{0.3cm}
+        \begin{alertblock}{Entrega de ejercicios}
+            Próxima clase. Archivos \texttt{.py} con comentarios explicativos.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+\end{document}
