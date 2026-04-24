@@ -2,12 +2,20 @@
 
 import tkinter as tk
 
+def sumar():
+    n = entrada_nombre.get()
+
+
 def saludar():
     nombre = entrada_nombre.get()
     etiqueta_resultados.config(text="Hola " + nombre)
 
 # Función para crear una ventana
 def crear_ventana():
+    def dividir_ventana():
+        
+        
+
     ventana = tk.Tk()
     ventana.title("Mi aplicación")
     ventana.geometry("400x300")
