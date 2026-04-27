@@ -12,17 +12,12 @@ def saludar():
 
 # Función para crear una ventana
 def crear_ventana():
-    def dividir_ventana():
-        
-        
-
-    ventana = tk.Tk()
-    ventana.title("Mi aplicación")
-    ventana.geometry("400x300")
-    boton_cerrar = tk.Button(ventana, text="Cerrar", command=ventana.destroy)
+    ventana1 = tk.Tk()
+    ventana1.title("Mi aplicación")
+    ventana1.geometry("400x300")
+    boton_cerrar = tk.Button(ventana1, text="Cerrar", command=ventana1.destroy)
     boton_cerrar.pack(pady=10)
-    return ventana
-
+    return ventana1
 ventana = tk.Tk()
 ventana.title("Mi aplicación")
 ventana.geometry("400x300")
