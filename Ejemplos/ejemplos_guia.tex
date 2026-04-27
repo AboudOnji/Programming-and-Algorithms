@@ -1,0 +1,711 @@
+%=============================================================
+%  ejemplos_guia.tex
+%  Guía de Ejemplos — Algoritmos y Programación en Python
+%  Prof. Dr. Aboud Barsekh-Onji
+%  Universidad Anáhuac México  |  Facultad de Ingeniería
+%=============================================================
+\documentclass[12pt,a4paper]{article}
+
+%--- Codificación y fuentes (xelatex) ---
+\usepackage{fontspec}
+\usepackage[spanish]{babel}
+\setmainfont{Latin Modern Roman}
+\setmonofont[HyphenChar=None]{DejaVu Sans Mono}
+
+%--- Geometría ---
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, headheight=15pt]{geometry}
+
+%--- Colores y gráficos ---
+\usepackage[dvipsnames,svgnames,table]{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+%--- Encabezados y pie de página ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small Algoritmos y Programación en Python}
+\lhead{\small Prof. Dr. Aboud Barsekh-Onji}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+%--- Secciones con color ---
+\usepackage{titlesec}
+\definecolor{anaDark}{RGB}{0,51,102}
+\definecolor{anaAccent}{RGB}{180,0,0}
+\definecolor{solColor}{RGB}{0,100,60}
+\titleformat{\section}{\large\bfseries\color{anaDark}}{}{0em}{\thesection\quad}[\color{anaAccent}\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{anaDark}}{}{0em}{\thesubsection\quad}
+
+%--- Cajas de texto ---
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins,breakable}
+
+%--- Colores código Python ---
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.45,0,0.75}
+\definecolor{backcolour}{rgb}{0.97,0.97,1.0}
+\definecolor{keyblue}{rgb}{0.0,0.25,0.75}
+
+%--- Estilo listings Python ---
+\usepackage{listings}
+\lstdefinestyle{OutputStyle}{
+  language={},
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  keepspaces=true,
+  numbers=none,
+  frame=none,
+  backgroundcolor=\color{white},
+  xleftmargin=4pt,
+  literate=
+    {≈}{{\ensuremath{\approx}}}1
+    {≤}{{\ensuremath{\leq}}}1
+    {≥}{{\ensuremath{\geq}}}1,
+}
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{keyblue}\bfseries,
+  commentstyle=\color{codegreen}\itshape,
+  stringstyle=\color{codepurple},
+  numberstyle=\tiny\color{codegray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=7pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=4,
+  frame=single,
+  framerule=0.5pt,
+  rulecolor=\color{anaDark!40},
+  backgroundcolor=\color{backcolour},
+  xleftmargin=10pt,
+  xrightmargin=5pt,
+  literate=
+    {≈}{{\ensuremath{\approx}}}1
+    {≤}{{\ensuremath{\leq}}}1
+    {≥}{{\ensuremath{\geq}}}1
+    {→}{{\ensuremath{\rightarrow}}}1,
+}
+\lstset{style=PythonStyle}
+
+%--- Cajas especiales ---
+\newtcolorbox{objetivobox}[1]{
+  colback=anaDark!5, colframe=anaDark,
+  fonttitle=\bfseries\small, title={#1},
+  breakable, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{conceptobox}[1]{
+  colback=anaAccent!5, colframe=anaAccent,
+  fonttitle=\bfseries\small, title={#1},
+  breakable, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{enunciadobox}[1]{
+  colback=orange!6, colframe=orange!70!black,
+  fonttitle=\bfseries\small, title={#1},
+  breakable, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{solucionbanner}{
+  colback=solColor!10, colframe=solColor,
+  left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{salidabox}[1]{
+  colback=gray!8, colframe=gray!50,
+  fonttitle=\bfseries\small\color{gray!70!black}, title={#1},
+  breakable, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+
+%--- Parche babel-spanish: evita usar hyphenchar en fuentes mono ---
+\makeatletter
+\def\es@chf{}
+\makeatother
+
+%--- Hiperlinks ---
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=anaDark,urlcolor=anaAccent}
+
+%--- Matemáticas ---
+\usepackage{amsmath}
+
+%=============================================================
+\begin{document}
+
+%--- Portada ---
+\begin{titlepage}
+  \begin{center}
+    \vspace*{1.5cm}
+    {\Large\bfseries\color{anaDark} Universidad Anáhuac México}\\[0.4cm]
+    {\large Facultad de Ingeniería}\\[2.5cm]
+    \begin{tikzpicture}
+      \draw[anaDark,line width=3pt] (0,0) -- (12,0);
+      \draw[anaAccent,line width=1.5pt] (0,-0.25) -- (12,-0.25);
+    \end{tikzpicture}\\[0.8cm]
+    {\Huge\bfseries\color{anaDark} Guía de Ejemplos}\\[0.5cm]
+    {\Large\color{anaDark!70} Algoritmos y Programación en Python}\\[0.4cm]
+    \begin{tikzpicture}
+      \draw[anaAccent,line width=1.5pt] (0,0) -- (12,0);
+      \draw[anaDark,line width=3pt] (0,-0.25) -- (12,-0.25);
+    \end{tikzpicture}\\[2cm]
+    {\large Cinco ejemplos comentados — formato enunciado / solución}\\[0.5cm]
+    \begin{tabular}{cl}
+      \textcolor{anaAccent}{\textbullet} & Ciclos \texttt{for} anidados \\[4pt]
+      \textcolor{anaAccent}{\textbullet} & Módulo \texttt{random} \\[4pt]
+      \textcolor{anaAccent}{\textbullet} & Ordenamiento de listas y matrices \\[4pt]
+      \textcolor{anaAccent}{\textbullet} & Ciclos \texttt{while} y \texttt{while True} \\[4pt]
+      \textcolor{anaAccent}{\textbullet} & Sentencia \texttt{match}/\texttt{case} (switch-case) \\[4pt]
+    \end{tabular}\\[2.5cm]
+    {\large\bfseries Prof. DSc. Aboud Barsekh-Onji}\\[0.3cm]
+    {\normalsize Facultad de Ingeniería | Universidad Anáhuac México}\\[1.5cm]
+    {\normalsize Ciclo escolar 2025-2026}
+  \end{center}
+\end{titlepage}
+
+%--- Índice ---
+\tableofcontents
+\newpage
+
+%=============================================================
+%  EJEMPLO 1 — ENUNCIADO
+%=============================================================
+\section{Ejemplo 1 — Ciclos \texttt{for} anidados}
+\label{sec:ejemplo1}
+
+\begin{objetivobox}{Objetivo}
+Dominar la estructura de ciclos \texttt{for} anidados para recorrer estructuras
+bidimensionales, construir patrones visuales y acumular resultados fila por fila.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item Un ciclo \texttt{for} anidado es un ciclo dentro de otro ciclo.
+  \item Por cada iteración del ciclo \textbf{externo}, el ciclo \textbf{interno}
+        se ejecuta \emph{completo}.
+  \item El número total de iteraciones es el \emph{producto} de los rangos de ambos ciclos.
+  \item \texttt{print(..., end="")} imprime sin salto de línea al final.
+  \item \texttt{len(lista)} devuelve el número de elementos de una lista.
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemplo1.py}}
+Escribe un programa Python que realice las tres tareas siguientes
+usando \textbf{únicamente ciclos \texttt{for} anidados}:
+
+\begin{enumerate}
+  \item \textbf{Tabla de multiplicar.}
+        Imprime en pantalla la tabla de multiplicar del $1$ al $5$ en formato de cuadrícula.
+        Cada celda debe mostrar la operación \texttt{i x j = resultado}.
+        Usa \texttt{end=""} para mantener cada fila en una sola línea.
+
+  \item \textbf{Triángulo de asteriscos.}
+        Imprime un triángulo rectángulo de asteriscos de \textbf{6 filas}.
+        La fila $k$ debe contener exactamente $k$ asteriscos separados por espacios.
+
+  \item \textbf{Suma por filas de una matriz $3 \times 3$.}
+        Dada la matriz:
+        \[
+          M = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{pmatrix}
+        \]
+        Recorre la matriz con ciclos \texttt{for} anidados, imprime los elementos
+        de cada fila y calcula la suma de cada una.
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 1 — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo 1: Ciclos \texttt{for} anidados}
+  \hfill \texttt{ejemplo1.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemplo1.py — For anidados},
+                 label={lst:ejemplo1}]{ejemplo1.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Tabla de multiplicar.}
+El ciclo exterior itera \texttt{i} de 1 a 5 (filas); el interior itera
+\texttt{j} también de 1 a 5 (columnas). El argumento \texttt{end=""} evita
+el salto de línea para imprimir en la misma fila; el \texttt{print()} vacío
+al final de la iteración exterior produce el retorno de carro.
+
+\paragraph{Parte 2 — Triángulo de asteriscos.}
+El ciclo exterior controla el número de filas. El interior imprime tantos
+asteriscos como indique \texttt{fila}. La variable del ciclo exterior actúa
+como límite del interior: cuando \texttt{fila=1} se imprime 1 asterisco, cuando
+\texttt{fila=6} se imprimen 6.
+
+\paragraph{Parte 3 — Suma por filas de una matriz.}
+\texttt{len(matriz)} da el número de filas y \texttt{len(matriz[i])} el número
+de columnas de la fila $i$. La variable \texttt{suma\_fila} se reinicia a cero en
+cada iteración del ciclo exterior antes de acumular los elementos de esa fila.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada}
+\begin{lstlisting}[style=OutputStyle]
+1 x 1 = 1     1 x 2 = 2     1 x 3 = 3     1 x 4 = 4     1 x 5 = 5
+...
+5 x 1 = 5     5 x 2 = 10    5 x 3 = 15    5 x 4 = 20    5 x 5 = 25
+
+*
+* *
+* * *
+* * * *
+* * * * *
+* * * * * *
+
+  1   2   3   -> suma = 6
+  4   5   6   -> suma = 15
+  7   8   9   -> suma = 24
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 2 — ENUNCIADO
+%=============================================================
+\section{Ejemplo 2 — Módulo \texttt{random}}
+\label{sec:ejemplo2}
+
+\begin{objetivobox}{Objetivo}
+Aprender a generar valores aleatorios, seleccionar y mezclar listas,
+y construir simulaciones sencillas usando el módulo estándar \texttt{random}.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \texttt{import random} — importar el módulo de aleatoriedad.
+  \item \texttt{random.randint(a, b)} — entero aleatorio en $[a, b]$ inclusive.
+  \item \texttt{random.random()} — flotante uniforme en $[0.0, 1.0)$.
+  \item \texttt{random.uniform(a, b)} — flotante en $[a, b]$.
+  \item \texttt{random.choice(seq)} — elemento aleatorio de una secuencia.
+  \item \texttt{random.shuffle(seq)} — mezcla la lista \emph{en su lugar} (modifica el original).
+  \item \texttt{random.sample(seq, k)} — muestra sin reposición de tamaño $k$.
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemplo2.py}}
+Escribe un programa Python que demuestre las principales funciones del
+módulo \texttt{random} en tres partes:
+
+\begin{enumerate}
+  \item \textbf{Generación de números aleatorios.}
+        Genera e imprime: un entero aleatorio entre 1 y 100, un flotante en
+        $[0.0,\,1.0)$ con 4 decimales, y un flotante en $[5.0,\,10.0]$ con 4 decimales.
+
+  \item \textbf{Listas y elección aleatoria.}
+        Dada la lista \texttt{[''rojo'', ''azul'', ''verde'', ''amarillo'', ''morado'']}:
+        \begin{itemize}
+          \item Elige \emph{un} color al azar con \texttt{random.choice}.
+          \item Mezcla la lista completa con \texttt{random.shuffle} e imprime el resultado.
+          \item Obtén una muestra de 3 colores distintos con \texttt{random.sample}.
+        \end{itemize}
+
+  \item \textbf{Simulación de dados.}
+        Simula \textbf{10 lanzamientos} de un dado de 6 caras.
+        Muestra el resultado de cada lanzamiento e imprime al final un histograma
+        de barras con caracteres \texttt{|} que indique cuántas veces salió cada cara.
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 2 — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo 2: Módulo \texttt{random}}
+  \hfill \texttt{ejemplo2.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemplo2.py — Módulo random},
+                 label={lst:ejemplo2}]{ejemplo2.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Generación básica.}
+Se muestran las tres funciones de generación de números: entera (\texttt{randint}),
+flotante uniforme en $[0,1)$ (\texttt{random()}) y flotante en rango arbitrario
+(\texttt{uniform}).  El especificador \texttt{:.4f} en el f-string limita la salida
+a cuatro decimales.
+
+\paragraph{Parte 2 — Listas y elección.}
+\texttt{random.choice} selecciona \emph{un} elemento sin modificar la lista.
+\texttt{shuffle} reordena la lista \textbf{en memoria} (el original cambia).
+\texttt{sample} devuelve una \emph{nueva} lista con $k$ elementos distintos del original.
+
+\paragraph{Parte 3 — Simulación de dados.}
+Se usa un diccionario de conteos inicializado con \texttt{\{i: 0 for i in range(1,7)\}}
+y un ciclo \texttt{for} para acumular los resultados. La visualización con \texttt{|} es
+proporcional a la frecuencia observada.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada (fragmento — los números varían por ser aleatorios)}
+\begin{lstlisting}[style=OutputStyle]
+Entero entre 1 y 100:       37
+Flotante entre 0.0 y 1.0:   0.4218
+Color elegido:   verde
+Lista mezclada:  ['morado', 'rojo', 'amarillo', 'azul', 'verde']
+  Lanzamiento  1: 3
+  Cara 3: || (2)
+  Cara 6: |||| (4)
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 3 — ENUNCIADO
+%=============================================================
+\section{Ejemplo 3 — Ordenamiento de listas y matrices}
+\label{sec:ejemplo3}
+
+\begin{objetivobox}{Objetivo}
+Implementar algoritmos clásicos de ordenamiento (burbuja y selección),
+comprender su complejidad $O(n^2)$, y aplicar \texttt{sorted()} para ordenar
+estructuras de datos complejas mediante funciones \texttt{lambda}.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \textbf{Bubble Sort:} compara pares adyacentes e intercambia si están
+        en orden incorrecto; requiere $n-1$ pasadas.
+  \item \textbf{Selection Sort:} en cada pasada selecciona el mínimo del subarray
+        no ordenado y lo coloca en su posición.
+  \item \textbf{Complejidad:} ambos son $O(n^2)$ en tiempo y $O(1)$ en espacio.
+  \item \texttt{lista[:]} — copia superficial de una lista.
+  \item \texttt{a, b = b, a} — intercambio en una sola línea (swap).
+  \item \texttt{sorted(iterable, key=f, reverse=True)} — ordena sin modificar el original.
+  \item \texttt{lambda x: expr} — función anónima de una línea.
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemplo3.py}}
+Trabaja con una lista de 10 enteros generada con \texttt{random.seed(42)}.
+
+\begin{enumerate}
+  \item \textbf{Bubble Sort.}
+        Implementa el algoritmo de ordenamiento burbuja \emph{desde cero} usando
+        dos ciclos \texttt{for} anidados. Imprime la lista original y la ordenada.
+
+  \item \textbf{Selection Sort.}
+        Implementa el algoritmo de ordenamiento por selección \emph{desde cero}.
+        Usa una variable \texttt{idx\_min} para guardar la posición del menor
+        elemento en cada pasada. Imprime la lista original y la ordenada.
+
+  \item \textbf{Ordenamiento de alumnos por promedio.}
+        Dada la siguiente lista de alumnos con sus tres calificaciones:
+        \begin{center}
+        \small
+        Ana [85, 90, 78] \quad Luis [70, 65, 80] \quad Sofía [95, 92, 98]
+        \quad Carlos [60, 75, 70] \quad Elena [88, 84, 91]
+        \end{center}
+        Calcula el promedio de cada alumno, agrégalo al diccionario y usa
+        \texttt{sorted()} con \texttt{lambda} para ordenarlos de mayor a menor
+        promedio.  Imprime la tabla con nombre, notas y promedio.
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 3 — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo 3: Ordenamiento}
+  \hfill \texttt{ejemplo3.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemplo3.py — Ordenamiento},
+                 label={lst:ejemplo3}]{ejemplo3.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Bubble Sort.}
+El ciclo exterior limita las pasadas a $n-1$; el interior llega hasta
+\texttt{n-1-i} porque los últimos $i$ elementos ya están en su posición final.
+El intercambio se realiza en una sola línea con asignación múltiple: \texttt{a, b = b, a}.
+
+\paragraph{Parte 2 — Selection Sort.}
+\texttt{idx\_min} guarda el índice del menor elemento encontrado en el subarray
+$[i, n)$.  Al terminar el ciclo interior, se intercambia el elemento en posición
+$i$ con el mínimo encontrado.
+
+\paragraph{Parte 3 — Sorted con lambda.}
+\texttt{sorted()} recibe \texttt{key=lambda a: a["promedio"]} para ordenar la
+lista de diccionarios por valor numérico. \texttt{reverse=True} invierte el orden
+(de mayor a menor). El original no se modifica.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada}
+\begin{lstlisting}[style=OutputStyle]
+Original:   [82, 15, 4, 95, 36, 32, 29, 18, 95, 14]
+Ordenada:   [4, 14, 15, 18, 29, 32, 36, 82, 95, 95]
+
+Nombre      Notas                 Promedio
+---------------------------------------------
+Sofia       [95, 92, 98]             95.00
+Elena       [88, 84, 91]             87.67
+Ana         [85, 90, 78]             84.33
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 4 — ENUNCIADO
+%=============================================================
+\section{Ejemplo 4 — Ciclos \texttt{while} y \texttt{while True}}
+\label{sec:ejemplo4}
+
+\begin{objetivobox}{Objetivo}
+Distinguir entre el ciclo \texttt{while} con condición explícita y el patrón
+\texttt{while True} con \texttt{break}/\texttt{continue}, aplicándolos en
+contextos numéricos y de control de flujo.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \texttt{while condición:} — ejecuta el cuerpo mientras la condición sea verdadera.
+  \item \texttt{while True:} — ciclo potencialmente infinito; requiere \texttt{break}.
+  \item \texttt{break} — termina inmediatamente el ciclo más interno.
+  \item \texttt{continue} — salta el resto del cuerpo y vuelve a evaluar la condición.
+  \item \texttt{abs(x)} — valor absoluto de $x$.
+  \item Método de Newton-Raphson para $\sqrt{S}$:
+        \[x_{n+1} = \frac{1}{2}\!\left(x_n + \frac{S}{x_n}\right)\]
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemplo4.py}}
+Escribe un programa Python con tres partes que demuestren el uso de \texttt{while}
+y \texttt{while True}:
+
+\begin{enumerate}
+  \item \textbf{Potencias de 2 con \texttt{while}.}
+        Usando \emph{solo} un ciclo \texttt{while}, imprime todas las potencias de 2
+        desde $2^0 = 1$ hasta $2^9 = 512$.  Muestra tanto el exponente como el resultado.
+
+  \item \textbf{Raíz cuadrada con Newton-Raphson y \texttt{while}.}
+        Implementa el método iterativo de Newton-Raphson para calcular $\sqrt{50}$.
+        La estimación inicial es $x_0 = 25.0$.
+        El ciclo debe terminar cuando el error absoluto $|x^2 - 50| < 10^{-6}$.
+        Imprime el resultado con 8 decimales y el número de iteraciones realizadas.
+
+  \item \textbf{Juego de adivinar con \texttt{while True}.}
+        Un número secreto aleatorio entre 1 y 20 es elegido por el programa.
+        Usando \texttt{while True} y búsqueda binaria automática (el programa adivina solo):
+        \begin{itemize}
+          \item Mantén variables \texttt{bajo} y \texttt{alto} para el rango de búsqueda.
+          \item En cada intento calcula \texttt{intento = (bajo + alto) // 2}.
+          \item Usa \texttt{break} si acierta o si se superan 10 intentos.
+          \item Usa \texttt{continue} para ajustar \texttt{bajo} o \texttt{alto} y repetir.
+        \end{itemize}
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 4 — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo 4: \texttt{while} y \texttt{while True}}
+  \hfill \texttt{ejemplo4.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemplo4.py — While y While True},
+                 label={lst:ejemplo4}]{ejemplo4.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Potencias de 2.}
+La condición \texttt{while potencia <= 512} se evalúa \emph{antes} de cada
+iteración.  Cuando \texttt{potencia} supera 512, el ciclo termina naturalmente.
+Tanto \texttt{n} como \texttt{potencia} se actualizan dentro del cuerpo.
+
+\paragraph{Parte 2 — Newton-Raphson.}
+El ciclo continúa mientras el error absoluto $|x^2 - S|$ supere la tolerancia.
+No se conoce de antemano cuántas iteraciones serán necesarias: el \texttt{while}
+con condición de convergencia es la estructura natural para este caso.
+
+\paragraph{Parte 3 — While True con búsqueda binaria.}
+\texttt{while True} crea un ciclo indefinido.  El primer \texttt{break}
+(acierto o límite de intentos) garantiza la terminación.
+\texttt{continue} omite el resto del cuerpo y vuelve al inicio del ciclo,
+separando limpiamente los tres casos: igual, menor y mayor.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada (fragmento)}
+\begin{lstlisting}[style=OutputStyle]
+  2^ 0 = 1
+  2^ 9 = 512
+  sqrt(50.0) ≈ 7.07106781  (en 6 iteraciones)
+  Verificacion: 7.07106781^2 = 50.00000000
+  Intento 1: 10 -> muy alto
+  Intento 2: 5  -> Correcto! Encontrado en 2 intentos.
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 5 — ENUNCIADO
+%=============================================================
+\section{Ejemplo 5 — Sentencia \texttt{match}/\texttt{case}}
+\label{sec:ejemplo5}
+
+\begin{objetivobox}{Objetivo}
+Usar la sentencia \texttt{match}/\texttt{case} de Python 3.10+ como alternativa
+estructurada a cadenas de \texttt{if/elif/else}, aprovechando guardas y el
+patrón comodín.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \texttt{match expr:} evalúa la expresión y la compara con cada \texttt{case}.
+  \item El \textbf{primer} \texttt{case} que coincida se ejecuta; los demás se ignoran.
+  \item \texttt{case \_:} es el comodín (equivalente a \texttt{default} en C/Java).
+  \item \textbf{Guarda:} \texttt{case n if condición:} añade un filtro booleano al patrón.
+  \item Disponible desde \textbf{Python 3.10}; el entorno \texttt{conda research} usa 3.11.
+\end{itemize}
+\end{conceptobox}
+
+\begin{tcolorbox}[colback=yellow!8,colframe=orange!60,
+                  fonttitle=\bfseries\small,title={Nota de compatibilidad}]
+\small
+La sentencia \texttt{match/case} requiere Python $\geq$ 3.10. En versiones anteriores
+se usa \texttt{if/elif/else} o un diccionario de funciones.
+\end{tcolorbox}
+
+\vspace{0.6em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemplo5.py}}
+Escribe un programa Python con tres funciones que usen \texttt{match}/\texttt{case}:
+
+\begin{enumerate}
+  \item \textbf{Calculadora simple.}
+        Define \texttt{calculadora(a, operacion, b)} que soporte los operadores
+        \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, \texttt{**}.
+        El caso \texttt{"/"} debe incluir validación de división entre cero.
+        El caso comodín debe devolver un mensaje de error.
+        Prueba la función con al menos 7 operaciones, incluyendo división entre cero.
+
+  \item \textbf{Clasificación de figuras geométricas.}
+        Define \texttt{clasificar\_figura(lados)} que devuelva el nombre de la figura
+        según su número de lados (3 a 6). Para $n > 6$ usa una \textbf{guarda}:
+        \texttt{case n if n > 6:} y retorna \texttt{f"Polígono de \{n\} lados"}.
+        Prueba con los valores: 3, 4, 5, 6, 8, 12, 1.
+
+  \item \textbf{Despachador de comandos de texto.}
+        Define \texttt{ejecutar\_comando(cmd)} que procese los comandos:
+        \texttt{inicio}, \texttt{ayuda}, \texttt{salir}, \texttt{config}, \texttt{datos}.
+        El comodín debe sugerir escribir \texttt{ayuda}.
+        Simula la ejecución de la lista: \texttt{["inicio", "ayuda", "salir",
+        "config", "datos", "desconocido"]}.
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO 5 — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo 5: \texttt{match}/\texttt{case}}
+  \hfill \texttt{ejemplo5.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemplo5.py — match/case},
+                 label={lst:ejemplo5}]{ejemplo5.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Calculadora.}
+La función recibe el operador como \emph{cadena} y lo compara con cada \texttt{case}.
+El caso \texttt{"/"} incluye una guardia interna (\texttt{if b == 0}) para la división
+entre cero.  El \texttt{case \_:} actúa como comodín capturando cualquier operador
+no soportado.
+
+\paragraph{Parte 2 — Clasificación de figuras.}
+Los primeros casos son \emph{literales enteros}. El caso
+\texttt{case n if n > 6:} usa una guarda: primero vincula el valor a la variable
+\texttt{n} y luego verifica la condición.  El comodín final maneja entradas inválidas.
+
+\paragraph{Parte 3 — Menú de comandos.}
+Simula un \emph{despachador} de comandos de texto. El patrón \texttt{match}/\texttt{case}
+es más legible que una cadena de \texttt{if/elif} cuando se despacha sobre
+un mismo valor con muchas ramas posibles.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada}
+\begin{lstlisting}[style=OutputStyle]
+    10  + 5    = 15
+     2 ** 8    = 256
+     9  / 0    = Error: division entre cero
+  3 lados -> Triangulo
+  8 lados -> Poligono de 8 lados
+  > inicio  -> Sistema iniciado correctamente.
+  > desconocido -> Comando 'desconocido' no reconocido.
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+\section*{Resumen comparativo de estructuras}
+\addcontentsline{toc}{section}{Resumen comparativo de estructuras}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{3.2cm}|p{4.2cm}|p{5.8cm}|}
+\hline
+\rowcolor{anaDark!15}
+\textbf{Estructura} & \textbf{Uso principal} & \textbf{Cuándo elegirla} \\
+\hline
+\texttt{for} anidados & Recorrer matrices 2D y patrones & Se conoce el número de iteraciones \\
+\hline
+\texttt{random} & Simulación, pruebas & Se necesita variabilidad o aleatoriedad \\
+\hline
+Ordenamiento & Organizar colecciones & Búsqueda eficiente posterior \\
+\hline
+\texttt{while} & Condición de parada variable & No se sabe cuántas iteraciones se necesitan \\
+\hline
+\texttt{while True} & Bucle indefinido controlado & Menús, juegos, servidores \\
+\hline
+\texttt{match/case} & Despacho por valor & Muchas ramas sobre una misma variable \\
+\hline
+\end{tabular}
+\caption{Comparativa de estructuras de control cubiertas en los ejemplos}
+\end{table}
+
+\vspace{1em}
+\begin{tcolorbox}[colback=anaDark!5,colframe=anaDark,
+                  fonttitle=\bfseries,title={Para ejecutar los ejemplos}]
+\begin{lstlisting}[style=PythonStyle,numbers=none,frame=none,backgroundcolor=\color{white}]
+# Dentro de la carpeta Ejemplos/
+/home/aboudonji/miniforge3/envs/research/bin/python ejemplo1.py
+/home/aboudonji/miniforge3/envs/research/bin/python ejemplo2.py
+/home/aboudonji/miniforge3/envs/research/bin/python ejemplo3.py
+/home/aboudonji/miniforge3/envs/research/bin/python ejemplo4.py
+/home/aboudonji/miniforge3/envs/research/bin/python ejemplo5.py
+\end{lstlisting}
+\end{tcolorbox}
+
+\vspace{1.5em}
+\begin{center}
+  \small\color{gray}
+  Universidad Anáhuac México — Facultad de Ingeniería\\
+  Materia: Algoritmos y Programación en Python\\
+  Prof. D.Sc. Aboud Barsekh-Onji — \texttt{aboud.barsekh@anahuac.mx}\\
+  Ciclo 2025-2026
+\end{center}
+
+\end{document}

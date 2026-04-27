@@ -1,0 +1,757 @@
+%=============================================================
+%  ejemplosABCDE_guia.tex
+%  Guía de Ejemplos (Nivel Básico) — A, B, C, D, E
+%  Algoritmos y Programación en Python — Primer Semestre
+%  Prof. Dr. Aboud Barsekh-Onji
+%  Universidad Anáhuac México  |  Facultad de Ingeniería
+%=============================================================
+\documentclass[12pt,a4paper]{article}
+
+%--- Codificación y fuentes (xelatex) ---
+\usepackage{fontspec}
+\usepackage[spanish]{babel}
+\setmainfont{Latin Modern Roman}
+\setmonofont[HyphenChar=None]{DejaVu Sans Mono}
+
+%--- Parche babel-spanish: evita usar hyphenchar en fuentes mono ---
+\makeatletter
+\def\es@chf{}
+\makeatother
+
+%--- Geometría ---
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, headheight=15pt]{geometry}
+
+%--- Colores y gráficos ---
+\usepackage[dvipsnames,svgnames,table]{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+%--- Encabezados y pie de página ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small Algoritmos y Programación en Python — Nivel Básico}
+\lhead{\small Prof. Dr. Aboud Barsekh-Onji}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+%--- Secciones con color ---
+\usepackage{titlesec}
+\definecolor{anaDark}{RGB}{0,51,102}
+\definecolor{anaAccent}{RGB}{180,0,0}
+\definecolor{solColor}{RGB}{0,100,60}
+\titleformat{\section}{\large\bfseries\color{anaDark}}{}{0em}{\thesection\quad}[\color{anaAccent}\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{anaDark}}{}{0em}{\thesubsection\quad}
+
+%--- Cajas de texto ---
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins,breakable}
+
+%--- Colores código Python ---
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.45,0,0.75}
+\definecolor{backcolour}{rgb}{0.97,0.97,1.0}
+\definecolor{keyblue}{rgb}{0.0,0.25,0.75}
+
+%--- Estilo de salida (texto plano) ---
+\usepackage{listings}
+\lstdefinestyle{OutputStyle}{
+  language={},
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  keepspaces=true,
+  numbers=none,
+  frame=none,
+  backgroundcolor=\color{white},
+  xleftmargin=4pt,
+}
+
+%--- Estilo listings Python ---
+\lstdefinestyle{PythonStyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{keyblue}\bfseries,
+  commentstyle=\color{codegreen}\itshape,
+  stringstyle=\color{codepurple},
+  numberstyle=\tiny\color{codegray},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=7pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=4,
+  frame=single,
+  framerule=0.5pt,
+  rulecolor=\color{anaDark!40},
+  backgroundcolor=\color{backcolour},
+  xleftmargin=10pt,
+  xrightmargin=5pt,
+}
+\lstset{style=PythonStyle}
+
+%--- Cajas especiales ---
+\newtcolorbox{objetivobox}[1]{
+  colback=anaDark!5, colframe=anaDark,
+  fonttitle=\bfseries\small, title={#1},
+  breakable, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{conceptobox}[1]{
+  colback=anaAccent!5, colframe=anaAccent,
+  fonttitle=\bfseries\small, title={#1},
+  breakable, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{enunciadobox}[1]{
+  colback=orange!6, colframe=orange!70!black,
+  fonttitle=\bfseries\small, title={#1},
+  breakable, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{solucionbanner}{
+  colback=solColor!10, colframe=solColor,
+  left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{salidabox}[1]{
+  colback=gray!8, colframe=gray!50,
+  fonttitle=\bfseries\small\color{gray!70!black}, title={#1},
+  breakable, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{notabox}{
+  colback=yellow!8, colframe=orange!60,
+  left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+
+%--- Hiperlinks ---
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=anaDark,urlcolor=anaAccent}
+
+%--- Matemáticas ---
+\usepackage{amsmath}
+
+%=============================================================
+\begin{document}
+
+%--- Portada ---
+\begin{titlepage}
+  \begin{center}
+    \vspace*{1.5cm}
+    {\Large\bfseries\color{anaDark} Universidad Anáhuac México}\\[0.4cm]
+    {\large Facultad de Ingeniería}\\[2.5cm]
+    \begin{tikzpicture}
+      \draw[anaDark,line width=3pt] (0,0) -- (12,0);
+      \draw[anaAccent,line width=1.5pt] (0,-0.25) -- (12,-0.25);
+    \end{tikzpicture}\\[0.8cm]
+    {\Huge\bfseries\color{anaDark} Guía de Ejemplos}\\[0.4cm]
+    {\Large\color{anaDark!70} Algoritmos y Programación en Python}\\[0.3cm]
+    {\large\color{anaAccent} Nivel Básico — Primer Semestre}\\[0.4cm]
+    \begin{tikzpicture}
+      \draw[anaAccent,line width=1.5pt] (0,0) -- (12,0);
+      \draw[anaDark,line width=3pt] (0,-0.25) -- (12,-0.25);
+    \end{tikzpicture}\\[2cm]
+    {\large Cinco ejemplos (A–E) con formato enunciado / solución}\\[0.5cm]
+    \begin{tabular}{cl}
+      \textcolor{anaAccent}{\textbullet} & \textbf{A:} Ciclos \texttt{for} anidados — patrones y combinaciones \\[4pt]
+      \textcolor{anaAccent}{\textbullet} & \textbf{B:} Módulo \texttt{random} — \texttt{randint} y \texttt{choice} \\[4pt]
+      \textcolor{anaAccent}{\textbullet} & \textbf{C:} Ordenamiento — \texttt{.sort()} y \texttt{sorted()} \\[4pt]
+      \textcolor{anaAccent}{\textbullet} & \textbf{D:} Ciclos \texttt{while} y \texttt{while True} \\[4pt]
+      \textcolor{anaAccent}{\textbullet} & \textbf{E:} Sentencia \texttt{match}/\texttt{case} básica \\[4pt]
+    \end{tabular}\\[2.5cm]
+    {\large\bfseries Prof. DSc. Aboud Barsekh-Onji}\\[0.3cm]
+    {\normalsize Facultad de Ingeniería | Universidad Anáhuac México}\\[1.5cm]
+    {\normalsize Ciclo escolar 2025-2026}
+  \end{center}
+\end{titlepage}
+
+%--- Índice ---
+\tableofcontents
+\newpage
+
+%=============================================================
+%  EJEMPLO A — ENUNCIADO
+%=============================================================
+\section{Ejemplo A — Ciclos \texttt{for} anidados}
+\label{sec:ejemploA}
+
+\begin{objetivobox}{Objetivo}
+Practicar el uso de dos ciclos \texttt{for} anidados para imprimir
+patrones en pantalla y generar combinaciones a partir de dos listas.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \texttt{for variable in range(n):} — repite el bloque \texttt{n} veces.
+  \item \textbf{Ciclo externo:} se mueve una vez por fila (como el horario del reloj).
+  \item \textbf{Ciclo interno:} completa \emph{todas} sus iteraciones por cada
+        iteración del externo (como el minutero del reloj).
+  \item \texttt{print(..., end=' ')} — imprime sin saltar de línea.
+  \item \texttt{print()} — imprime solo el salto de línea.
+  \item \texttt{for elemento in lista:} — recorre cada elemento de una lista.
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemploA.py}}
+Escribe un programa con tres partes que usen ciclos \texttt{for} anidados:
+
+\begin{enumerate}
+  \item \textbf{Rectángulo de asteriscos.}
+        Imprime en pantalla un rectángulo de \textbf{4 filas} por \textbf{5 columnas}
+        de asteriscos.  Usa un ciclo \texttt{for} externo para las filas y
+        uno interno para las columnas.  Al terminar cada fila, imprime
+        un salto de línea con \texttt{print()}.
+
+  \item \textbf{Tablas de multiplicar del 1, 2 y 3.}
+        Usando dos ciclos \texttt{for} anidados, imprime las tablas del
+        \textbf{1 al 3} (con multiplicadores del 1 al 5).
+        El ciclo externo debe recorrer las tablas (1, 2, 3);
+        el interno, los multiplicadores (1 al 5).
+        Deja una línea en blanco entre cada tabla.
+
+  \item \textbf{Combinaciones de frutas y colores.}
+        Dadas las listas:
+        \begin{center}
+          \texttt{frutas = ['manzana', 'pera', 'uva']}\\
+          \texttt{colores = ['rojo', 'verde']}
+        \end{center}
+        Usa dos ciclos \texttt{for} anidados para imprimir \emph{todas}
+        las combinaciones posibles de fruta + color
+        (p. ej. \texttt{manzana - rojo}, \texttt{manzana - verde}, etc.).
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO A — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo A: Ciclos \texttt{for} anidados}
+  \hfill \texttt{ejemploA.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemploA.py — For anidados (básico)},
+                 label={lst:ejemploA}]{ejemploA.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Rectángulo de asteriscos.}
+El ciclo exterior recorre las filas; por cada fila, el ciclo interior
+imprime 5 asteriscos con \texttt{end=' '} (sin saltar de línea).
+Al finalizar el ciclo interior, el \texttt{print()} vacío produce
+el salto de línea que termina la fila.  Total de iteraciones: $4 \times 5 = 20$.
+
+\paragraph{Parte 2 — Tablas de multiplicar.}
+El ciclo exterior toma el número de tabla (\texttt{tabla}: 1, 2, 3).
+El ciclo interior hace el conteo de multiplicadores (\texttt{mult}: 1 a 5).
+El \texttt{print()} entre tablas añade una línea en blanco para separar visualmente.
+
+\paragraph{Parte 3 — Combinaciones.}
+El ciclo exterior recorre \texttt{frutas} (3 elementos);
+el interior recorre \texttt{colores} (2 elementos) completo para cada fruta.
+Resultado: $3 \times 2 = 6$ combinaciones impresas.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada}
+\begin{lstlisting}[style=OutputStyle]
+* * * * *
+* * * * *
+* * * * *
+* * * * *
+
+  1 x 1 = 1
+  1 x 2 = 2  ...  1 x 5 = 5
+
+  2 x 1 = 2  ...  3 x 5 = 15
+
+  manzana - rojo
+  manzana - verde
+  pera - rojo
+  pera - verde
+  uva - rojo
+  uva - verde
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+%  EJEMPLO B — ENUNCIADO
+%=============================================================
+\section{Ejemplo B — Módulo \texttt{random}}
+\label{sec:ejemploB}
+
+\begin{objetivobox}{Objetivo}
+Aprender a generar números enteros aleatorios y a elegir elementos
+al azar de una lista usando las dos funciones esenciales del módulo
+\texttt{random}: \texttt{randint()} y \texttt{choice()}.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \texttt{import random} — importar el módulo antes de usarlo.
+  \item \texttt{random.randint(a, b)} — devuelve un entero aleatorio
+        entre \texttt{a} y \texttt{b} inclusive (ambos extremos incluidos).
+  \item \texttt{random.choice(lista)} — devuelve \emph{un} elemento
+        elegido al azar de la lista; la lista no se modifica.
+  \item Acumulador: variable que suma resultados dentro de un ciclo.
+  \item Condicional \texttt{if/else} dentro de un \texttt{for}.
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.5em}
+\begin{notabox}
+  \small\textbf{Nota:} los resultados varían en cada ejecución porque son aleatorios.
+  Eso es normal y es precisamente el objetivo del módulo \texttt{random}.
+\end{notabox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemploB.py}}
+Escribe un programa con tres partes usando \texttt{random}:
+
+\begin{enumerate}
+  \item \textbf{Dado de 6 caras.}
+        Usa \texttt{random.randint(1, 6)} dentro de un ciclo \texttt{for}
+        para simular \textbf{5 lanzamientos} de un dado.
+        Imprime el número de lanzamiento y el resultado.
+
+  \item \textbf{Sorteo de ganador.}
+        Dada la lista:
+        \begin{center}
+          \texttt{participantes = ['Ana', 'Luis', 'Sofia', 'Carlos', 'Maria']}
+        \end{center}
+        Imprime la lista completa y luego usa \texttt{random.choice()}
+        para elegir e imprimir \emph{un} ganador al azar.
+
+  \item \textbf{Lanzamiento de moneda.}
+        Usando \texttt{random.choice(['Cara', 'Sello'])} dentro de un
+        ciclo \texttt{for} de 6 repeticiones:
+        \begin{itemize}
+          \item Imprime el resultado de cada lanzamiento.
+          \item Cuenta cuántas veces salió 'Cara' y cuántas 'Sello'
+                usando dos variables contadoras.
+          \item Al final imprime el total de cada resultado.
+        \end{itemize}
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO B — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo B: Módulo \texttt{random}}
+  \hfill \texttt{ejemploB.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemploB.py — random.randint y random.choice},
+                 label={lst:ejemploB}]{ejemploB.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Dado.}
+\texttt{randint(1, 6)} genera un entero en $[1, 6]$ con igual probabilidad para
+cada valor.  Se llama \emph{dentro} del ciclo para obtener un resultado distinto
+en cada iteración.  Si se pusiera fuera del ciclo, todos los lanzamientos
+mostrarían el mismo número.
+
+\paragraph{Parte 2 — Sorteo.}
+\texttt{random.choice(lista)} selecciona un elemento sin modificar la lista original.
+No hace falta conocer los índices: la función se encarga de elegir uno al azar.
+
+\paragraph{Parte 3 — Moneda y contadores.}
+Las variables \texttt{caras} y \texttt{sellos} comienzan en 0 y se incrementan
+con \texttt{+= 1} cada vez que el resultado coincide.
+Al final, ambas suman 6 (el total de lanzamientos).
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada (ejemplo — los valores cambian en cada ejecución)}
+\begin{lstlisting}[style=OutputStyle]
+  Lanzamiento 1: 4
+  Lanzamiento 2: 1
+  Lanzamiento 3: 6
+  Lanzamiento 4: 3
+  Lanzamiento 5: 5
+
+  Participantes: ['Ana', 'Luis', 'Sofia', 'Carlos', 'Maria']
+  El ganador es: Sofia
+
+  Lanzamiento 1: Cara
+  Lanzamiento 2: Sello
+  ...
+  Total caras:  3
+  Total sellos: 3
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+%  EJEMPLO C — ENUNCIADO
+%=============================================================
+\section{Ejemplo C — Ordenamiento de listas}
+\label{sec:ejemploC}
+
+\begin{objetivobox}{Objetivo}
+Ordenar listas de números y palabras usando \texttt{.sort()} y
+\texttt{sorted()}, y comprender la diferencia clave entre ambos métodos.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \texttt{lista.sort()} — ordena la lista \textbf{en su lugar}
+        (modifica el original).  No devuelve nada (\texttt{None}).
+  \item \texttt{lista.sort(reverse=True)} — ordena de mayor a menor.
+  \item \texttt{sorted(lista)} — devuelve una \textbf{nueva} lista ordenada;
+        el original \textbf{no} cambia.
+  \item Diferencia clave:
+        \begin{center}
+        \begin{tabular}{ll}
+          \texttt{.sort()} & modifica la lista original \\
+          \texttt{sorted()} & crea una lista nueva \\
+        \end{tabular}
+        \end{center}
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemploC.py}}
+Escribe un programa con tres partes sobre ordenamiento:
+
+\begin{enumerate}
+  \item \textbf{Ordenar calificaciones de forma ascendente con \texttt{.sort()}.}
+        Dada la lista:
+        \begin{center}
+          \texttt{calificaciones = [75, 90, 60, 85, 70, 95, 65]}
+        \end{center}
+        Imprime la lista original, luego aplica \texttt{.sort()} e imprime
+        la lista ordenada de menor a mayor.
+
+  \item \textbf{Ordenar puntajes de forma descendente.}
+        Dada la lista:
+        \begin{center}
+          \texttt{puntajes = [55, 88, 72, 99, 61, 80]}
+        \end{center}
+        Aplica \texttt{.sort(reverse=True)} para ordenarla de mayor a menor.
+        Imprime el original y el resultado.
+
+  \item \textbf{Ordenar nombres con \texttt{sorted()} sin modificar el original.}
+        Dada la lista:
+        \begin{center}
+          \texttt{nombres = ['Carlos', 'Ana', 'Sofia', 'Luis', 'Maria', 'Beto']}
+        \end{center}
+        Usa \texttt{sorted(nombres)} para crear una nueva lista ordenada
+        alfabéticamente.  Imprime: la lista original, la nueva lista ordenada,
+        y confirma que el original \textbf{no cambió}.
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO C — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo C: Ordenamiento}
+  \hfill \texttt{ejemploC.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemploC.py — .sort() y sorted()},
+                 label={lst:ejemploC}]{ejemploC.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — .sort() ascendente.}
+\texttt{calificaciones.sort()} reorganiza los elementos dentro de la misma
+lista.  Después de llamarlo, la variable \texttt{calificaciones} apunta
+a la lista ya ordenada.  Imprimir antes y después de \texttt{.sort()} muestra
+el cambio.
+
+\paragraph{Parte 2 — .sort(reverse=True).}
+El parámetro \texttt{reverse=True} invierte el criterio de ordenamiento
+(de mayor a menor).  Por defecto \texttt{reverse=False}, es decir,
+ascendente.
+
+\paragraph{Parte 3 — sorted() sin modificar el original.}
+\texttt{sorted(nombres)} devuelve una lista \emph{nueva} y deja
+\texttt{nombres} intacto.  Por eso se necesita asignar el resultado:
+\texttt{nombres\_ordenados = sorted(nombres)}.
+La tercera impresión confirma que \texttt{nombres} no cambió.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada}
+\begin{lstlisting}[style=OutputStyle]
+  Original:    [75, 90, 60, 85, 70, 95, 65]
+  Ascendente:  [60, 65, 70, 75, 85, 90, 95]
+
+  Original:    [55, 88, 72, 99, 61, 80]
+  Descendente: [99, 88, 80, 72, 61, 55]
+
+  Original:    ['Carlos', 'Ana', 'Sofia', 'Luis', 'Maria', 'Beto']
+  Ordenados:   ['Ana', 'Beto', 'Carlos', 'Luis', 'Maria', 'Sofia']
+  Original ok: ['Carlos', 'Ana', 'Sofia', 'Luis', 'Maria', 'Beto']
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+%  EJEMPLO D — ENUNCIADO
+%=============================================================
+\section{Ejemplo D — Ciclos \texttt{while} y \texttt{while True}}
+\label{sec:ejemploD}
+
+\begin{objetivobox}{Objetivo}
+Entender y aplicar el ciclo \texttt{while} con una condición explícita
+para contar y acumular, y el patrón \texttt{while True} con \texttt{break}
+para controlar la salida del ciclo manualmente.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \texttt{while condicion:} — repite el bloque \emph{mientras} la
+        condición sea \texttt{True}.  La condición se evalúa al inicio
+        de cada iteración.
+  \item \textbf{Regla de oro:} el cuerpo del ciclo debe modificar la condición,
+        o el ciclo se repetirá infinitamente.
+  \item \texttt{variable += 1} — forma corta de \texttt{variable = variable + 1}.
+  \item \textbf{Acumulador:} variable que suma valores dentro del ciclo
+        (\texttt{suma += numero}).
+  \item \texttt{while True:} — ciclo infinito; solo termina con \texttt{break}.
+  \item \texttt{break} — sale inmediatamente del ciclo.
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemploD.py}}
+Escribe un programa con tres partes:
+
+\begin{enumerate}
+  \item \textbf{Contar del 1 al 5 con \texttt{while}.}
+        Declara una variable \texttt{contador = 1}.
+        Usa un ciclo \texttt{while} para imprimir el valor de \texttt{contador}
+        mientras sea menor o igual a 5.
+        No olvides incrementar el contador dentro del ciclo.
+        Al salir del ciclo, imprime \texttt{'Ciclo terminado.'}.
+
+  \item \textbf{Suma del 1 al 10 con \texttt{while}.}
+        Declara \texttt{numero = 1} y \texttt{suma = 0}.
+        Usa un ciclo \texttt{while} para sumar todos los enteros del 1 al 10.
+        Al terminar, imprime el resultado total.
+        (El resultado correcto es 55.)
+
+  \item \textbf{\texttt{while True} con \texttt{break}.}
+        Declara \texttt{intentos = 0}.
+        Usa \texttt{while True} para repetir un bloque que:
+        \begin{itemize}
+          \item Incrementa \texttt{intentos} en 1.
+          \item Imprime \texttt{'Intento numero X'}.
+          \item Si \texttt{intentos} llega a 4, imprime un mensaje de límite
+                y sale del ciclo con \texttt{break}.
+        \end{itemize}
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO D — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo D: \texttt{while} y \texttt{while True}}
+  \hfill \texttt{ejemploD.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemploD.py — while y while True},
+                 label={lst:ejemploD}]{ejemploD.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Contador.}
+La condición \texttt{while contador <= 5} se evalúa \emph{antes} de cada
+iteración.  La línea \texttt{contador += 1} es imprescindible: sin ella
+\texttt{contador} nunca cambiaría y el ciclo correría para siempre
+(ciclo infinito).
+
+\paragraph{Parte 2 — Acumulador.}
+El patrón \texttt{suma += numero} es el acumulador: en cada iteración suma
+el valor actual de \texttt{numero} a \texttt{suma}.  \texttt{numero} se
+incrementa para avanzar hacia la condición de paro.  Cuando \texttt{numero}
+llega a 11, la condición \texttt{numero <= 10} es \texttt{False} y el ciclo
+termina.
+
+\paragraph{Parte 3 — While True con break.}
+\texttt{while True} crea un ciclo sin condición de paro natural.  El
+\texttt{break} dentro del \texttt{if} es el único mecanismo de salida.
+Este patrón es útil cuando la condición de paro se calcula \emph{dentro}
+del cuerpo del ciclo.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada}
+\begin{lstlisting}[style=OutputStyle]
+  Contador: 1
+  Contador: 2
+  Contador: 3
+  Contador: 4
+  Contador: 5
+  Ciclo terminado.
+
+  Suma de 1 a 10 = 55
+
+  Intento numero 1
+  Intento numero 2
+  Intento numero 3
+  Intento numero 4
+  Se alcanzo el limite. Saliendo...
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+%  EJEMPLO E — ENUNCIADO
+%=============================================================
+\section{Ejemplo E — Sentencia \texttt{match}/\texttt{case}}
+\label{sec:ejemploE}
+
+\begin{objetivobox}{Objetivo}
+Usar la sentencia \texttt{match}/\texttt{case} de Python 3.10+ para
+evaluar una variable contra varios valores posibles, como alternativa
+más legible a una cadena de \texttt{if/elif/else}.
+\end{objetivobox}
+
+\vspace{0.6em}
+\begin{conceptobox}{Conceptos necesarios}
+\begin{itemize}
+  \item \texttt{match variable:} — evalúa \texttt{variable} y la compara
+        con cada \texttt{case} en orden.
+  \item \texttt{case valor:} — el bloque se ejecuta si \texttt{variable == valor}.
+  \item \texttt{case \_:} — comodín: se ejecuta si \emph{ningún} caso
+        anterior coincidió.  Equivale al \texttt{else} final.
+  \item Solo el \textbf{primer} \texttt{case} que coincida se ejecuta;
+        los demás se ignoran automáticamente (no es necesario \texttt{break}).
+  \item Disponible desde \textbf{Python 3.10} en adelante.
+\end{itemize}
+\end{conceptobox}
+
+\vspace{0.8em}
+\begin{enunciadobox}{Enunciado — \texttt{ejemploE.py}}
+Escribe un programa con tres partes que usen \texttt{match}/\texttt{case}:
+
+\begin{enumerate}
+  \item \textbf{Día de la semana.}
+        Dado un número entero del 1 al 7, imprime el nombre del día
+        correspondiente (\texttt{1} = Lunes, \ldots, \texttt{7} = Domingo).
+        Para cualquier otro número, imprime \texttt{'Numero invalido'}.
+        Prueba con los valores 1 al 8 (usando un ciclo \texttt{for}).
+
+  \item \textbf{Semáforo.}
+        Dada la lista \texttt{['rojo', 'amarillo', 'verde', 'azul']},
+        recorre cada color con un ciclo \texttt{for} y usa
+        \texttt{match}/\texttt{case} para imprimir la acción correspondiente:
+        \begin{center}
+        \begin{tabular}{ll}
+          \texttt{rojo} & $\to$ \texttt{Detente} \\
+          \texttt{amarillo} & $\to$ \texttt{Precaucion} \\
+          \texttt{verde} & $\to$ \texttt{Avanza} \\
+          cualquier otro & $\to$ \texttt{Color no reconocido} \\
+        \end{tabular}
+        \end{center}
+
+  \item \textbf{Calificación en letra.}
+        Dada la lista \texttt{['A', 'B', 'C', 'D', 'F', 'X']}, recorre
+        cada letra con un ciclo \texttt{for} y usa \texttt{match}/\texttt{case}
+        para imprimir la descripción de la calificación:
+        A = Excelente (90--100), B = Bien (80--89), C = Suficiente (70--79),
+        D = Mínimo (60--69), F = Reprobado ($<$60), cualquier otra = no reconocida.
+\end{enumerate}
+\end{enunciadobox}
+
+\newpage
+%=============================================================
+%  EJEMPLO E — SOLUCIÓN
+%=============================================================
+\begin{solucionbanner}
+  {\large\bfseries\color{solColor} Solución — Ejemplo E: \texttt{match}/\texttt{case}}
+  \hfill \texttt{ejemploE.py}
+\end{solucionbanner}
+
+\vspace{0.8em}
+\lstinputlisting[caption={ejemploE.py — match/case básico},
+                 label={lst:ejemploE}]{ejemploE.py}
+
+\vspace{0.8em}
+\paragraph{Parte 1 — Días de la semana.}
+Cada \texttt{case} compara \texttt{numero} con un entero literal.
+El ciclo \texttt{for} prueba todos los valores del 1 al 8; el 8 no coincide
+con ningún \texttt{case} concreto y cae al comodín \texttt{case \_:}.
+No se necesita \texttt{break}: Python sale automáticamente al encontrar
+el primer caso que coincide.
+
+\paragraph{Parte 2 — Semáforo.}
+La variable \texttt{accion} se asigna dentro del bloque \texttt{match} y
+se imprime fuera.  El comodín \texttt{case \_:} captura colores no definidos
+(aquí, \texttt{'azul'}).  Este patrón es más fácil de leer que cuatro
+\texttt{if/elif} consecutivos.
+
+\paragraph{Parte 3 — Calificación en letra.}
+Los \texttt{case} comparan cadenas de texto de un carácter.
+La \texttt{'X'} de prueba activa el comodín.  Notar que los \texttt{case}
+distinguen mayúsculas y minúsculas: \texttt{'a'} y \texttt{'A'} son distintos.
+
+\vspace{0.6em}
+\begin{salidabox}{Salida esperada}
+\begin{lstlisting}[style=OutputStyle]
+  Dia 1: Lunes      Dia 5: Viernes
+  Dia 2: Martes     Dia 6: Sabado
+  Dia 3: Miercoles  Dia 7: Domingo
+  Dia 4: Jueves     Dia 8: Numero invalido
+
+  rojo       -> Detente
+  amarillo   -> Precaucion
+  verde      -> Avanza
+  azul       -> Color no reconocido
+
+  A: Excelente  (90 - 100)
+  B: Bien       (80 - 89)
+  F: Reprobado  (< 60)
+  X: Letra no reconocida
+\end{lstlisting}
+\end{salidabox}
+
+\newpage
+%=============================================================
+\section*{Resumen comparativo}
+\addcontentsline{toc}{section}{Resumen comparativo}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{1.2cm}|p{3cm}|p{4cm}|p{5cm}|}
+\hline
+\rowcolor{anaDark!15}
+\textbf{Ej.} & \textbf{Tema} & \textbf{Funciones/sintaxis clave} & \textbf{Lo que practica} \\
+\hline
+A & \texttt{for} anidados & \texttt{for}, \texttt{range()}, \texttt{print(end='')} & Patrones, tablas, combinaciones \\
+\hline
+B & \texttt{random} & \texttt{randint()}, \texttt{choice()} & Números y elementos aleatorios \\
+\hline
+C & Ordenamiento & \texttt{.sort()}, \texttt{.sort(reverse=True)}, \texttt{sorted()} & Ordenar números y palabras \\
+\hline
+D & \texttt{while} & \texttt{while cond:}, \texttt{while True:}, \texttt{break}, \texttt{+=} & Contador, acumulador, ciclo infinito \\
+\hline
+E & \texttt{match/case} & \texttt{match}, \texttt{case}, \texttt{case \_:} & Despacho por valor, comodín \\
+\hline
+\end{tabular}
+\caption{Resumen de los cinco ejemplos de nivel básico}
+\end{table}
+
+\vspace{1.5em}
+\begin{center}
+  \small\color{gray}
+  Universidad Anáhuac México — Facultad de Ingeniería\\
+  Materia: Algoritmos y Programación en Python — Nivel Básico\\
+  Prof. DSc. Aboud Barsekh-Onji — \texttt{aboud.barsekh@anahuac.mx}\\
+  Ciclo 2025-2026
+\end{center}
+
+\end{document}

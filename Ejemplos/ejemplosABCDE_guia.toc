@@ -1,0 +1,22 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Ejemplo A — Ciclos \texttt {for} anidados}{2}{section.1}%
+\contentsline {paragraph}{Parte 1 — Rectángulo de asteriscos.}{3}{paragraph*.1}%
+\contentsline {paragraph}{Parte 2 — Tablas de multiplicar.}{3}{paragraph*.2}%
+\contentsline {paragraph}{Parte 3 — Combinaciones.}{4}{paragraph*.3}%
+\contentsline {section}{\numberline {2}Ejemplo B — Módulo \texttt {random}}{5}{section.2}%
+\contentsline {paragraph}{Parte 1 — Dado.}{6}{paragraph*.4}%
+\contentsline {paragraph}{Parte 2 — Sorteo.}{7}{paragraph*.5}%
+\contentsline {paragraph}{Parte 3 — Moneda y contadores.}{7}{paragraph*.6}%
+\contentsline {section}{\numberline {3}Ejemplo C — Ordenamiento de listas}{8}{section.3}%
+\contentsline {paragraph}{Parte 1 — .sort() ascendente.}{9}{paragraph*.7}%
+\contentsline {paragraph}{Parte 2 — .sort(reverse=True).}{9}{paragraph*.8}%
+\contentsline {paragraph}{Parte 3 — sorted() sin modificar el original.}{9}{paragraph*.9}%
+\contentsline {section}{\numberline {4}Ejemplo D — Ciclos \texttt {while} y \texttt {while True}}{11}{section.4}%
+\contentsline {paragraph}{Parte 1 — Contador.}{12}{paragraph*.10}%
+\contentsline {paragraph}{Parte 2 — Acumulador.}{13}{paragraph*.11}%
+\contentsline {paragraph}{Parte 3 — While True con break.}{13}{paragraph*.12}%
+\contentsline {section}{\numberline {5}Ejemplo E — Sentencia \texttt {match}/\texttt {case}}{14}{section.5}%
+\contentsline {paragraph}{Parte 1 — Días de la semana.}{16}{paragraph*.13}%
+\contentsline {paragraph}{Parte 2 — Semáforo.}{16}{paragraph*.14}%
+\contentsline {paragraph}{Parte 3 — Calificación en letra.}{16}{paragraph*.15}%
+\contentsline {section}{Resumen comparativo}{17}{lstnumber.-5.14}%
