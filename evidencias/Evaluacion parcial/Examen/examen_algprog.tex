@@ -1,0 +1,346 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false}
+
+% -------------------------------------------------------
+% Colores y estilo de código Python
+% -------------------------------------------------------
+\definecolor{codegreen}{rgb}{0.1,0.5,0.1}
+\definecolor{codegray}{rgb}{0.4,0.4,0.4}
+\definecolor{codepurple}{rgb}{0.5,0.0,0.5}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.97}
+\definecolor{anahuacblue}{RGB}{0,51,102}
+
+\lstdefinestyle{PythonStyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    language=Python
+}
+
+% -------------------------------------------------------
+% Encabezado y pie de página
+% -------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\textbf{Algoritmos y Programación} --- Examen Parcial2}
+\rhead{\small\textbf{Universidad Anáhuac México}}
+\lfoot{\small Prof.\ Dr.\ BARSEKH-ONJI Aboud}
+\rfoot{\small Página \thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% -------------------------------------------------------
+% Comando para líneas de respuesta
+% -------------------------------------------------------
+\newcommand{\answerline}{\vspace{0.5cm}\noindent\rule{\linewidth}{0.3pt}\vspace{0.3cm}}
+
+% -------------------------------------------------------
+\begin{document}
+
+% ===========================
+%  ENCABEZADO INSTITUCIONAL
+% ===========================
+\thispagestyle{fancy}
+
+\begin{center}
+  {\color{anahuacblue}\rule{\linewidth}{2pt}}\\[0.3cm]
+  {\Large\bfseries UNIVERSIDAD ANÁHUAC MÉXICO}\\[0.1cm]
+  {\large Facultad de Ingeniería}\\[0.1cm]
+  {\large\bfseries Algoritmos y Programación}\\[0.2cm]
+  {\LARGE\bfseries EXAMEN}\\[0.1cm]
+  {\large Prof.\ Dr.\ BARSEKH-ONJI Aboud}\\[0.2cm]
+  {\color{anahuacblue}\rule{\linewidth}{2pt}}
+\end{center}
+
+\vspace{0.4cm}
+
+% Datos del alumno
+\noindent
+\begin{tabularx}{\linewidth}{X X}
+  \textbf{Nombre del alumno:} \hrulefill & \textbf{Matrícula:} \hrulefill \\[0.6cm]
+  \textbf{Fecha:} \hrulefill & \textbf{Grupo:} \hrulefill \\[0.3cm]
+\end{tabularx}
+
+\vspace{0.3cm}
+
+% ===========================
+%  INSTRUCCIONES GENERALES
+% ===========================
+\begin{tcolorbox}[colback=anahuacblue!8, colframe=anahuacblue, title={\bfseries Instrucciones Generales}, fonttitle=\bfseries\color{white}]
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Duración del examen: \textbf{90 minutos}.
+  \item \textbf{NO} se permite el uso de computadora, laptop ni teléfono inteligente de ningún tipo.
+  \item Se permite el uso de \textbf{calculadora} si es necesario.
+  \item En la \textbf{Sección A} (opción múltiple), una pregunta puede tener \textbf{una o varias respuestas correctas}. \\ Debes marcar \textbf{TODAS} las opciones correctas para obtener el puntaje completo de la pregunta.
+  \item En la \textbf{Sección B} (problemas), escribe tu código con letra \textbf{clara y legible}. El código ilegible no será calificado.
+  \item Respeta la \textbf{indentación} de Python al escribir tu código (usa 4 espacios por nivel).
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{0.4cm}
+
+% ===========================
+%  TABLA DE CALIFICACIÓN
+% ===========================
+\begin{center}
+\begin{tabular}{lcc}
+  \toprule
+  \textbf{Sección} & \textbf{Puntos posibles} & \textbf{Puntos obtenidos} \\
+  \midrule
+  A — Opción múltiple (8 preguntas) & 40 & \\
+  B — Problema 1 & 30 & \\
+  B — Problema 2 & 30 & \\
+  \midrule
+  \textbf{Total} & \textbf{100} & \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+
+% ===========================
+%  SECCIÓN A — OPCIÓN MÚLTIPLE
+% ===========================
+\section*{\color{anahuacblue}Sección A — Opción Múltiple \normalsize(5 puntos cada pregunta. Puede haber varias respuestas correctas. Marca \textbf{TODAS} las correctas.)}
+
+\medskip
+
+% --- Pregunta 1 ---
+\noindent\textbf{Pregunta 1.} ¿Cuál(es) de los siguientes fragmentos de código imprime los números \texttt{1, 3, 5, 7, 9}?
+
+\begin{enumerate}[label=\alph*), leftmargin=2em, itemsep=4pt]
+  \item[$\square$ a)] \lstinline|for i in range(1, 10, 2): print(i)|
+  \item[$\square$ b)] \lstinline|for i in range(0, 10, 2): print(i)|
+  \item[$\square$ c)] \lstinline|for i in range(1, 11, 2): print(i)|
+  \item[$\square$ d)] \lstinline|for i in range(9, 0, -2): print(i)|
+\end{enumerate}
+
+\bigskip
+
+% --- Pregunta 2 ---
+\noindent\textbf{Pregunta 2.} Analiza el siguiente programa:
+\begin{lstlisting}[style=PythonStyle]
+contador = 0
+valores = [3, -1, 7, -4, 5, -2, 8]
+for v in valores:
+    if v > 0:
+        contador += 1
+print(contador)
+\end{lstlisting}
+¿Qué valor imprime el programa?
+
+\begin{enumerate}[label=\alph*), leftmargin=2em, itemsep=4pt]
+  \item[$\square$ a)] 3
+  \item[$\square$ b)] 4
+  \item[$\square$ c)] 7
+  \item[$\square$ d)] 18
+\end{enumerate}
+
+\bigskip
+
+% --- Pregunta 3 ---
+\noindent\textbf{Pregunta 3.} Dada la lista \lstinline|datos = [10, 3, 8, 3, 10]|, ¿cuál(es) de las siguientes afirmaciones son correctas?
+
+\begin{enumerate}[label=\alph*), leftmargin=2em, itemsep=4pt]
+  \item[$\square$ a)] \lstinline|len(datos)| devuelve \texttt{5}
+  \item[$\square$ b)] \lstinline|sum(datos)| devuelve \texttt{34}
+  \item[$\square$ c)] \lstinline|max(datos)| devuelve \texttt{10}
+  \item[$\square$ d)] \lstinline|datos[4]| devuelve \texttt{3}
+\end{enumerate}
+
+\bigskip
+
+% --- Pregunta 4 ---
+\noindent\textbf{Pregunta 4.} Sea \lstinline|lista = [5, 10, 15, 20]|. Después de ejecutar:
+\begin{lstlisting}[style=PythonStyle]
+elemento = lista.pop(1)
+lista.append(elemento * 2)
+\end{lstlisting}
+¿Cuál es el estado final de \lstinline|lista|?
+
+\begin{enumerate}[label=\alph*), leftmargin=2em, itemsep=4pt]
+  \item[$\square$ a)] \lstinline|[5, 10, 15, 20, 20]|
+  \item[$\square$ b)] \lstinline|[5, 15, 20, 20]|
+  \item[$\square$ c)] \lstinline|[5, 15, 20, 10]|
+  \item[$\square$ d)] \lstinline|[10, 5, 15, 20]|
+\end{enumerate}
+
+\bigskip
+
+% --- Pregunta 5 ---
+\noindent\textbf{Pregunta 5.} Analiza el siguiente bloque condicional:
+\begin{lstlisting}[style=PythonStyle]
+puntaje = 85
+if puntaje >= 90:
+    print("A")
+elif puntaje >= 80:
+    print("B")
+elif puntaje >= 70:
+    print("C")
+else:
+    print("F")
+\end{lstlisting}
+¿Qué imprime el programa? ¿Y cuál(es) de las siguientes afirmaciones también son verdaderas?
+
+\begin{enumerate}[label=\alph*), leftmargin=2em, itemsep=4pt]
+  \item[$\square$ a)] Imprime \texttt{B}
+  \item[$\square$ b)] El bloque \lstinline|elif puntaje >= 70| nunca se evalúa en esta ejecución
+  \item[$\square$ c)] Si \texttt{puntaje} fuera \texttt{90}, imprimiría tanto \texttt{A} como \texttt{B}
+  \item[$\square$ d)] Si \texttt{puntaje} fuera \texttt{65}, imprimiría \texttt{F}
+\end{enumerate}
+
+\bigskip
+
+% --- Pregunta 6 ---
+\noindent\textbf{Pregunta 6.} Respecto a \lstinline|random.choice(secuencia)|, ¿cuál(es) afirmaciones son correctas?
+
+\begin{enumerate}[label=\alph*), leftmargin=2em, itemsep=4pt]
+  \item[$\square$ a)] Devuelve un elemento aleatorio de la secuencia
+  \item[$\square$ b)] \lstinline|random.choice([10, 20, 30])| puede devolver \texttt{20}
+  \item[$\square$ c)] Requiere \lstinline|import random| antes de usarse
+  \item[$\square$ d)] \lstinline|random.choice([])| devuelve \texttt{None} sin error
+\end{enumerate}
+
+\bigskip
+
+% --- Pregunta 7 ---
+\noindent\textbf{Pregunta 7.} Considera el siguiente ciclo \texttt{while}:
+\begin{lstlisting}[style=PythonStyle]
+acum = 0
+n = 1
+while n <= 5:
+    acum += n
+    n += 1
+print(acum)
+\end{lstlisting}
+¿Qué imprime el programa? Selecciona también las afirmaciones correctas.
+
+\begin{enumerate}[label=\alph*), leftmargin=2em, itemsep=4pt]
+  \item[$\square$ a)] Imprime \texttt{15}
+  \item[$\square$ b)] El ciclo se ejecuta exactamente 5 veces
+  \item[$\square$ c)] Imprime \texttt{10}
+  \item[$\square$ d)] Al terminar el ciclo, \texttt{n} tiene el valor \texttt{6}
+\end{enumerate}
+
+\bigskip
+
+% --- Pregunta 8 ---
+\noindent\textbf{Pregunta 8.} ¿Cuál(es) de los siguientes fragmentos construyen correctamente una lista con los cuadrados de los números del 1 al 5, es decir \lstinline|[1, 4, 9, 16, 25]|?
+
+\vspace{4pt}
+\noindent$\square$\ \textbf{a)}
+\begin{lstlisting}[style=PythonStyle, numbers=none, xleftmargin=1.5em]
+cuadrados = []
+for i in range(1, 6):
+    cuadrados.append(i ** 2)
+\end{lstlisting}
+
+\vspace{2pt}
+\noindent$\square$\ \textbf{b)}
+\begin{lstlisting}[style=PythonStyle, numbers=none, xleftmargin=1.5em]
+cuadrados = []
+i = 1
+while i <= 5:
+    cuadrados.append(i * i)
+    i += 1
+\end{lstlisting}
+
+\vspace{2pt}
+\noindent$\square$\ \textbf{c)}
+\begin{lstlisting}[style=PythonStyle, numbers=none, xleftmargin=1.5em]
+cuadrados = []
+for i in range(6):
+    cuadrados.append(i ** 2)
+\end{lstlisting}
+
+\vspace{2pt}
+\noindent$\square$\ \textbf{d)}
+\begin{lstlisting}[style=PythonStyle, numbers=none, xleftmargin=1.5em]
+cuadrados = [1, 4, 9, 16, 25]
+\end{lstlisting}
+
+\newpage
+
+% ===========================
+%  SECCIÓN B — PROBLEMAS
+% ===========================
+\section*{\color{anahuacblue}Sección B — Problemas de Programación \normalsize(30 puntos cada problema)}
+
+\medskip
+
+% --- Problema 1 ---
+\subsection*{Problema 1 — Procesamiento de calificaciones (30 puntos)}
+
+\noindent Se tiene la siguiente lista de calificaciones de un grupo de alumnos:
+
+\begin{lstlisting}[style=PythonStyle]
+calificaciones = [78, 92, 55, 63, 88, 45, 71, 96, 60, 83]
+\end{lstlisting}
+
+\noindent Escribe un programa en Python completo que realice \textbf{todas} las siguientes tareas:
+
+\begin{enumerate}[leftmargin=2em, itemsep=5pt]
+  \item Usando un ciclo \texttt{while}, recorre la lista e imprime cada calificación junto con la etiqueta \texttt{'Aprobado'} si es mayor o igual a 70, o \texttt{'Reprobado'} si es menor a 70. Usa \texttt{if - else}.
+  \item Calcule e imprima el \textbf{promedio} del grupo usando \lstinline|sum()| y \lstinline|len()|.
+  \item Imprima la \textbf{calificación más alta} con \lstinline|max()|.
+  \item Elimine la \textbf{última} calificación de la lista con \lstinline|pop()| e imprima qué calificación fue eliminada.
+  \item Agregue la calificación \texttt{74} a la lista con \lstinline|append()| e imprima la lista final.
+\end{enumerate}
+
+
+% --- Problema 2 ---
+\subsection*{Problema 2 — Simulación de dados (30 puntos)}
+
+\noindent Escribe un programa en Python que simule el lanzamiento de un dado de 6 caras para un jugador y realice lo siguiente:
+
+\begin{enumerate}[leftmargin=2em, itemsep=5pt]
+  \item Crea una lista vacía llamada \lstinline|resultados|.
+  \item Usando un ciclo \texttt{for} con \lstinline|range(10)|, genera 10 lanzamientos de dado usando \lstinline|random.randint(1, 6)| y agrega cada resultado a \lstinline|resultados| con \lstinline|append()|.
+  \item Imprime la lista \lstinline|resultados|.
+  \item Usando un ciclo \texttt{for} sobre \lstinline|resultados|, cuenta cuántos lanzamientos resultaron en \texttt{6} (usa \texttt{if}) e imprime ese conteo con el mensaje \texttt{"Número de seises: X"}.
+  \item Usando \texttt{if / elif / else}, evalúa el \textbf{total acumulado} de los 10 lanzamientos (usa \lstinline|sum()|) e imprime:
+    \begin{itemize}
+      \item \texttt{"Puntuación alta"} si el total es mayor o igual a 40
+      \item \texttt{"Puntuación media"} si el total está entre 25 y 39 (inclusive)
+      \item \texttt{"Puntuación baja"} si el total es menor a 25
+    \end{itemize}
+\end{enumerate}
+
+
+\vfill
+\begin{center}
+  {\color{anahuacblue}\rule{0.5\linewidth}{0.8pt}}\\[0.2cm]
+  {\small\itshape ``La tecnología es una herramienta; el pensamiento lógico es el verdadero poder.''}\\
+  {\small Prof.\ Dr.\ BARSEKH-ONJI Aboud --- Universidad Anáhuac México}
+\end{center}
+
+\end{document}
